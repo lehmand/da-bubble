@@ -1,0 +1,81 @@
+.main-impressum {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(236, 238, 254);
+    font-family: 'Nunito';
+}
+
+.image-box {
+    position: absolute;
+    top: 25px;
+    left: 50px;
+}
+
+.main-card {
+    width: 90%;
+    max-width: 679px;
+}
+
+.impressum-card {
+    border: none;
+    box-shadow: 0px 2px 10px 0px #00000014;
+    border-radius: 30px;
+}
+
+.text-content {
+    padding: 48px 56px;
+}
+
+.svg-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+
+    &:hover {
+        background-color: rgb(236, 238, 254);
+        cursor: pointer;
+    }
+}
+
+.icon path {
+    fill: black;
+}
+
+.icon:hover path {
+    fill: #444DF2;
+    border-radius: 100%;
+    background-color: aqua;
+    cursor: pointer;
+}
+
+h1 {
+    margin-top: 35px;
+    color: #444DF2;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+h2 {
+    margin-top: 35px;
+    color: #444DF2;
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 700;
+}
+
+p{
+    color: #000000;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+a{
+    text-decoration: none;
+    color: #444DF2;
+}
