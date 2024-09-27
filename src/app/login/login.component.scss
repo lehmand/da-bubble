@@ -1,0 +1,45 @@
+* {
+  background-color: #eceefe;
+}
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 22px;
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+}
+.signUpBtn {
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  border-radius: 22px;
+  padding: 8px;
+  a {
+    color: rgba(68, 77, 242, 0.5);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+  }
+}
+:hover {
+  border-color: #686868;
+  a {
+    color: #444df2;
+  }
+}
+
+
+.login-form-ct {
+  display: flex;
+  flex-direction: column;
+}
