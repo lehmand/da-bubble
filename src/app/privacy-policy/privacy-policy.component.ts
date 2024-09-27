@@ -2,19 +2,17 @@ import { Component,inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-impressum',
+  selector: 'app-privacy-policy',
   standalone: true,
   imports: [MatCardModule],
-  templateUrl: './impressum.component.html',
-  styleUrl: './impressum.component.scss'
+  templateUrl: './privacy-policy.component.html',
+  styleUrl: './privacy-policy.component.scss'
 })
- 
-export class ImpressumComponent {
+export class PrivacyPolicyComponent {
   router=inject(Router);
 
   navigateURL(){
-    this.router.navigateByUrl('/privacy-policy');
+    this.router.navigateByUrl('/impressum');  
   }
 }
