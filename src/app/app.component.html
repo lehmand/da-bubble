@@ -1,4 +1,4 @@
-<div class="backdrop">
+<div class="backdrop" [ngClass]="{'hide-backdrop' : !intro, 'backdrop' : intro}">
     <div class="logo-container">
         <img src="../assets/img/logo.png" alt="" [ngClass]="{'to-left' : moveLogo}">
         <h1 [ngClass]="{'visible' : moveText}">DABubble</h1>

@@ -24,6 +24,7 @@
     background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
     z-index: 1;
     opacity: 0;
+    transition: opacity 750ms ease-in-out;
 }
 
 .logo-container {
@@ -36,7 +37,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        transition: left 250ms ease-in-out;
+        transition: left 500ms ease-in-out;
 
         &.to-left {
             left: 0;
@@ -52,7 +53,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        transition: left 125ms ease-in-out, opacity 150ms ease-in-out;
+        transition: left 250ms ease-in-out, opacity 150ms ease-in-out;
         opacity: 0;
 
         &.visible {

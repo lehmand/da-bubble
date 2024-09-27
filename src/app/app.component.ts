@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'da-bubble';
   moveLogo: boolean = false;
   moveText: boolean = false;
+  intro: boolean = true;
 
 
   ngOnInit(): void {
@@ -20,7 +21,10 @@ export class AppComponent implements OnInit {
       this.moveLogo = true;
       setTimeout(() => {
         this.moveText = true;
-      }, 250);
+        setTimeout(() => {
+          this.intro = false;
+        }, 1000);
+      }, 350);
     }, 500);
   }
 }
