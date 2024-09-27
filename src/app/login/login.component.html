@@ -1,28 +1,49 @@
-<header>
-    <img src="./assets/img/logo.png">
-    <div>
-        <span>Neu bei DABubble?</span>
-        <button class="signUpBtn"><a href="#">Konto erstellen</a></button>
+<div class="full-page-content">
+    <header>
+        <img src="./assets/img/logo.png">
+        <div>
+            <span>Neu bei DABubble?</span>
+            <button class="signUpBtn"><a href="#">Konto erstellen</a></button>
+        </div>
+    </header>
+    <div class="form-wrapper">
+        <div class="login-form-headline">
+            <h2>Anmeldung</h2>
+            <form>
+                <span>Wir empfehlen dir, die E-Mail Adresse zu benutzen,
+                    die du bei der Arbeit verwendest.</span>
+                <div class="input-container">
+                    <img src="./../../assets/img/mail.svg">
+                    <input class="input-styling" type="text" placeholder="beispielname@email.com" required>
+                </div>
+                <div class="input-container">
+                    <img src="./../../assets/img/lock.svg">
+                    <input class="input-styling" type="text" placeholder="Passwort" required>
+                </div>
+
+                <div class="check-if-pw-ct">
+                    <a href="#" class="forgotPw" [class.hovered]="isHovered" (mouseover)="onMouseOver()"
+                        (mouseleave)="onMouseLeave()">
+                        Passwort vergessen?
+                    </a>
+                    <div class="oder-part">
+                        <img class="line-img" src="./../../assets/img/line.svg">
+                        <div class="oder">ODER</div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="input-styling">
+                        <img src="./../../assets/img/google.svg">
+                        <p>Anmelden mit Google</p>
+                    </button>
+                </div>
+
+                <button>Anmelden</button>
+                <button>Gäste-Login</button>
+
+            </form>
+        </div>
     </div>
-</header>
-<div class="login-form-ct">
-    <h2>Anmeldung</h2>
-    <form>
-        <span>Wir empfehlen dir, die E-Mail Adresse zu benutzen,
-            die du bei der Arbeit verwendest.</span>
-        <div>
-            <img src="./../../assets/img/mail.svg">
-            <input placeholder="beispielname@email.com">
-        </div>
-        <div>
-            <img src="./../../assets/img/lock.svg">
-            <input placeholder="Passwort">
-        </div>
 
-        <span class="forgotPw">
-            Passwort vergessen
-        </span>
-
-        ____ ODER _____
-    </form>
 </div>
