@@ -14,6 +14,6 @@ export class ImpressumComponent {
   router=inject(Router);
 
   navigateURL(){
-    this.router.navigateByUrl('/dashboard');
+    // this.router.navigateByUrl('/dashboard');
   }
 }
