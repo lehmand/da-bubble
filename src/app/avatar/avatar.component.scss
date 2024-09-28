@@ -97,27 +97,86 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
+   
 
     img {
         width: 168px;
         height: 168px;
+    } 
+
+    &:hover{
+        box-sizing: border-box;
+        outline: 7px solid #E6E6E6;
+        border-radius: 100%;
+        cursor: pointer;
     }
 }
 
-.user-name{
+.user-name {
     text-align: center;
     margin-top: 32px;
-    h2{
+
+    h2 {
         color: #000000;
         font-size: 32px;
         font-weight: 700;
         line-height: 43px;
+        cursor: default;
     }
 }
 
-.user-info{
+.user-info {
     font-weight: 400;
     color: #000000;
     line-height: 27px;
     text-align: start;
 }
+
+.avatar-box {
+  
+    img {
+        height: 64px;
+        width: 64px;
+
+        &:hover{
+            box-sizing: border-box;
+            outline: 3px solid #E6E6E6;
+            outline-offset: 0;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+    }
+} 
+
+.added-avatar{
+    display: flex;
+    margin-top: 36px;
+    gap: 24px;
+}
+
+
+label{
+    font-family: 'Nunito';
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 25px;
+    border: 1px solid #797EF3;
+    color: #797EF3;
+    padding: 12px 25px;
+    background-color: white;
+
+    &:hover{
+        font-family: 'Nunito';
+        font-size: 18px;
+        font-weight: 700;
+        border-radius: 25px;
+        padding: 12px 25px;
+        background-color: #535AF1;
+        color: white;
+        cursor: pointer;
+    }
+  }
+
+  .input-box{
+    margin-top: 80px;
+  }

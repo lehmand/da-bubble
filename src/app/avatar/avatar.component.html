@@ -25,9 +25,17 @@
                         <h2>Lehmann</h2>
                     </div>
                     <div class="user-info">Aus der Liste wählen</div>
-                    <div  class="avatar-box">
-                        <img *ngFor="let avatar of avatarBox" [src]="avatar" alt="Avatar">
+                    <div class="avatar-box">
+                        <img *ngFor="let avatar of avatarBox" [src]="avatar">
                     </div>
+                    <div class="added-avatar">
+                        <div>ein eigenes Bild verwenden</div>
+                        <div >
+                            <input class="btn-secondary" type="file" id="upload" hidden />
+                            <label for="upload">Datei hochladen</label>
+                        </div>
+                    </div>
+
                 </div>
 
             </mat-card-content>
