@@ -1,0 +1,54 @@
+.main-avatar{
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eceefe;
+}
+
+.image-box{
+    position: fixed;
+    top: 75px;
+    left: 75px;
+
+    img{
+        width: 242px;
+        height: 70px;
+    }
+}
+
+.main-card{
+    border-radius: 30px;
+    width: 90%;
+    max-width: 606px;
+    max-height: 669px;
+}
+
+.mat-card{
+    border: none;
+    box-shadow: 0px 2px 10px 0px #00000014;
+    padding: 40px 0px;
+}
+
+.card-content{
+    padding: 0;
+}
+
+.mat-mdc-card-content:first-child {
+    padding-top: 0;
+}
+
+.mat-mdc-card-content:last-child {
+    padding-bottom: 0;
+}
+
+
+.title-div{
+  padding-left: 32px;
+}
+
+
+.svg-box{
+   cursor: pointer; 
+   width: 1px;
+}
