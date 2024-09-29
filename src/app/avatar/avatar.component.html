@@ -2,7 +2,7 @@
     <div class="image-box">
         <img src="../../assets/img/bubble.png">
     </div>
-   
+
     <div class="main-card">
         <mat-card class="mat-card" appearance="outlined">
             <mat-card-content class="card-content">
@@ -15,21 +15,31 @@
                                 fill="black" />
                         </svg>
                     </div>
-                    <h1>Wähle deinen Avatar</h1>
+                    <div class="avatar-title">
+                        <h1>Wähle deinen Avatar</h1>
+                    </div>
+                    <div class="avatar-abstract-title ">
+                        <h1 class="avatar-h1">Wähle deinen</h1>
+                        <h1 class="avatar-h1-second">Avatar</h1>
+                    </div>
+
                 </div>
+
+
+
                 <div class="main-picture-box">
                     <div class="picture-frame">
-                        <img src="../../assets/img/picture_frame.png">
+                        <img [src]="choosePicture ? choosePicture : '../../assets/img/picture_frame.png'">
                     </div>
                     <div class="user-name">
                         <h2>Lehmann</h2>
                     </div>
                     <div class="user-info">Aus der Liste wählen</div>
                     <div class="avatar-box">
-                        <img *ngFor="let avatar of avatarBox" [src]="avatar">
+                        <img *ngFor="let avatar of avatarBox" [src]="avatar" (click)="chossePicture(avatar)">
                     </div>
                     <div class="added-avatar">
-                        <div class="picture-info-text">ein eigenes Bild verwenden</div>
+                        <div class="picture-info-text">oder Bild</div>
                         <div>
                             <input type="file" id="upload" hidden />
                             <label for="upload">Datei hochladen</label>
@@ -43,12 +53,7 @@
         </mat-card>
     </div>
     <div class="impressum-privacy-box">
-        <a href="">Impressum</a> 
-         <a href="">Datenschutz</a>
+        <a href="">Impressum</a>
+        <a href="">Datenschutz</a>
     </div>
 </div>
-
-    
-
-
-

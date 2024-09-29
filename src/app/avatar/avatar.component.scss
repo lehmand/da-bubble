@@ -9,8 +9,8 @@
 
 .image-box {
     position: absolute;
-    top: 75px;
-    left: 75px;
+    top: 25px;
+    left: 50px;
 
     img {
         width: 242px;
@@ -135,6 +135,7 @@
     line-height: 27px;
     text-align: start;
     cursor: default;
+    font-size: 20px;
 }
 
 .avatar-box {
@@ -184,7 +185,6 @@ label {
         font-size: 18px;
         font-weight: 700;
         border-radius: 25px;
-        padding: 12px 25px;
         background-color: #535AF1;
         color: white;
         cursor: pointer;
@@ -215,12 +215,17 @@ label {
 
 .impressum-privacy-box {
     position: absolute;
-    top: 94%;
+    top: 100%;
+    background-color: #eceefe;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
 
 }
 
 .impressum-privacy-box {
-
     a {
         text-decoration: none;
         font-size: 18px;
@@ -238,4 +243,114 @@ label {
             color: #444DF2;
         }
     }
+}
+
+
+.avatar-abstract-title {
+    display: none;
+}  
+
+.avatar-h1-second{
+    text-align: center;
+    margin-left: -56px;
+} 
+
+.avatar-h1{
+    margin-left: -60px;
+}
+
+
+@media(max-width:860px) {
+    .image-box {
+        position: absolute;
+        top: 25px;
+        left: unset;
+
+        img {
+            width: 204px;
+            height: 56px;
+        }
+    }
+}
+
+@media(max-width:679px) {
+    .main-picture-box {
+        padding: 0 21px;
+    }
+
+    .title-div {
+        padding-left: 10px;
+    }
+}
+
+
+@media (max-width:610px) {
+    .title-div {
+        h1 {
+            font-size: 32px;
+        }
+    }
+
+    .picture-frame {
+        img {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    .avatar-box {
+        img {
+            width: 48px;
+            height: 48px;
+        }
+    }
+
+    @media(max-width:578px) {
+        label {
+            padding: 7px 9px;
+        }
+    }
+}
+
+@media(max-width:543px) {
+    .picture-info-text {
+        font-size: 16px;
+    }
+
+    .user-info {
+        font-size: 16px;
+    }
+}
+
+@media(max-width:485px){
+
+
+
+}
+
+
+@media (max-width:458px) {
+    .avatar-title {
+        display: none;
+    }
+
+    .avatar-abstract-title{
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;           
+    } 
+      
+    .title-div{
+        align-items: baseline;
+    }
+}
+
+@media (max-width:389px){
+    .avatar-box {
+        img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
 }
