@@ -1,0 +1,41 @@
+<section>
+    <header>
+        <img src="./assets/img/logo.png" alt="">
+        <h1>DABubble</h1>
+    </header>
+
+    <div class="card">
+        <div class="heading">
+            <img src="./assets/img/arrow_back.svg" alt="">
+            <h2>Konto erstellen</h2>
+        </div>
+        <div class="sub-header">
+            <span>Mit deinem Namen und deiner E-mail-Adresse hast du dein neues DABubble-Konto</span>
+        </div>
+        <form>
+            <div class="form-row">
+                <input 
+                type="text" 
+                placeholder="Name und Nachname"
+                (focus)="person.src = './assets/img/person_filled_black.svg'">
+                <img 
+                class="icon"
+                #person 
+                src="./assets/img/person_filled.svg" 
+                alt=""
+                >
+            </div>
+            <div class="form-row">
+                <input type="email" placeholder="beispielname@email.com">
+                <img class="icon" src="./assets/img/mail.svg" alt="">
+            </div>
+            <div class="form-row">
+                <input type="password" placeholder="Passwort">
+                <img class="icon" src="./assets/img/lock.svg" alt="">
+            </div>
+            <div class="button-container">
+                <button class="btn-primary">Weiter</button>
+            </div>
+        </form>
+    </div>
+</section>
