@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { RouterModule } from '@angular/router';
 
 interface Picture {
   image: string | any;
@@ -11,13 +12,11 @@ interface Picture {
 @Component({
   selector: 'app-avatar',
   standalone: true,
-  imports: [MatCardModule, CommonModule],
+  imports: [MatCardModule, CommonModule,RouterModule],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss'
 })
 export class AvatarComponent {
-
-
 
   userPicture: Picture = {
     image: ''
