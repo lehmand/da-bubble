@@ -2,7 +2,7 @@
     <div class="image-box">
         <img src="../../assets/img/bubble.png">
     </div>
-
+   
     <div class="main-card">
         <mat-card class="mat-card" appearance="outlined">
             <mat-card-content class="card-content">
@@ -29,16 +29,26 @@
                         <img *ngFor="let avatar of avatarBox" [src]="avatar">
                     </div>
                     <div class="added-avatar">
-                        <div>ein eigenes Bild verwenden</div>
-                        <div >
-                            <input class="btn-secondary" type="file" id="upload" hidden />
+                        <div class="picture-info-text">ein eigenes Bild verwenden</div>
+                        <div>
+                            <input type="file" id="upload" hidden />
                             <label for="upload">Datei hochladen</label>
                         </div>
                     </div>
-
+                    <div class="button-box">
+                        <button class="btn-primary">Weiter</button>
+                    </div>
                 </div>
-
             </mat-card-content>
         </mat-card>
     </div>
+    <div class="impressum-privacy-box">
+        <a href="">Impressum</a> 
+         <a href="">Datenschutz</a>
+    </div>
 </div>
+
+    
+
+
+

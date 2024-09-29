@@ -4,10 +4,11 @@
     justify-content: center;
     align-items: center;
     background-color: #eceefe;
+    flex-direction: column;
 }
 
 .image-box {
-    position: fixed;
+    position: absolute;
     top: 75px;
     left: 75px;
 
@@ -22,6 +23,8 @@
     width: 90%;
     max-width: 606px;
     max-height: 669px;
+    margin-top: 77px;
+
 }
 
 .mat-card {
@@ -56,6 +59,7 @@
         font-weight: 700;
         color: #444DF2;
         line-height: 55.2px;
+        cursor: default;
     }
 }
 
@@ -97,14 +101,14 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
-   
+
 
     img {
         width: 168px;
         height: 168px;
-    } 
+    }
 
-    &:hover{
+    &:hover {
         box-sizing: border-box;
         outline: 7px solid #E6E6E6;
         border-radius: 100%;
@@ -130,15 +134,17 @@
     color: #000000;
     line-height: 27px;
     text-align: start;
+    cursor: default;
 }
 
 .avatar-box {
-  
+    margin-top: 16px;
+
     img {
         height: 64px;
         width: 64px;
 
-        &:hover{
+        &:hover {
             box-sizing: border-box;
             outline: 3px solid #E6E6E6;
             outline-offset: 0;
@@ -146,16 +152,24 @@
             cursor: pointer;
         }
     }
-} 
+}
 
-.added-avatar{
+.added-avatar {
     display: flex;
     margin-top: 36px;
     gap: 24px;
 }
 
+.picture-info-text {
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+    line-height: 27px;
+    cursor: default;
+}
 
-label{
+
+label {
     font-family: 'Nunito';
     font-size: 18px;
     font-weight: 700;
@@ -165,7 +179,7 @@ label{
     padding: 12px 25px;
     background-color: white;
 
-    &:hover{
+    &:hover {
         font-family: 'Nunito';
         font-size: 18px;
         font-weight: 700;
@@ -175,8 +189,53 @@ label{
         color: white;
         cursor: pointer;
     }
-  }
+}
 
-  .input-box{
+.input-box {
     margin-top: 80px;
-  }
+}
+
+.button-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 22px;
+}
+
+.btn-primary:hover {
+    font-family: 'Nunito';
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 25px;
+    padding: 12px 25px;
+    background-color: #797EF3;
+    color: white;
+    cursor: pointer;
+}
+
+
+.impressum-privacy-box {
+    position: absolute;
+    top: 94%;
+
+}
+
+.impressum-privacy-box {
+
+    a {
+        text-decoration: none;
+        font-size: 18px;
+        line-height: 18px;
+        font-weight: 400;
+        margin-left: 30px;
+        color: #797EF3;
+        padding: 10px 15px;
+
+        &:hover {
+            box-sizing: border-box;
+            outline: 1px solid #797EF3;
+            padding: 10px 15px;
+            border-radius: 25px;
+            color: #444DF2;
+        }
+    }
+}
