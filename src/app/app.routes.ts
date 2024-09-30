@@ -4,8 +4,8 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { AvatarComponent } from './avatar/avatar.component';
 
 export const routes: Routes = [
-    {path: '', component: LoginComponent},
-    { path: 'create-account', component: CreateAccountComponent},
-    {path: 'avatar', component:AvatarComponent}
-    
+    { path: '', component: LoginComponent },
+    { path: 'create-account', component: CreateAccountComponent },
+    { path: 'avatar', component: AvatarComponent }
+
 ];
