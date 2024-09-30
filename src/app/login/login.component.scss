@@ -13,6 +13,7 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 22px;
+  max-width: 2000px;
   > div {
     display: flex;
     flex-direction: column;
@@ -238,4 +239,47 @@ input[type="text"]:focus::placeholder {
 
 .mt{
   margin-top: 36px;
+}
+
+@media(max-width: 640px){
+  header{
+    img{
+      width: 60px;
+      height: 60px;
+    }
+  }
+  form{
+    .advice-mail{
+      font-size: 16px;
+      width: 300px;
+      margin-bottom: 22px;
+    }
+  }
+  h2{
+    font-size: 38px;;
+  }
+  .login-form-headline{
+    padding: 12px;
+    max-width: 320px;
+  }
+  .input-container{
+    width: 280px;
+  }
+  .input-styling{
+    height: 50px;
+  }
+  .google-button{
+    justify-content: center;
+    width: 300px;
+    padding: 0  !important;
+  }
+  .oder-part{
+    .line-img{
+      width: 320px;
+    }
+  }
+  .btn-primary{
+    font-size: 16px;
+    padding: 8px 16px !important;
+  }
 }
