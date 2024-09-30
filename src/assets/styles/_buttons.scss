@@ -1,82 +1,67 @@
 .btn-primary {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    border: none;
-    padding: 12px 25px;
-    background-color: #444DF2;
-    color: white;
+  font-family: "Nunito";
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 25px;
+  border: none;
+  padding: 12px 25px !important;
+  background-color: #444df2;
+  color: white;
+  text-align: center;
+  cursor: pointer;
 }
 
 .btn-primary-hover {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    padding: 12px 25px;
-    background-color: #797EF3;
-    color: white;
+  background-color: #797EF3;
 }
 
 .btn-primary-click {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    padding: 12px 25px;
-    background-color: #444DF2;
-    color: white;
+  background-color: #444df2;
 }
 
 .btn-primary-disabled {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    padding: 12px 25px;
-    background-color: #686868;
-    color: white;
+  background-color: #686868;
 }
 
 .btn-secondary {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    border: 1px solid #797EF3;
-    color: #797EF3;
-    padding: 12px 25px;
-    background-color: white;
+  font-family: "Nunito";
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 25px;
+  border: 1px solid #797ef3;
+  color: #444df2;
+  padding: 12px 25px !important;
+  background-color: white;
+  text-align: center;
+  cursor: pointer;
 }
 
 .btn-secondary-hover {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    padding: 12px 25px;
-    background-color: #535AF1;
-    color: white;
+  background-color: #535af1;
+  color: white;
 }
 
 .btn-secondary-click {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    padding: 12px 25px;
-    background-color: #444DF2;
-    color: white;
+  font-family: "Nunito";
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 25px;
+  padding: 12px 25px;
+  background-color: #444df2;
+  color: white;
+  text-align: center;
+  cursor: pointer;
 }
 
 .btn-secondary-disabled {
-    font-family: 'Nunito';
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    border: 1px solid #686868;
-    padding: 12px 25px;
-    background-color: white;
-    color: #686868;
+  font-family: "Nunito";
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 25px;
+  border: 1px solid #686868;
+  padding: 12px 25px;
+  background-color: white;
+  color: #686868;
+  text-align: center;
+  cursor: pointer;
 }
