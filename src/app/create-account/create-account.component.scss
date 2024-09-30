@@ -201,3 +201,12 @@ input[type="checkbox"] {
     cursor: pointer;
   }
 }
+
+
+.error-message {
+  position: absolute;
+  top: 49px;
+  left: 22px;
+  font-size:  12px;
+  color: red;
+}
