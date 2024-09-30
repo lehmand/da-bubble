@@ -7,16 +7,15 @@ import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
 import { newUser } from '../interfaces/user.class';
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root',
+})
 export class AuthService {
   private auth = getAuth(); //Authent-Instanz Firebase
   private firestore: Firestore;
 
   constructor(firestore: Firestore) {
-    this.firestore = firestore; 
+    this.firestore = firestore;
   }
 
   async getCurrentUser() {
@@ -26,23 +25,23 @@ export class AuthService {
   }
 
   async registerUser(userData: newUser) {
-    const userCredential = await createUserWithEmailAndPassword(this.auth, userData.userMail, userData.password);
+    const userCredential = await createUserWithEmailAndPassword(
+      this.auth,
+      userData.userMail,
+      userData.password
+    );
     await this.saveUserData(userCredential.user.uid, userData);
     return userCredential;
-}
+  }
 
-
-private async saveUserData(userId: string, userData: newUser) {
+  private async saveUserData(userId: string, userData: newUser) {
     const userRef = doc(this.firestore, `users/${userId}`);
     await setDoc(userRef, {
-        email: userData.userMail,
-        name: {
-            firstName: userData.name.firstName,
-            lastName: userData.name.lastName
-        },
-        userId: userId,
+      email: userData.userMail,
+      name: userData.displayName,
+      userId: userId,
     });
-}
+  }
 
   async login(email: string, password: string) {
     try {
