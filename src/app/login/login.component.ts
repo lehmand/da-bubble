@@ -8,12 +8,19 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatButtonModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    MatButtonModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -46,23 +53,23 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.loginForm.value;
 
     try {
-
       const user = await this.authService.login(email, password);
       console.log('Login erfolgreich!', user);
-      
+
       // Weiterleitung auf Dashboard oder andere Seite
-    } catch (error: any) { 
+    } catch (error: any) {
       console.error('Login fehlgeschlagen:', error);
       this.loginFailed = true;
-  
+
       // Fehler basierend auf dem Typ setzen
       if (error.code === 'auth/wrong-password') {
         this.errorMessage = 'Das Passwort ist falsch.';
       } else if (error.code === 'auth/user-not-found') {
         this.errorMessage = 'Es gibt keinen Benutzer mit dieser E-Mail.';
       } else {
-        this.errorMessage = 'Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.';
+        this.errorMessage =
+          'Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.';
       }
     }
-  }  
+  }
 }
