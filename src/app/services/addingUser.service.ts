@@ -1,29 +1,25 @@
-import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import { newUser } from '../interfaces/user.class';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class ContactService {
+export class addingUserService {
   constructor(private firestore: Firestore, private authService: AuthService) {}
 
-  async createContact(contactData: { name: string; email: string; phone: string }) {
-    const user = await this.authService.getCurrentUser(); // Warte auf das Ergebnis
+  async addUser(userData: newUser) {
+    const currentUser = await this.authService.getCurrentUser(); 
 
-    if (user) {
-      const contactsRef = collection(this.firestore, 'contacts');
-      const newContact = {
-        ...contactData,
-        userId: user.uid, // Verknüpfe den Kontakt mit der Benutzer-ID
-        createdAt: new Date(),
+    if (currentUser) {
+      const contactsRef = collection(this.firestore, 'users');
+      const userToAdd = {
+        ...userData, // Kopiert alle Felder von contactData (name, userMail, password)
+        userId: currentUser.uid, // Verknüpft den Kontakt mit der Benutzer-ID
       };
 
-      // Neuen Kontakt in Firestore hinzufügen
-      await addDoc(contactsRef, newContact);
-      console.log('Kontakt erfolgreich erstellt:', newContact);
+      // neuen Kontakt in Firestore 
+      await addDoc(contactsRef, userToAdd);
+      console.log('Kontakt erfolgreich erstellt:', userToAdd);
     } else {
       console.error('Benutzer ist nicht angemeldet.');
     }
-  }
+  } 
 }
