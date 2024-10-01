@@ -19,9 +19,9 @@ export class ResetPasswordComponent  {
    
   openDiv(){
     this.sendInfo=true;
-    // setTimeout(() => {
-    //   this.sendInfo=false;
-    // }, 2000);
+    setTimeout(() => {
+      this.sendInfo=false;
+    }, 2000);
   }
 }
 
