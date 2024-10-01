@@ -85,7 +85,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   proofIfChecked() {
-    debugger;
+   
     if (this.isChecked) {
       this.createUserForm.get('checkbox')?.setValue(this.isChecked);
     } else {
