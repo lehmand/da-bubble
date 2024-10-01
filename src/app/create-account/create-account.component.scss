@@ -185,14 +185,26 @@ input[type="checkbox"] {
 }
 
 .policy {
-  margin-bottom: 48px;
   display: flex;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 48px;
   gap: 16px;
   a {
     font-size: 18px;
     font-family: "Figtree";
+    text-align: center;
+    width: 120px;
+    border: 1px solid transparent;
     color: #797ef3;
     cursor: pointer;
+    &:hover {
+      border: 1px solid grey;
+      border-radius: 36px;
+      padding: 4px 8px;
+      font-weight: 500;
+      transition: border-color 250ms ease-in-out;
+    }
   }
 }
 
