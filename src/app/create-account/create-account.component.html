@@ -53,7 +53,8 @@
             </div>
             <div class="button-container">
                 <button (mouseenter)="toggleHover()" (mouseleave)="toggleHover()" [ngClass]="{
-                    'btn-primary' : isDefault,
+                    'btn-primary' : !isDisabled,
+                    'btn-primary-disabled' : isDisabled,
                     'btn-primary-hover' : isHovered
                 }">Weiter</button>
             </div>

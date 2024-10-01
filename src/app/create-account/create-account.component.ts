@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
   ReactiveFormsModule,
-  FormsModule
+  FormsModule,
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { addingUserService } from '../services/addingUser.service';
@@ -31,7 +31,7 @@ export class CreateAccountComponent implements OnInit {
       fullName: [''], //für Validation//
       userMail: '',
       password: '',
-      checkbox: Boolean
+      checkbox: Boolean,
     });
   }
 
@@ -40,14 +40,14 @@ export class CreateAccountComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-    checkbox: ['', Validators.required] 
+      checkbox: ['', Validators.required],
     });
   }
   get f() {
     return this.createUserForm.controls;
   }
 
-  isDefault: boolean = true;
+  isDisabled: boolean = true
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
