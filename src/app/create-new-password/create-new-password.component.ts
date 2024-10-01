@@ -7,18 +7,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-create-new-password',
   standalone: true,
-  imports: [FormsModule,MatCardModule,RouterModule,CommonModule],
+  imports: [FormsModule, MatCardModule, RouterModule, CommonModule],
   templateUrl: './create-new-password.component.html',
   styleUrl: './create-new-password.component.scss'
 })
 export class CreateNewPasswordComponent {
 
-sendInfo:boolean=false;
+  sendInfo: boolean = false;
 
-openDiv(){
-  this.sendInfo=true;
-  setTimeout(() => {
-    this.sendInfo=false;
-  }, 2000);
-}
 }

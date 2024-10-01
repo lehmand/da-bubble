@@ -43,7 +43,8 @@ header {
   img {
     position: absolute;
     left: 16px;
-    height: 16px;
+    height: 24px;
+    cursor: pointer;
   }
   h2 {
     font-size: 28px;
@@ -197,6 +198,7 @@ input[type="checkbox"] {
     width: 120px;
     border: 1px solid transparent;
     color: #797ef3;
+    text-decoration: none;
     cursor: pointer;
     &:hover {
       border: 1px solid grey;
@@ -205,6 +207,17 @@ input[type="checkbox"] {
       font-weight: 500;
       transition: border-color 250ms ease-in-out;
     }
+  }
+}
+
+.privacy {
+  position: absolute;
+  left: 24px;
+  bottom: -6px;
+  a {
+    color: #797ef3;
+    font-weight: 600;
+    text-decoration: none;
   }
 }
 
