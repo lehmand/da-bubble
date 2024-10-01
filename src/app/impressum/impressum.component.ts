@@ -1,20 +1,21 @@
-import { Component,inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
-
+import { CommonModule, Location } from '@angular/common';
 
 @Component({
   selector: 'app-impressum',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [MatCardModule, CommonModule],
   templateUrl: './impressum.component.html',
-  styleUrl: './impressum.component.scss'
+  styleUrl: './impressum.component.scss',
 })
- 
 export class ImpressumComponent {
-  router=inject(Router);
+  router = inject(Router);
 
-  navigateURL(){
-    this.router.navigateByUrl('/privacy-policy');
+  constructor(private location: Location) {}
+
+  goBack() {
+    this.location.back();
   }
 }

@@ -4,9 +4,8 @@ import { newUser } from '../interfaces/user.class';
 import { Injectable } from '@angular/core';
 
 
-
 @Injectable({
-  providedIn: 'root' // Dies stellt sicher, dass der Service im Root-Injector bereitgestellt wird
+  providedIn: 'root' 
 })
 export class addingUserService {
   constructor(private firestore: Firestore, private authService: AuthService) {}
