@@ -183,7 +183,7 @@ input[type="text"]:focus::placeholder {
     position: absolute;
   }
 }
-.google-button {
+button {
   display: flex;
   align-items: center;
   gap: 20px !important;
@@ -199,6 +199,8 @@ input[type="text"]:focus::placeholder {
     border-color: #444df2 !important;
   }
 }
+
+
 
 .button-flex-box {
   display: flex;
