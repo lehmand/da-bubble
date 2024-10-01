@@ -12,7 +12,6 @@ export class addingUserService {
 
   async addUser(userData: newUser) {
     const currentUser = await this.authService.getCurrentUser(); 
-
     if (currentUser) {
       const contactsRef = collection(this.firestore, 'users');
       const userToAdd = {

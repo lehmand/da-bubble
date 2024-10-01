@@ -45,7 +45,9 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   get f() {
     return this.createUserForm.controls;
@@ -57,6 +59,7 @@ export class CreateAccountComponent implements OnInit {
   isChecked: boolean = false;
 
   async onSubmit() {
+    debugger;
     if (this.createUserForm.invalid) {
       return;
     }
@@ -68,8 +71,8 @@ export class CreateAccountComponent implements OnInit {
 
     console.log('Neuer Benutzer:', newUser);
     try {
-      const userCredential = await this.authService.registerUser(newUser);
-      await this.addingUserService.addUser(newUser);
+      //const userCredential = await this.authService.registerUser(newUser);
+     // await this.addingUserService.addUser(newUser);
 
       // this.router.navigate(['/avatar-page']); // Route zum Avatar
     } catch (error) {
@@ -87,7 +90,6 @@ export class CreateAccountComponent implements OnInit {
   }
 
   proofIfChecked() {
-    debugger;
     if (this.isChecked) {
       this.createUserForm.get('checkbox')?.setValue(this.isChecked);
     } else {
