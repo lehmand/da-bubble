@@ -1,21 +1,29 @@
 import { Component } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+ import {FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [MatCardModule,CommonModule],
+  imports: [MatCardModule, CommonModule,FormsModule,RouterModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent  {
 
-   sendInfo:boolean=false
+  sendInfo: boolean = false
 
+   
   openDiv(){
-    this.sendInfo=!this.sendInfo
-    
+    this.sendInfo=true;
+    // setTimeout(() => {
+    //   this.sendInfo=false;
+    // }, 2000);
   }
-
 }
+
+
+
