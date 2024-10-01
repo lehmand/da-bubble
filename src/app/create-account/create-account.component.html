@@ -65,10 +65,9 @@
         </span>
       </div>
       <div class="checkbox-row">
-        <input type="checkbox" required formControlName="checkbox" />
+        <input (click)="toggleChecked()" type="checkbox" required formControlName="checkbox" />
         <label
           for="checkbox"
-          (click)="toggleChecked()"
           class="custom-checkbox"
           [class.checked]="isChecked"
         ></label>
