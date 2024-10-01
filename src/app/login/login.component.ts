@@ -10,6 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ import { AuthService } from '../services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    ResetPasswordComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

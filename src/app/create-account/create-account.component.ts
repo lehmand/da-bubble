@@ -13,6 +13,7 @@ import { addingUserService } from '../services/addingUser.service';
 import { LoginComponent } from '../login/login.component';
 import { Subscriber, Subscription } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { AvatarComponent } from '../avatar/avatar.component';
 
 @Component({
   selector: 'app-create-account',
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    AvatarComponent
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
