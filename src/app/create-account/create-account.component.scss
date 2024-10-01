@@ -131,7 +131,6 @@ input[type="checkbox"] {
 }
 
 .custom-checkbox {
-  // maybe change zindex
   position: relative;
   min-width: 14px;
   min-height: 14px;
@@ -185,12 +184,15 @@ input[type="checkbox"] {
   opacity: 1;
 }
 
-.privacy {
-  position: relative;
-  bottom: -2px;
-
+.policy {
+  margin-bottom: 48px;
+  display: flex;
+  gap: 16px;
   a {
+    font-size: 18px;
+    font-family: "Figtree";
     color: #797ef3;
+    cursor: pointer;
   }
 }
 
@@ -213,19 +215,22 @@ input[type="checkbox"] {
 }
 
 @media (min-width: 1024px) {
+  section {
+    justify-content: space-between;
+  }
+
   header {
-    position: absolute;
-    top: 0;
     width: 100%;
     max-width: 1920px;
+    position: relative;
     .header-content {
       position: absolute;
       top: 75px;
       left: 75px;
-      gap: 8px;
-      img {
-        height: 70px;
-      }
     }
+  }
+
+  .card {
+    padding: 48px;
   }
 }

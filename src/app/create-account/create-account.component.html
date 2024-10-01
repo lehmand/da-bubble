@@ -1,68 +1,118 @@
 <section>
-    <header>
-        <div class="header-content">
-            <img src="./assets/img/logo.png" alt="">
-            <h1>DABubble</h1>
-        </div>
-    </header>
-
-    <div class="card">
-        <div class="heading">
-            <img src="./assets/img/arrow_back.svg" alt="">
-            <h2>Konto erstellen</h2>
-        </div>
-        <div class="sub-header">
-            <span>Mit deinem Namen und deiner E-mail-Adresse hast du dein neues DABubble-Konto</span>
-        </div>
-        <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
-            <div class="form-row">
-                <input type="text" placeholder="Name und Nachname"
-                    (focus)="person.src = './assets/img/person_filled_black.svg'"
-                    (blur)="person.src = './assets/img/person_filled.svg'" required formControlName="name">
-                <img class="icon" #person src="./assets/img/person_filled.svg" alt="">
-                <span class="error-message" *ngIf="f['name'].invalid && f['name'].touched">
-                    <span *ngIf="f['name'].errors?.['required']">*Der Name ist erforderlich.</span>
-                </span>
-            </div>
-            <div class="form-row">
-                <input type="email" placeholder="beispielname@email.com"
-                    (focus)="email.src = './assets/img/email_filled_black.svg'"
-                    (blur)="email.src = './assets/img/mail.svg'" required formControlName="email">
-                <img class="icon" src="./assets/img/mail.svg" alt="" #email>
-                <span class="error-message" *ngIf="f['email'].invalid && f['email'].touched">
-                    <span *ngIf="f['email'].errors?.['required']">*Eine Mail ist erforderlich.</span>
-                </span>
-            </div>
-            <div class="form-row">
-                <input type="password" placeholder="Passwort"
-                    (focus)="password.src = './assets/img/lock_filled_black.svg'"
-                    (blur)="password.src = './assets/img/lock.svg'" required formControlName="password">
-                <img class="icon" src="./assets/img/lock.svg" alt="" #password>
-                <span class="error-message" *ngIf="f['password'].invalid && f['password'].touched">
-                    <span *ngIf="f['password'].errors?.['required']">*Ein Passwort ist erforderlich.</span>
-                </span>
-            </div>
-            <div class="checkbox-row">
-                <input type="checkbox" required formControlName="checkbox">
-                <label for="checkbox" (click)="toggleChecked()" class="custom-checkbox"
-                    [class.checked]="isChecked"></label>
-                <label for="checkbox" class="privacy">Ich stimme der <a>Datenschutzerklärung</a> zu.</label>
-                <span class="error-message" *ngIf="f['checkbox'].invalid && f['checkbox'].touched">
-                    <span *ngIf="f['checkbox'].errors?.['required']">*Bitte Datenschutzerklärung akzeptieren</span>
-                </span>
-            </div>
-            <div class="button-container">
-                <button 
-                [disabled]="isDisabled" 
-                (mouseenter)="toggleHover()" 
-                (mouseleave)="toggleHover()" 
-                [ngClass]="{
-                    'btn-primary' : !isDisabled,
-                    'btn-primary-disabled' : isDisabled,
-                    'btn-primary-hover' : isHovered
-                }">Weiter</button>
-            </div>
-        </form>
+  <header>
+    <div class="header-content">
+      <img src="./assets/img/logo.png" alt="" />
+      <h1>DABubble</h1>
     </div>
+  </header>
 
+  <div class="card">
+    <div class="heading">
+      <img src="./assets/img/arrow_back.svg" alt="" />
+      <h2>Konto erstellen</h2>
+    </div>
+    <div class="sub-header">
+      <span
+        >Mit deinem Namen und deiner E-mail-Adresse hast du dein neues
+        DABubble-Konto</span
+      >
+    </div>
+    <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <input
+          type="text"
+          placeholder="Name und Nachname"
+          (focus)="person.src = './assets/img/person_filled_black.svg'"
+          (blur)="person.src = './assets/img/person_filled.svg'"
+          required
+          formControlName="name"
+        />
+        <img class="icon" #person src="./assets/img/person_filled.svg" alt="" />
+        <span
+          class="error-message"
+          *ngIf="f['name'].invalid && f['name'].touched"
+        >
+          <span *ngIf="f['name'].errors?.['required']"
+            >*Der Name ist erforderlich.</span
+          >
+        </span>
+      </div>
+      <div class="form-row">
+        <input
+          type="email"
+          placeholder="beispielname@email.com"
+          (focus)="email.src = './assets/img/email_filled_black.svg'"
+          (blur)="email.src = './assets/img/mail.svg'"
+          required
+          formControlName="email"
+        />
+        <img class="icon" src="./assets/img/mail.svg" alt="" #email />
+        <span
+          class="error-message"
+          *ngIf="f['email'].invalid && f['email'].touched"
+        >
+          <span *ngIf="f['email'].errors?.['required']"
+            >*Eine Mail ist erforderlich.</span
+          >
+        </span>
+      </div>
+      <div class="form-row">
+        <input
+          type="password"
+          placeholder="Passwort"
+          (focus)="password.src = './assets/img/lock_filled_black.svg'"
+          (blur)="password.src = './assets/img/lock.svg'"
+          required
+          formControlName="password"
+        />
+        <img class="icon" src="./assets/img/lock.svg" alt="" #password />
+        <span
+          class="error-message"
+          *ngIf="f['password'].invalid && f['password'].touched"
+        >
+          <span *ngIf="f['password'].errors?.['required']"
+            >*Ein Passwort ist erforderlich.</span
+          >
+        </span>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" required formControlName="checkbox" />
+        <label
+          for="checkbox"
+          (click)="toggleChecked()"
+          class="custom-checkbox"
+          [class.checked]="isChecked"
+        ></label>
+        <label for="checkbox" class="privacy"
+          >Ich stimme der <a>Datenschutzerklärung</a> zu.</label
+        >
+        <span
+          class="error-message"
+          *ngIf="f['checkbox'].invalid && f['checkbox'].touched"
+        >
+          <span *ngIf="f['checkbox'].errors?.['required']"
+            >*Bitte Datenschutzerklärung akzeptieren</span
+          >
+        </span>
+      </div>
+      <div class="button-container">
+        <button
+          [disabled]="isDisabled"
+          (mouseenter)="toggleHover()"
+          (mouseleave)="toggleHover()"
+          [ngClass]="{
+            'btn-primary': !isDisabled,
+            'btn-primary-disabled': isDisabled,
+            'btn-primary-hover': isHovered
+          }"
+        >
+          Weiter
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="policy">
+    <a>Impressum</a>
+    <a>Datenschutz</a>
+  </div>
 </section>
