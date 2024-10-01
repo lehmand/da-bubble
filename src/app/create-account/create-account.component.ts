@@ -11,6 +11,7 @@ import {
 import { AuthService } from '../services/auth.service';
 import { addingUserService } from '../services/addingUser.service';
 import { LoginComponent } from '../login/login.component';
+import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-account',
@@ -21,7 +22,7 @@ import { LoginComponent } from '../login/login.component';
 })
 export class CreateAccountComponent implements OnInit {
   createUserForm: FormGroup;
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private addingUserService: addingUserService,
@@ -34,7 +35,7 @@ export class CreateAccountComponent implements OnInit {
       checkbox: Boolean,
     });
   }
-
+  
   ngOnInit() {
     this.createUserForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -43,15 +44,17 @@ export class CreateAccountComponent implements OnInit {
       checkbox: ['', Validators.required],
     });
   }
+  
   get f() {
     return this.createUserForm.controls;
   }
-
+  
   isDisabled: boolean = true
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
-
+;
+  
   async onSubmit() {
     const newUser: newUser = {
       displayName: this.createUserForm.value.fullName || '',

@@ -52,7 +52,11 @@
                 </span>
             </div>
             <div class="button-container">
-                <button (mouseenter)="toggleHover()" (mouseleave)="toggleHover()" [ngClass]="{
+                <button 
+                [disabled]="isDisabled" 
+                (mouseenter)="toggleHover()" 
+                (mouseleave)="toggleHover()" 
+                [ngClass]="{
                     'btn-primary' : !isDisabled,
                     'btn-primary-disabled' : isDisabled,
                     'btn-primary-hover' : isHovered
