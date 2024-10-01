@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule, RouterOutlet, RouterLinkActive } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({

@@ -12,52 +12,54 @@ import { AuthService } from '../services/auth.service';
 import { addingUserService } from '../services/addingUser.service';
 import { LoginComponent } from '../login/login.component';
 import { Subscriber, Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create-account',
   standalone: true,
-  imports: [CommonModule, LoginComponent, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    LoginComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
 })
 export class CreateAccountComponent implements OnInit {
   createUserForm: FormGroup;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private addingUserService: addingUserService,
     private authService: AuthService
   ) {
     this.createUserForm = this.formBuilder.group({
-      fullName: [''], //für Validation//
-      userMail: '',
-      password: '',
-      checkbox: Boolean,
-    });
-  }
-  
-  ngOnInit() {
-    this.createUserForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      fullName: ['', Validators.required],
+      userMail: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      checkbox: ['', Validators.required],
+      checkbox: [true, Validators.requiredTrue],
     });
   }
-  
+
+  ngOnInit() {}
+
   get f() {
     return this.createUserForm.controls;
   }
-  
-  isDisabled: boolean = true
+
+  isDisabled: boolean = true;
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
-;
-  
+
   async onSubmit() {
+    if (this.createUserForm.invalid) {
+      return;
+    }
     const newUser: newUser = {
-      displayName: this.createUserForm.value.fullName || '',
+      displayName: this.createUserForm.value.fullName,
       userMail: this.createUserForm.value.userMail,
       password: this.createUserForm.value.password,
     };
@@ -79,6 +81,16 @@ export class CreateAccountComponent implements OnInit {
 
   toggleChecked() {
     this.isChecked = !this.isChecked;
+    this.proofIfChecked();
+  }
+
+  proofIfChecked() {
+    debugger;
+    if (this.isChecked) {
+      this.createUserForm.get('checkbox')?.setValue(this.isChecked);
+    } else {
+      console.log('is not checked');
+    }
   }
 
   toggleHover() {
