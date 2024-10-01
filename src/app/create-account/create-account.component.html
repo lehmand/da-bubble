@@ -8,7 +8,7 @@
 
   <div class="card">
     <div class="heading">
-      <img src="./assets/img/arrow_back.svg" alt="" routerLink="/" />
+      <img routerLink="/" src="./assets/img/arrow_back_bugfix.svg" alt="" routerLink="/" />
       <h2>Konto erstellen</h2>
     </div>
     <div class="sub-header">
@@ -73,7 +73,7 @@
           [class.checked]="isChecked"
         ></label>
         <label for="checkbox" class="privacy">
-          Ich stimme der <a>Datenschutzerklärung</a> zu.
+          Ich stimme der <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
         </label>
         <span class="error-message" *ngIf="f['checkbox'].invalid && f['checkbox'].touched">
           <span *ngIf="f['checkbox'].errors?.['required']">*Bitte Datenschutzerklärung akzeptieren</span>
