@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 @Component({
@@ -25,8 +25,9 @@ export class LoginComponent implements OnInit {
     password: '',
   };
   loginFailed = false;
+  userService = inject(UserService);
 
-  constructor(private authService: AuthService) {}
+  constructor() {}
 
   ngOnInit() {}
 
