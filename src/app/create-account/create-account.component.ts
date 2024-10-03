@@ -27,7 +27,6 @@ import { UserService } from '../services/user.service';
   styleUrl: './create-account.component.scss',
 })
 export class CreateAccountComponent implements OnInit {
-  isDisabled: boolean = true;
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
