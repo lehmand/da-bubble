@@ -36,7 +36,7 @@ export class CreateAccountComponent implements OnInit {
   router: Router = inject(Router);
   private userService = inject(UserService); 
   unsub?: () => void;
-  user = new User();
+  user: User = new User();
   allUsers: User[] = [];
   userData = {
     name: '',
@@ -99,6 +99,7 @@ export class CreateAccountComponent implements OnInit {
 
   toggleChecked() {
     this.isChecked = !this.isChecked;
+    this.userData.privacyPolicy = this.isChecked;
   }
 
   toggleHover() {

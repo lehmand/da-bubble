@@ -8,12 +8,14 @@
 
   <div class="card">
     <div class="heading">
-      <img
-        routerLink="/"
-        src="./assets/img/arrow_back_bugfix.svg"
-        alt=""
-        routerLink="/"
-      />
+      <div class="img-container">
+        <img
+          routerLink="/"
+          src="./assets/img/arrow_back_bugfix.svg"
+          alt=""
+          routerLink="/"
+        />
+      </div>
       <h2>Konto erstellen</h2>
     </div>
     <div class="sub-header">
@@ -50,8 +52,8 @@
       <div class="checkbox-row">
         <input id="privacy-policy" name="privacy-policy" (click)="toggleChecked()" type="checkbox" [(ngModel)]="userData.privacyPolicy"
           required />
-        <label for="checkbox" class="custom-checkbox" [class.checked]="isChecked"></label>
-        <label for="checkbox" class="privacy">
+        <label for="privacy-policy" class="custom-checkbox" [class.checked]="isChecked"></label>
+        <label for="privacy-policy" class="privacy">
           Ich stimme der
           <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
         </label>
@@ -62,8 +64,8 @@
       <div class="button-container">
         <button type="submit" value="submit" [disabled]="userForm.invalid" (mouseenter)="toggleHover()"
           (mouseleave)="toggleHover()" [ngClass]="{
-            'btn-primary': !isDisabled,
-            'btn-primary-disabled': isDisabled,
+            'btn-primary': userForm.valid,
+            'btn-primary-disabled': userForm.invalid,
             'btn-primary-hover': isHovered
           }">
           Weiter
