@@ -8,7 +8,12 @@
 
   <div class="card">
     <div class="heading">
-      <img routerLink="/" src="./assets/img/arrow_back_bugfix.svg" alt="" routerLink="/" />
+      <img
+        routerLink="/"
+        src="./assets/img/arrow_back_bugfix.svg"
+        alt=""
+        routerLink="/"
+      />
       <h2>Konto erstellen</h2>
     </div>
     <div class="sub-header">
@@ -30,8 +35,13 @@
           formControlName="fullName"
         />
         <img class="icon" #person src="./assets/img/person_filled.svg" alt="" />
-        <span class="error-message" *ngIf="f['fullName'].invalid && f['fullName'].touched">
-          <span *ngIf="f['fullName'].errors?.['required']">*Der Name ist erforderlich.</span>
+        <span
+          class="error-message"
+          *ngIf="f['fullName'].invalid && f['fullName'].touched"
+        >
+          <span *ngIf="f['fullName'].errors?.['required']"
+            >*Der Name ist erforderlich.</span
+          >
         </span>
       </div>
       <div class="form-row">
@@ -46,8 +56,13 @@
           formControlName="userMail"
         />
         <img class="icon" #email src="./assets/img/mail.svg" alt="" />
-        <span class="error-message" *ngIf="f['userMail'].invalid && f['userMail'].touched">
-          <span *ngIf="f['userMail'].errors?.['required']">*Eine Mail ist erforderlich.</span>
+        <span
+          class="error-message"
+          *ngIf="f['userMail'].invalid && f['userMail'].touched"
+        >
+          <span *ngIf="f['userMail'].errors?.['required']"
+            >*Eine Mail ist erforderlich.</span
+          >
         </span>
       </div>
       <div class="form-row">
@@ -60,26 +75,44 @@
           formControlName="password"
         />
         <img class="icon" #password src="./assets/img/lock.svg" alt="" />
-        <span class="error-message" *ngIf="f['password'].invalid && f['password'].touched">
-          <span *ngIf="f['password'].errors?.['required']">*Ein Passwort ist erforderlich.</span>
+        <span
+          class="error-message"
+          *ngIf="f['password'].invalid && f['password'].touched"
+        >
+          <span *ngIf="f['password'].errors?.['required']"
+            >*Ein Passwort ist erforderlich.</span
+          >
         </span>
       </div>
       <div class="checkbox-row">
-        <input (click)="toggleChecked()" type="checkbox" required formControlName="checkbox" />
+        <input
+          (click)="toggleChecked()"
+          type="checkbox"
+          required
+          formControlName="checkbox"
+        />
         <label
           for="checkbox"
           class="custom-checkbox"
           [class.checked]="isChecked"
         ></label>
         <label for="checkbox" class="privacy">
-          Ich stimme der <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
+          Ich stimme der
+          <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
         </label>
-        <span class="error-message" *ngIf="f['checkbox'].invalid && f['checkbox'].touched">
-          <span *ngIf="f['checkbox'].errors?.['required']">*Bitte Datenschutzerklärung akzeptieren</span>
+        <span
+          class="error-message"
+          *ngIf="f['checkbox'].invalid && f['checkbox'].touched"
+        >
+          <span *ngIf="f['checkbox'].errors?.['required']"
+            >*Bitte Datenschutzerklärung akzeptieren</span
+          >
         </span>
       </div>
       <div class="button-container">
-        <button routerLink="/impressum" routerLinkActive="active"
+        <button
+          routerLink="/impressum"
+          routerLinkActive="active"
           [disabled]="createUserForm.invalid"
           (mouseenter)="toggleHover()"
           (mouseleave)="toggleHover()"
