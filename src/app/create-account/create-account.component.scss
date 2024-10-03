@@ -45,16 +45,16 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    left: 16px;
+    left: 8px;
     height: 40px;
     width: 40px;
-    padding: 8px;
-    cursor: pointer;
-    img {
-      &:hover {
-        background-color: #eceefe;
-        border-radius: 30px;
-        padding: 8px;
+    border-radius: 100%;
+    &:hover {
+      background-color: rgb(236, 238, 254);
+      cursor: pointer;
+
+      .icon path {
+        fill: #444DF2
       }
     }
   }
