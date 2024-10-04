@@ -40,10 +40,23 @@ header {
   position: relative;
   font-family: "Nunito";
   margin: 8px 0;
-  img {
+  .img-container {
     position: absolute;
-    left: 16px;
-    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 8px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    &:hover {
+      background-color: rgb(236, 238, 254);
+      cursor: pointer;
+
+      .icon path {
+        fill: #444DF2
+      }
+    }
   }
   h2 {
     font-size: 28px;
@@ -62,6 +75,7 @@ header {
 
 form {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   gap: 24px;
@@ -93,6 +107,7 @@ form {
 }
 
 .form-row {
+  position: relative;
   &::before {
     content: "";
     position: absolute;
@@ -123,11 +138,7 @@ form {
 input[type="checkbox"] {
   position: absolute;
   opacity: 0;
-  z-index: -10;
-  top: 0;
-  left: 0;
-  min-width: 18px;
-  min-height: 18px;
+  z-index: -1;
 }
 
 .custom-checkbox {
@@ -210,9 +221,11 @@ input[type="checkbox"] {
 }
 
 .privacy {
-
+  position: relative;
+  bottom: -2px;
   a {
     color: #797ef3;
+    text-decoration: none;
     cursor: pointer;
   }
 }
@@ -234,7 +247,7 @@ input[type="checkbox"] {
   font-size: 12px;
   color: red;
 }
-.top{
+.top {
   top: 28px !important;
 }
 
