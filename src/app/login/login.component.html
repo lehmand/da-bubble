@@ -10,30 +10,26 @@
     <div class="form-wrapper">
         <div class="login-form-headline">
             <h2>Anmeldung</h2>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
                 <span class="advice-mail">Wir empfehlen dir, die E-Mail Adresse zu benutzen,
                     die du bei der Arbeit verwendest.</span>
-                <label for="email"></label>
-                <label for="email"></label>
                 <div class="input-container">
                     <img src="./../../assets/img/mail.svg">
-                    <input autocomplete="off" class="input-styling" type="email" placeholder="beispielname@email.com"
-                        id="email" formControlName="email">
-                    <span class="error-message" *ngIf="f['email'].invalid && f['email'].touched">
-                        <span *ngIf="f['email'].errors?.['required']">*Die E-Mail-Adresse ist erforderlich.</span>
-                        <span *ngIf="f['email'].errors?.['email']">*Diese E-Mail-Adresse ist leider ungültig.</span>
+                    <label for="email"></label>
+                    <input autocomplete="off" class="input-styling" name="email" type="email"
+                        placeholder="beispielname@email.com" id="email" #email="ngModel" [(ngModel)]="loginData.email"
+                        required>
+                    <span class="error-message" *ngIf="!email.valid && email.touched">
+                        *Die E-Mail-Adresse ist erforderlich.
                     </span>
                 </div>
-                <label for="password"></label>
                 <div class="input-container mt">
                     <img src="./../../assets/img/lock.svg">
+                    <label for="password"></label>
                     <input autocomplete="off" class="input-styling" type="password" placeholder="Passwort"
-                        formControlName="password">
-                    <span class="error-message" *ngIf="f['password'].invalid && f['password'].touched">
-                        <span *ngIf="f['password'].errors?.['required']">*Das Passwort ist erforderlich.</span>
-                    </span>
+                        name="password" [(ngModel)]="loginData.password" #password="ngModel" required>
+                    <span class="error-message" *ngIf="!password.valid && password.touched">*Das Passwort ist erforderlich.</span>
                 </div>
-
                 <!-- Fehlermeldung bei ungültiger Kombination -->
                 <div *ngIf="loginFailed" class="error-message">
                     Die E-Mail-Adresse oder das Passwort ist ungültig.
@@ -57,10 +53,7 @@
                 </div>
 
                 <div class="button-flex-box">
-                    <button type="submit" class="btn-primary">Anmelden</button>
-                    <div *ngIf="loginFailed" class="error-message">
-                        {{ errorMessage }}
-                    </div>
+                    <button class="btn-primary-disabled" type="submit" value="submit" [disabled]="loginForm.invalid">Anmelden</button>
                     <button class="btn-secondary">Gäste-Login</button>
                 </div>
             </form>
