@@ -68,7 +68,6 @@ export class CreateAccountComponent implements OnInit {
     try {
       const userCredential = await this.authService.registerUser(newUser);
       await this.addingUserService.addUser(newUser);
-
       // this.router.navigate(['/avatar-page']); // Route zum Avatar
     } catch (error) {
       console.error('Fehler beim Erstellen des Kontakts:', error);
