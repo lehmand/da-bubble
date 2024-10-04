@@ -23,7 +23,7 @@
     <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
       <div class="form-row">
         <label for="name"></label>
-        <input type="text" [(ngModel)]="userData.name" id="name" name="name" #name="ngModel" placeholder="Name und Nachname"
+        <input type="text" [(ngModel)]="userData.name" id="name" name="displayName" #name="ngModel" placeholder="Name und Nachname"
           (focus)="nameIcon.src = './assets/img/person_filled_black.svg'"
           (blur)="nameIcon.src = './assets/img/person_filled.svg'" required />
         <img #nameIcon class="icon" #person src="./assets/img/person_filled.svg" alt="" />
