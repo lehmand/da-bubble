@@ -56,7 +56,9 @@ export class CreateAccountComponent implements OnInit {
     }
   }
 
-  /* Für Veränderungen wenn 'neue User' in eine Liste gerendert werden müssen mit AllUsers*/
+  /* 
+  Für Dashboard:?
+  Für Veränderungen wenn 'neue User' in eine Liste gerendert werden müssen mit AllUsers*/
   startListeningNewUsers() {
     const newUsersRef = collection(this.firestore, 'users');
     this.unsub = onSnapshot(
@@ -86,7 +88,8 @@ export class CreateAccountComponent implements OnInit {
     const newUser = new User({
         displayName: this.userData.name,
         email: this.userData.email,
-        password: this.userData.password
+        password: this.userData.password,
+        id: this.user.id,
     });
     const docRef = await addDoc(usersCollection, newUser.toJSON());
     this.userService.setCurrentUser(newUser);

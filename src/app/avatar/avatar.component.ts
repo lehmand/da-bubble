@@ -4,9 +4,11 @@ import { CommonModule } from '@angular/common';
 import {
   Firestore,
   collection,
-  addDoc,
-  updateDoc,
+  DocumentData,
+  onSnapshot,
+  QuerySnapshot,
   doc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { RouterModule } from '@angular/router';
 import { User } from '../models/user.class';
@@ -30,10 +32,31 @@ export class AvatarComponent implements OnInit {
 
   userPicture: Picture = { image: '' };
   choosePicture: boolean | any = false;
+  allUsers: User[] = [];
+  unsub?: () => void;
 
   ngOnInit() {
-    this.user = this.userService.getCurrentUser();
-    console.log(this.user);
+    this.snapShotId();
+  }
+
+  async snapShotId() {
+    const newUsersRef = collection(this.firestore, 'users');
+    this.unsub = onSnapshot(
+      newUsersRef,
+      async (snapshot: QuerySnapshot<DocumentData>) => {
+        const updatedUsers: User[] = [];
+        for (const docSnapshot of snapshot.docs) {
+          const userData = docSnapshot.data();
+          const id = docSnapshot.id;
+          const docRef = doc(this.firestore, 'users', id);
+          await updateDoc(docRef, { id: id });
+          const newUser = new User(userData, id);
+          updatedUsers.push(newUser);
+        }
+        this.allUsers = updatedUsers;
+        this.user = this.userService.getCurrentUser();
+      }
+    );
   }
 
   avatarBox: string[] = [
@@ -55,16 +78,6 @@ export class AvatarComponent implements OnInit {
   }
 
   async saveAvatar() {
-    if (this.user) {
-      const userRef = doc(this.firestore, 'users', this.user.email); // Erstelle eine Referenz zum Firestore-Dokument
-
-      try {
-        await updateDoc(userRef, {
-          picture: this.userPicture.image,
-        });
-      } catch (error) {
-        console.error('Fehler beim Aktualisieren der Benutzerdaten:');
-      }
-    }
+    console.log(this.user);
   }
 }

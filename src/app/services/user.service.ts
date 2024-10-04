@@ -6,17 +6,26 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private currentUser: User | null = null;
-  private currentUserSubject = new Subject<User | null>();
+  private anonymousUser: User = new User({
+    displayName: 'Guest',
+    email: '',
+    password: '',
+    picture: '',
+  });
+
+  private currentUser: User = this.anonymousUser;
+  private currentUserSubject = new Subject<User>();
 
   currentUser$ = this.currentUserSubject.asObservable();
 
   setCurrentUser(user: User | null) {
-    this.currentUser = user;
-    this.currentUserSubject.next(user);
+    if (user) {
+      this.currentUser = user || this.anonymousUser;
+      this.currentUserSubject.next(this.currentUser);
+    }
   }
 
-  getCurrentUser(): User | null {
+  getCurrentUser(): User {
     return this.currentUser;
   }
 }
