@@ -29,7 +29,7 @@
 
                 <div class="main-picture-box">
                     <div class="picture-frame">
-                        <img [src]="choosePicture ? choosePicture : '../../assets/img/picture_frame.png'">
+                        <img  [src]="previewUrl ? previewUrl : (choosePicture ? choosePicture : '../../assets/img/picture_frame.png')">
                     </div>
                     <div class="user-name">
                         <h2>Lehmann</h2>
@@ -41,7 +41,7 @@
                     <div class="added-avatar">
                         <div class="picture-info-text">oder Bild</div>
                         <div>
-                            <input type="file" id="upload" [(ngModel)]="chooseOwnPicture"  hidden />
+                            <input type="file" id="upload"(change)="onFileSelected($event)" hidden />
                             <label for="upload">Datei hochladen</label>
                         </div>
                     </div>
