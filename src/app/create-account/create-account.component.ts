@@ -90,7 +90,7 @@ export class CreateAccountComponent implements OnInit {
     });
     const docRef = await addDoc(usersCollection, newUser.toJSON());
     this.userService.setCurrentUser(newUser);
-    this.router.navigate(['/', 'avatar'])
+    this.router.navigate(['/', 'avatar', docRef.id])
 }
 
   toggleClicked() {

@@ -10,7 +10,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 export const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'create-account', component: CreateAccountComponent },
-    { path: 'avatar', component: AvatarComponent },
+    { path: 'avatar/:id', component: AvatarComponent },
     { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'create-new-password', component: CreateNewPasswordComponent },
     { path: 'impressum', component: ImpressumComponent },

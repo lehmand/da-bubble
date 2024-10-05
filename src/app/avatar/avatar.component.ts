@@ -1,40 +1,27 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import {
-  Firestore,
-  collection,
-  addDoc,
-  updateDoc,
-  doc,
-} from '@angular/fire/firestore';
+import { Firestore, updateDoc, doc, getDoc } from '@angular/fire/firestore';
 import { RouterModule } from '@angular/router';
-import { User } from '../models/user.class';
-import { UserService } from '../services/user.service';
-
-interface Picture {
-  image: string | any;
-}
+import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-avatar',
   standalone: true,
-  imports: [MatCardModule, CommonModule, RouterModule],
+  imports: [MatCardModule, CommonModule, RouterModule, FormsModule],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',
 })
+
 export class AvatarComponent implements OnInit {
   firestore = inject(Firestore);
-  private userService = inject(UserService);
-  user: User | null = null;
+  route = inject(ActivatedRoute);
+  choosePicture: string ='';
+  userId: string | null = null;
+  chooseOwnPicture: any 
 
-  userPicture: Picture = { image: '' };
-  choosePicture: boolean | any = false;
 
-  ngOnInit() {
-    this.user = this.userService.getCurrentUser();
-    console.log(this.user);
-  }
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -47,24 +34,34 @@ export class AvatarComponent implements OnInit {
 
   chossePicture(avatar: string) {
     this.choosePicture = avatar;
-    this.userPicture.image = this.choosePicture;
-    //this.userPicture.image = this.choosePicture;
-    //   const addingUser = collection(this.firestore, 'picture');
-    //   await addDoc(addingUser, this.userPicture);
-    //   console.log('Document written with ID: ', addingUser.id);
+  }
+
+  async getUserById(userId: string) {
+    const userRef = doc(this.firestore, 'users', userId);
+    const userSnapshot = await getDoc(userRef);
+    if (userSnapshot.exists()) {
+      console.log('User data:', userSnapshot.data());
+    } else {
+      console.log('No such document!');
+    }
+  }
+
+  ngOnInit(): void {
+    this.userId = this.route.snapshot.paramMap.get('id');
+    if (this.userId) {
+      this.getUserById(this.userId);
+    }
   }
 
   async saveAvatar() {
-    if (this.user) {
-      const userRef = doc(this.firestore, 'users', this.user.email); // Erstelle eine Referenz zum Firestore-Dokument
-
-      try {
-        await updateDoc(userRef, {
-          picture: this.userPicture.image,
-        });
-      } catch (error) {
-        console.error('Fehler beim Aktualisieren der Benutzerdaten:');
-      }
+    if (this.userId && this.choosePicture) {
+      const userRef = doc(this.firestore, 'users', this.userId);
+      await updateDoc(userRef, {
+        picture: this.choosePicture,
+      });
+      console.log('Avatar updated for user ID:', this.userId);
+    } else {
+      console.error('User ID or Avatar is missing.');
     }
   }
 }
