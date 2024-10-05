@@ -5,8 +5,6 @@ import { Firestore, updateDoc, doc, getDoc } from '@angular/fire/firestore';
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
-
 
 @Component({
   selector: 'app-avatar',
@@ -15,15 +13,14 @@ import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',
 })
-
 export class AvatarComponent implements OnInit {
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
-  choosePicture: string | '' = '';
+  choosePicture: string ='';
   userId: string | null = null;
-  previewUrl: string | undefined;
-  selectedFile: File | null = null;
-  storage = inject(Storage)
+  chooseOwnPicture: any 
+
+
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -33,6 +30,10 @@ export class AvatarComponent implements OnInit {
     '../../assets/img/avatar/avatar5.png',
     '../../assets/img/avatar/avatar6.png',
   ];
+
+  constructor() {
+    this.storage = getStorage(); // Hier wird storage initialisiert
+  }
 
   chossePicture(avatar: string) {
     this.choosePicture = avatar;
@@ -115,4 +116,34 @@ export class AvatarComponent implements OnInit {
     await updateDoc(userRef, { picture: avatarUrl });
     console.log('Avatar updated for user ID:', this.userId);
   }
+
+
+  imageReady(imageURL: string){
+    console.log('gavw ths URL', imageURL);
+  }
+
+/*   async uploadImage(event: any) {
+    this.chooseOwnPicture = true; // Benutzer wählt ein eigenes Bild
+    if (this.chooseOwnPicture) {
+      const file = event.target.files[0];
+      if (file) {
+        console.log('Datei ausgewählt:', file.name);
+        const path = `avatars/${file.name}`; // Pfad für das Bild
+        const storageRef = ref(this.storage, path); // Verweis auf das Bild im Storage
+  
+        try {
+          await uploadBytes(storageRef, file); // Bild hochladen
+          const url = await getDownloadURL(storageRef); // URL des hochgeladenen Bildes abrufen
+          console.log('Bild-URL:', url);
+          this.imageReady(url); // Bild-URL an die Methode übergeben
+        } catch (error) {
+          console.error('Fehler beim Hochladen des Bildes:', error);
+        }
+      } else {
+        console.error('Keine Datei ausgewählt.');
+      }
+    } else {
+      console.error('Wählen Sie ein eigenes Bild aus.');
+    }
+  } */
 }
