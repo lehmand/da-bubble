@@ -6,6 +6,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CreateNewPasswordComponent } from './create-new-password/create-new-password.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { StartScreenComponent } from './start-screen/start-screen.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'create-new-password', component: CreateNewPasswordComponent },
     { path: 'impressum', component: ImpressumComponent },
-    { path: 'privacy-policy', component: PrivacyPolicyComponent }
+    { path: 'privacy-policy', component: PrivacyPolicyComponent },
+    { path: 'welcome', component: StartScreenComponent }
 ];
