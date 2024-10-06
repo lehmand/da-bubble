@@ -20,11 +20,12 @@ export class AvatarComponent implements OnInit {
   route = inject(ActivatedRoute);
   choosePicture: string ='';
   userId: string | null = null;
-  chooseOwnPicture: any 
-  storage=inject(Storage)
+  chooseOwnPicture: any;
+  storage=inject(Storage);
   previewUrl: string | undefined;
   selectedFile: File | null = null;
   nameObject: any = {};
+  sendInfo:boolean=false;
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -34,8 +35,6 @@ export class AvatarComponent implements OnInit {
     '../../assets/img/avatar/avatar5.png',
     '../../assets/img/avatar/avatar6.png',
   ];
-
- 
 
   chossePicture(avatar: string) {
     this.choosePicture = avatar;
@@ -90,6 +89,8 @@ export class AvatarComponent implements OnInit {
         await uploadBytes(storageRef, this.selectedFile);
         const downloadURL = await getDownloadURL(storageRef);
         await this.updateUserAvatar(downloadURL);
+        this.sendInfo=true;
+        this.checkSendIfo();
       } catch (error) {
         console.error('Error uploading file:', error);
       }
@@ -102,6 +103,14 @@ export class AvatarComponent implements OnInit {
     if (!this.userId) return;
     const userRef = doc(this.firestore, 'users', this.userId);
     await updateDoc(userRef, { picture: avatarUrl });
-    console.log('Avatar updated for user ID:', this.userId);
+    this.sendInfo=true;
+    this.checkSendIfo();
+  } 
+
+
+    checkSendIfo ():void{
+        setTimeout(() => {
+          this.sendInfo=false;
+        }, 1000);
   }
 }
