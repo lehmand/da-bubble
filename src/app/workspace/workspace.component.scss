@@ -85,21 +85,34 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-left: 45px;
+  padding-left: 24px;
   margin: 24px 0;
 }
 
 .channel-row,
 .add-channel-container {
-    cursor: pointer;
     span {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        padding: 4px 20px;
+        border-radius: 20px;
+        &:hover {
+            background-color: #ECEEFE;
+        }
+
+        &:hover > .icon path {
+            fill: #535AF1;
+        }
     }
 }
 
-
+.add-channel-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 24px;
+}
 
 .channels-drawer {
     max-height: 600px;
@@ -145,26 +158,29 @@
     gap: 15px;
     padding: 4px 20px;
     margin-left: 24px;
+    border-radius: 30px;
+    position: relative;
+    img {
+        height: 50px;
+    }
     h4 {
         font-family: 'Nunito';
         font-size: 18px;
         font-weight: 400;
     }
+
+    &:hover {
+        background: #ECEEFE;
+    }
 }
 
-.img-container {
-  position: relative;
-  z-index: 0;
-  .avatar {
-    height: 50px;
-  }
-  .status-border {
+.status-border {
     position: absolute;
     background-color: white;
     padding: 2px;
     border-radius: 100%;
-    top: 32px;
-    left: 32px;
+    top: 34px;
+    left: 53px;
     span {
       display: block;
       background-color: #92c83e;
@@ -173,4 +189,3 @@
       border-radius: 100%;
     }
   }
-}
