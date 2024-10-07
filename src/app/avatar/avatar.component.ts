@@ -75,8 +75,8 @@ export class AvatarComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
       input.value = '';
     }
-  }
-  
+  }  
+
   async saveAvatar() {
     if (!this.userId) {
       return;
@@ -98,6 +98,7 @@ export class AvatarComponent implements OnInit {
     }
   }
 
+
   async updateUserAvatar(avatarUrl: string) {
     if (!this.userId) return;
     const userRef = doc(this.firestore, 'users', this.userId);
@@ -105,7 +106,7 @@ export class AvatarComponent implements OnInit {
     this.sendInfo=true;
     this.checkSendIfo();
   } 
-
+      
 
     checkSendIfo ():void{
         setTimeout(() => {

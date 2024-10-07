@@ -16,5 +16,5 @@ export const routes: Routes = [
     { path: 'create-new-password', component: CreateNewPasswordComponent },
     { path: 'impressum', component: ImpressumComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
-    { path: 'welcome', component: StartScreenComponent }
+    { path: 'welcome', component: StartScreenComponent },
 ];
