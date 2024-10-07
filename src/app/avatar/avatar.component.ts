@@ -61,11 +61,6 @@ export class AvatarComponent implements OnInit {
     }  
   }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 9473f97e9bfe3c0adc8c5985121782b51be73a1d
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
