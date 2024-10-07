@@ -9,8 +9,8 @@ import {
   addDoc,
 } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
-import { UserService } from '../services/user.service';
 import { UserComponent } from '../user/user.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-create-account',
@@ -31,18 +31,13 @@ export class CreateAccountComponent implements OnInit {
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
+  privacyPolicy: boolean = false;
 
   firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
-  userData = {
-    name: '',
-    email: '',
-    password: '',
-    privacyPolicy: false,
-  };
-  newUser = new User();
+  user: User = new User();
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
   }
@@ -58,7 +53,8 @@ export class CreateAccountComponent implements OnInit {
 
   async addUser() {
     const usersCollection = collection(this.firestore, 'users');
-    const docRef = await addDoc(usersCollection, this.userData);
+    const docRef = await addDoc(usersCollection, this.user.toJSON());
+    this.auth.user = this.user
     this.router.navigate(['/avatar', docRef.id]);
   }
 
@@ -68,7 +64,7 @@ export class CreateAccountComponent implements OnInit {
 
   toggleChecked() {
     this.isChecked = !this.isChecked;
-    this.userData.privacyPolicy = this.isChecked;
+    this.privacyPolicy = this.isChecked;
   }
 
   toggleHover() {

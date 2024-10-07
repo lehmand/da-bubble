@@ -27,7 +27,7 @@
     <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
       <div class="form-row">
         <label for="name"></label>
-        <input type="text" [(ngModel)]="userData.name" id="name" name="displayName" #name="ngModel" placeholder="Name und Nachname"
+        <input type="text" [(ngModel)]="user.displayName" id="name" name="displayName" #name="ngModel" placeholder="Name und Nachname"
           (focus)="nameIcon.src = './assets/img/person_filled_black.svg'"
           (blur)="nameIcon.src = './assets/img/person_filled.svg'" required />
         <img #nameIcon class="icon" #person src="./assets/img/person_filled.svg" alt="" />
@@ -37,7 +37,7 @@
       </div>
       <div class="form-row">
         <label for="mail"></label>
-        <input id="mail" type="email" name=email  placeholder="beispielname@email.com" #email="ngModel" [(ngModel)]="userData.email"
+        <input id="mail" type="email" name=email  placeholder="beispielname@email.com" #email="ngModel" [(ngModel)]="user.email"
           (focus)="emailIcon.src = './assets/img/email_filled_black.svg'" (blur)="emailIcon.src = './assets/img/mail.svg'"
           required />
         <img #emailIcon class="icon" #email src="./assets/img/mail.svg" alt="" />
@@ -45,14 +45,14 @@
       </div>
       <div class="form-row">
         <label for="password"></label>
-        <input name=password  [(ngModel)]="userData.password" #password="ngModel" type="password" id="password" placeholder="Passwort"
+        <input name=password  [(ngModel)]="user.password" #password="ngModel" type="password" id="password" placeholder="Passwort"
           (focus)="passwordIcon.src = './assets/img/lock_filled_black.svg'" (blur)="passwordIcon.src = './assets/img/lock.svg'"
           required />
         <img #passwordIcon class="icon" #password src="./assets/img/lock.svg" alt="" />
         <span class="error-message" *ngIf="!password.valid && password.touched">*Ein Passwort ist erforderlich.</span>
       </div>
       <div class="checkbox-row">
-        <input id="privacy-policy" name="privacy-policy" (click)="toggleChecked()" type="checkbox" [(ngModel)]="userData.privacyPolicy"
+        <input id="privacy-policy" name="privacy-policy" (click)="toggleChecked()" type="checkbox" [(ngModel)]="privacyPolicy"
           required />
         <label for="privacy-policy" class="custom-checkbox" [class.checked]="isChecked"></label>
         <label for="privacy-policy" class="privacy">

@@ -5,6 +5,7 @@ import { Firestore, updateDoc, doc, getDoc } from '@angular/fire/firestore';
 import { RouterModule,Router,ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage
 })
 
 export class AvatarComponent implements OnInit {
+  constructor(private auth: AuthService){}
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
   choosePicture: string = '';
@@ -24,7 +26,7 @@ export class AvatarComponent implements OnInit {
   storage=inject(Storage);
   previewUrl: string | undefined;
   selectedFile: File | null = null;
-  nameObject: any = {};
+  userObject: any = {};
   sendInfo:boolean=false;
   router=inject(Router)
 
@@ -43,23 +45,25 @@ export class AvatarComponent implements OnInit {
     this.selectedFile = null;
   }
 
+  ngOnInit(): void {
+    this.userId = this.route.snapshot.paramMap.get('id');
+    if (this.userId) {
+      this.getUserById(this.userId);
+    }
+  }
+
   async getUserById(userId: string) {
     const userRef = doc(this.firestore, 'users', userId);
     const userSnapshot = await getDoc(userRef);
     if (userSnapshot.exists()) {
-      this.nameObject = userSnapshot.data();
-      console.log('User data:', userSnapshot.data());
+      this.userObject = userSnapshot.data();
+      this.auth.user = this.userObject;
+      console.log('User data:', this.auth.user);
     } else {
       console.log('No such document!');
     }
   }
 
-  ngOnInit(): void {
-    this.userId = this.route.snapshot.paramMap.get('id');
-    if (this.userId) {
-      this.getUserById(this.userId);
-    }  
-  }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
