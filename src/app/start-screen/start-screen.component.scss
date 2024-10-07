@@ -3,10 +3,14 @@
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 96px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   box-shadow: 0 5px 5px rgba(136, 136, 136, 0.25);
+  width: 100%;
 }
 .big-chat-card {
   max-width: 1500px;
@@ -18,13 +22,68 @@
   bottom: 0;
 }
 
+.drop-down-div{
+    display: flex;
+    align-items: center;
+    height: 96px;
+    position: absolute;
+    left: 20px;
+}
 
-.mat-mdc-button:not(:disabled){
+.mat-mdc-button:not(:disabled) {
     color: black;
     font-size: 24px;
     font-weight: 700;
-    font-family: 'Nunito';
-    &:hover{
-        color: #444df2;
+    font-family: "Nunito";
+    &:hover {
+      color: #444df2;
+    }
+    img {
+      object-fit: contain;
+      width: 25px;
+      height: 30px;
     }
 }
+
+
+.btn-text-img {
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.groupchat-header-img-box {
+    display: flex;
+    align-items: center;
+    height: 96px;
+    gap: 36px;
+  button{
+    display: flex;
+    align-items: center;
+    img {
+        width: 36px;
+        height: auto;
+        margin-right: 4px;
+      }
+    &:hover {
+        cursor: pointer;
+      }
+  }
+}
+
+.add-btn{
+    width: 40px;
+    cursor: pointer;
+}
+
+
+.chat-member-number{
+    font-size: 20px;
+    height: 20px;
+    font-weight: 600;
+    margin: 0 0 6px 10px;
+}
+
+

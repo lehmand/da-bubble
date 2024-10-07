@@ -5,8 +5,7 @@ import { Firestore, updateDoc, doc, getDoc } from '@angular/fire/firestore';
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
+import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
 
 @Component({
@@ -21,8 +20,12 @@ export class AvatarComponent implements OnInit {
   route = inject(ActivatedRoute);
   choosePicture: string = '';
   userId: string | null = null;
-  chooseOwnPicture = false;
-  storage: any; 
+  chooseOwnPicture: any;
+  storage=inject(Storage);
+  previewUrl: string | undefined;
+  selectedFile: File | null = null;
+  nameObject: any = {};
+  sendInfo:boolean=false;
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -33,18 +36,17 @@ export class AvatarComponent implements OnInit {
     '../../assets/img/avatar/avatar6.png',
   ];
 
-  constructor() {
-    this.storage = getStorage(); // Hier wird storage initialisiert
-  }
-
   chossePicture(avatar: string) {
     this.choosePicture = avatar;
+    this.previewUrl = undefined;
+    this.selectedFile = null;
   }
 
   async getUserById(userId: string) {
     const userRef = doc(this.firestore, 'users', userId);
     const userSnapshot = await getDoc(userRef);
     if (userSnapshot.exists()) {
+      this.nameObject = userSnapshot.data();
       console.log('User data:', userSnapshot.data());
     } else {
       console.log('No such document!');
@@ -55,20 +57,58 @@ export class AvatarComponent implements OnInit {
     this.userId = this.route.snapshot.paramMap.get('id');
     if (this.userId) {
       this.getUserById(this.userId);
-    }
+    }  
   }
 
+
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+     // this.choosePicture = '';
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+      input.value = '';
+    }
+  }
+  
   async saveAvatar() {
-    if (this.userId && this.choosePicture) {
-      const userRef = doc(this.firestore, 'users', this.userId);
-      await updateDoc(userRef, {
-        picture: this.choosePicture,
-      });
-      console.log('Avatar updated for user ID:', this.userId);
-    } else {
-      console.error('User ID or Avatar is missing.');
+    if (!this.userId) {
+      return;
+    }
+    if (this.selectedFile) {
+      try {
+        const filePath = `avatars/${this.userId}/${this.selectedFile.name}`;
+        const storageRef = ref(this.storage, filePath);
+        await uploadBytes(storageRef, this.selectedFile);
+        const downloadURL = await getDownloadURL(storageRef);
+        await this.updateUserAvatar(downloadURL);
+        this.sendInfo=true;
+        this.checkSendIfo();
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    } else if (this.choosePicture) {
+      await this.updateUserAvatar(this.choosePicture);
     }
   }
 
+  async updateUserAvatar(avatarUrl: string) {
+    if (!this.userId) return;
+    const userRef = doc(this.firestore, 'users', this.userId);
+    await updateDoc(userRef, { picture: avatarUrl });
+    this.sendInfo=true;
+    this.checkSendIfo();
+  } 
 
+
+    checkSendIfo ():void{
+        setTimeout(() => {
+          this.sendInfo=false;
+        }, 1000);
+  }
 }

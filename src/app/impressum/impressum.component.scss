@@ -8,11 +8,14 @@
 }
 
 .image-box {
-    position: fixed;
+    position: absolute;
     top: 25px;
     left: 50px;
-    width: 306px;
-    height: 70px;
+  
+    img {
+        width: 240px;
+        height: 70px;
+    }
 }
 
 .main-card {
@@ -95,6 +98,25 @@ p {
 a {
     text-decoration: none;
     color: #444DF2;
+} 
+
+@media(max-width:700px){
+    .image-box {
+      
+        left: unset;
+    }
+} 
+ 
+
+
+@media(max-width:470px) {
+    .image-box {
+
+        img {
+            width: 204px;
+            height: 56px;
+        }
+    }
 }
 
 @media(max-width:460px) {

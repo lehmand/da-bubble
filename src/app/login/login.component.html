@@ -18,6 +18,7 @@
                     <label for="email"></label>
                     <input autocomplete="off" class="input-styling" name="email" type="email"
                         placeholder="beispielname@email.com" id="email" #email="ngModel" [(ngModel)]="loginData.email"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
                         required>
                     <span class="error-message" *ngIf="!email.valid && email.touched">
                         *Die E-Mail-Adresse ist erforderlich.
