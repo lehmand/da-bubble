@@ -1,0 +1,30 @@
+* {
+  height: 100vh;
+}
+
+.header {
+  height: 96px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 5px 5px rgba(136, 136, 136, 0.25);
+}
+.big-chat-card {
+  max-width: 1500px;
+  height: 95vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+
+.mat-mdc-button:not(:disabled){
+    color: black;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Nunito';
+    &:hover{
+        color: #444df2;
+    }
+}

@@ -71,32 +71,4 @@ export class AvatarComponent implements OnInit {
   }
 
 
-  imageReady(imageURL: string){
-    console.log('gavw ths URL', imageURL);
-  }
-
-/*   async uploadImage(event: any) {
-    this.chooseOwnPicture = true; // Benutzer wählt ein eigenes Bild
-    if (this.chooseOwnPicture) {
-      const file = event.target.files[0];
-      if (file) {
-        console.log('Datei ausgewählt:', file.name);
-        const path = `avatars/${file.name}`; // Pfad für das Bild
-        const storageRef = ref(this.storage, path); // Verweis auf das Bild im Storage
-  
-        try {
-          await uploadBytes(storageRef, file); // Bild hochladen
-          const url = await getDownloadURL(storageRef); // URL des hochgeladenen Bildes abrufen
-          console.log('Bild-URL:', url);
-          this.imageReady(url); // Bild-URL an die Methode übergeben
-        } catch (error) {
-          console.error('Fehler beim Hochladen des Bildes:', error);
-        }
-      } else {
-        console.error('Keine Datei ausgewählt.');
-      }
-    } else {
-      console.error('Wählen Sie ein eigenes Bild aus.');
-    }
-  } */
 }
