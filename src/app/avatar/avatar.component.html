@@ -22,10 +22,7 @@
                         <h1 class="avatar-h1">Wähle deinen</h1>
                         <h1 class="avatar-h1-second">Avatar</h1>
                     </div>
-
                 </div>
-
-
 
                 <div class="main-picture-box">
                     <div class="picture-frame">
@@ -53,7 +50,15 @@
                     </div>
                 </div>
             </mat-card-content>
+        </mat-card> 
+
+        <mat-card appearance="outlined" class="email-sended-info" [ngClass]="{'visible': sendInfo,'hidden':!sendInfo}">
+            <mat-card-content class="email-card-content">
+                <img src="../../assets/img/send.png">
+                <span>Konto Erfolgreich erstellt</span>
+            </mat-card-content>
         </mat-card>
+
         <div class="impressum-privacy-box">
             <a routerLink="/impressum">Impressum</a>
             <a routerLink="/privacy-policy">Datenschutz</a>

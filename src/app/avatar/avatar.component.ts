@@ -2,8 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Firestore, updateDoc, doc, getDoc } from '@angular/fire/firestore';
-import { RouterModule } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { RouterModule,Router,ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
@@ -15,16 +14,19 @@ import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',
 })
+
 export class AvatarComponent implements OnInit {
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
-  choosePicture: string ='';
+  choosePicture: string = '';
   userId: string | null = null;
-  chooseOwnPicture: any 
-  storage=inject(Storage)
+  chooseOwnPicture: any;
+  storage=inject(Storage);
   previewUrl: string | undefined;
   selectedFile: File | null = null;
   nameObject: any = {};
+  sendInfo:boolean=false;
+  router=inject(Router)
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -34,8 +36,6 @@ export class AvatarComponent implements OnInit {
     '../../assets/img/avatar/avatar5.png',
     '../../assets/img/avatar/avatar6.png',
   ];
-
- 
 
   chossePicture(avatar: string) {
     this.choosePicture = avatar;
@@ -61,6 +61,11 @@ export class AvatarComponent implements OnInit {
     }  
   }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 9473f97e9bfe3c0adc8c5985121782b51be73a1d
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -86,6 +91,8 @@ export class AvatarComponent implements OnInit {
         await uploadBytes(storageRef, this.selectedFile);
         const downloadURL = await getDownloadURL(storageRef);
         await this.updateUserAvatar(downloadURL);
+        this.sendInfo=true;
+        this.checkSendIfo();
       } catch (error) {
         console.error('Error uploading file:', error);
       }
@@ -98,6 +105,14 @@ export class AvatarComponent implements OnInit {
     if (!this.userId) return;
     const userRef = doc(this.firestore, 'users', this.userId);
     await updateDoc(userRef, { picture: avatarUrl });
-    console.log('Avatar updated for user ID:', this.userId);
+    this.sendInfo=true;
+    this.checkSendIfo();
+  } 
+
+
+    checkSendIfo ():void{
+        setTimeout(() => {
+          this.sendInfo=false;
+        }, 1000);
   }
 }
