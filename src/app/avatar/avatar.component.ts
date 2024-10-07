@@ -2,8 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Firestore, updateDoc, doc, getDoc } from '@angular/fire/firestore';
-import { RouterModule } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { RouterModule,Router,ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
@@ -15,6 +14,7 @@ import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',
 })
+
 export class AvatarComponent implements OnInit {
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
@@ -26,6 +26,7 @@ export class AvatarComponent implements OnInit {
   selectedFile: File | null = null;
   nameObject: any = {};
   sendInfo:boolean=false;
+  router=inject(Router)
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
