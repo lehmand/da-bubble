@@ -37,7 +37,7 @@
       </div>
       <div class="form-row">
         <label for="mail"></label>
-        <input id="mail" type="email" name=email  placeholder="beispielname@email.com" #email="ngModel" [(ngModel)]="userData.email"
+        <input pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" id="mail" type="email" name=email  placeholder="beispielname@email.com" #email="ngModel" [(ngModel)]="userData.email"
           (focus)="emailIcon.src = './assets/img/email_filled_black.svg'" (blur)="emailIcon.src = './assets/img/mail.svg'"
           required />
         <img #emailIcon class="icon" #email src="./assets/img/mail.svg" alt="" />
