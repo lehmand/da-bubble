@@ -18,7 +18,7 @@ import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage
 export class AvatarComponent implements OnInit {
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
-  choosePicture: string ='';
+  choosePicture: string = '';
   userId: string | null = null;
   chooseOwnPicture: any;
   storage=inject(Storage);
@@ -59,8 +59,6 @@ export class AvatarComponent implements OnInit {
       this.getUserById(this.userId);
     }  
   }
-
-  
 
 
 
