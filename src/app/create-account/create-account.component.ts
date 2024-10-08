@@ -11,11 +11,7 @@ import {
 import { User } from '../models/user.class';
 import { UserService } from '../services/user.service';
 import { UserComponent } from '../user/user.component';
-<<<<<<< HEAD
 import { getAuth, createUserWithEmailAndPassword  } from '@angular/fire/auth';
-=======
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
->>>>>>> feature/loginData
 
 
 @Component({

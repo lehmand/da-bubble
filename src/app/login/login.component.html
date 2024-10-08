@@ -18,20 +18,19 @@
                     <label for="email"></label>
                     <input autocomplete="off" class="input-styling" name="email" type="email"
                         placeholder="beispielname@email.com" id="email" #email="ngModel" [(ngModel)]="loginData.email"
-                        (ngModelChange)="onEmailChange()" 
                         pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$"
                         required>
                     <span class="error-message" *ngIf="!email.valid && email.touched">
                         *Die E-Mail-Adresse ist erforderlich.
                     </span>
-                    <span *ngIf="emailLoginFailed" class="error-message">
+    <!--                 <span *ngIf="emailLoginFailed" class="error-message">
                         Die E-Mail-Adresse ist leider ungültig.
-                    </span>
+                    </span> -->
                 </div>
                 <div class="input-container mt">
-                    <span *ngIf="formFailed" class="error-message t-90">
+                    <!--        <span *ngIf="formFailed" class="error-message t-90">
                         Falsches Passwort oder Email. Bitte noch einmal versuchen.
-                    </span>
+                    </span> -->
                     <img src="./../../assets/img/lock.svg">
                     <label for="password"></label>
                     <input autocomplete="off" class="input-styling" type="password" placeholder="Passwort"
@@ -39,14 +38,6 @@
                     <span class="error-message" *ngIf="!password.valid && password.touched">*Das Passwort ist
                         erforderlich.</span>
                 </div>
-<<<<<<< HEAD
-                Fehlermeldung bei ungültiger Kombinatio
-                <div *ngIf="loginFailed" class="error-message">
-                    Die E-Mail-Adresse oder das Passwort ist ungültig.
-                </div>
-
-=======
->>>>>>> feature/loginData
                 <div class="check-if-pw-ct">
                     <a routerLink="/reset-password" class="forgotPw">
                         Passwort vergessen?
@@ -68,9 +59,9 @@
                         [disabled]="loginForm.invalid">Anmelden</button>
                     <button routerLink="/welcome" class="btn-secondary">Gäste-Login</button>
                 </div>
-            </form> 
+            </form>
 
-            
+
         </div>
     </div>
     <div class="imprint-privacy">

@@ -13,7 +13,8 @@
   max-width: 366px;
   height: 100%;
   max-height: 940px;
-  position: absolute;
+  position: relative;
+  z-index: 2;
 }
 
 .workspace-header {
