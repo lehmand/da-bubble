@@ -31,7 +31,7 @@
                     <span class="error-message" *ngIf="!password.valid && password.touched">*Das Passwort ist
                         erforderlich.</span>
                 </div>
-                <!-- Fehlermeldung bei ungültiger Kombination -->
+                Fehlermeldung bei ungültiger Kombinatio
                 <div *ngIf="loginFailed" class="error-message">
                     Die E-Mail-Adresse oder das Passwort ist ungültig.
                 </div>
@@ -45,7 +45,6 @@
                         <div class="oder">ODER</div>
                     </div>
                 </div>
-
                 <div>
                     <button class="input-styling google-button">
                         <img src="./../../assets/img/google.svg">
@@ -58,7 +57,9 @@
                         [disabled]="loginForm.invalid">Anmelden</button>
                     <button routerLink="/welcome"  class="btn-secondary">Gäste-Login</button>
                 </div>
-            </form>
+            </form> 
+
+            
         </div>
     </div>
     <div class="imprint-privacy">
