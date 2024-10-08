@@ -7,6 +7,8 @@ import { CreateNewPasswordComponent } from './create-new-password/create-new-pas
 import { ImpressumComponent } from './impressum/impressum.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
+import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -16,5 +18,5 @@ export const routes: Routes = [
     { path: 'create-new-password', component: CreateNewPasswordComponent },
     { path: 'impressum', component: ImpressumComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
-    { path: 'welcome', component: StartScreenComponent },
+    { path: 'welcome/:id', component: StartScreenComponent },
 ];
