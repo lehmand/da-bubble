@@ -78,7 +78,7 @@ export class AvatarComponent implements OnInit {
       input.value = '';
     }
   }  
-  saveAvatar(){
+ async saveAvatar(){
     if (this.selectedFile) {
       try {
         const filePath = `avatars/${this.userId}/${this.selectedFile.name}`;
@@ -98,7 +98,7 @@ export class AvatarComponent implements OnInit {
     } 
   }
 
-}
+
   async updateUserAvatar(avatarUrl: string) {
     if (!this.userId) return;
     const userRef = doc(this.firestore, 'users', this.userId);
@@ -115,4 +115,7 @@ export class AvatarComponent implements OnInit {
     setTimeout(() => {
       this.sendInfo=false;
     }, 1000);
+}
+
+
 }

@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         const user = userCredential.user;
         const userID = await this.userDocId(user.uid)
         console.log('Login successful:', user.uid);
-        this.router.navigate(['/dashboard', userID]);
+        this.router.navigate(['/welcome', userID]);
       } catch (error) {
         console.error('Error during login:', error);
       }
