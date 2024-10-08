@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { Firestore, updateDoc, doc, getDoc } from '@angular/fire/firestore';
-import { RouterModule,Router,ActivatedRoute } from '@angular/router';
+import { Firestore, updateDoc, doc, getDoc, addDoc } from '@angular/fire/firestore';
+import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
@@ -19,14 +20,15 @@ export class AvatarComponent implements OnInit {
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
   choosePicture: string = '';
-  userId: string | null = null;
+  userId: any ='';
   chooseOwnPicture: any;
-  storage=inject(Storage);
+  storage = inject(Storage)
   previewUrl: string | undefined;
   selectedFile: File | null = null;
   nameObject: any = {};
+  router = inject(Router);
   sendInfo:boolean=false;
-  router=inject(Router)
+
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -37,28 +39,30 @@ export class AvatarComponent implements OnInit {
     '../../assets/img/avatar/avatar6.png',
   ];
 
+
+
   chossePicture(avatar: string) {
     this.choosePicture = avatar;
     this.previewUrl = undefined;
     this.selectedFile = null;
   }
 
-  async getUserById(userId: string) {
+
+
+  async getUserById(userId:string) {
     const userRef = doc(this.firestore, 'users', userId);
     const userSnapshot = await getDoc(userRef);
     if (userSnapshot.exists()) {
       this.nameObject = userSnapshot.data();
       console.log('User data:', userSnapshot.data());
-    } else {
-      console.log('No such document!');
     }
   }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
     if (this.userId) {
-      this.getUserById(this.userId);
-    }  
+      this.getUserById(this.userId);  
+    }     
   }
 
   onFileSelected(event: Event) {
@@ -73,12 +77,8 @@ export class AvatarComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
       input.value = '';
     }
-  }
-  
-  async saveAvatar() {
-    if (!this.userId) {
-      return;
-    }
+  }  
+  saveAvatar(){
     if (this.selectedFile) {
       try {
         const filePath = `avatars/${this.userId}/${this.selectedFile.name}`;
@@ -88,26 +88,31 @@ export class AvatarComponent implements OnInit {
         await this.updateUserAvatar(downloadURL);
         this.sendInfo=true;
         this.checkSendIfo();
+        this.router.navigate(['']);
       } catch (error) {
         console.error('Error uploading file:', error);
       }
-    } else if (this.choosePicture) {
+    } else  if (this.choosePicture) {
       await this.updateUserAvatar(this.choosePicture);
-    }
+      this.router.navigate(['']);
+    } 
   }
 
+}
   async updateUserAvatar(avatarUrl: string) {
     if (!this.userId) return;
     const userRef = doc(this.firestore, 'users', this.userId);
+    const userSnapshot = await getDoc(userRef);   
+    if (userSnapshot.exists()) {
     await updateDoc(userRef, { picture: avatarUrl });
     this.sendInfo=true;
     this.checkSendIfo();
-  } 
-
-
-    checkSendIfo ():void{
-        setTimeout(() => {
-          this.sendInfo=false;
-        }, 1000);
+    }
   }
+
+
+  checkSendIfo ():void{
+    setTimeout(() => {
+      this.sendInfo=false;
+    }, 1000);
 }

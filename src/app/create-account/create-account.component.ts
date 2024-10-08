@@ -11,6 +11,8 @@ import {
 import { User } from '../models/user.class';
 import { UserService } from '../services/user.service';
 import { UserComponent } from '../user/user.component';
+import { getAuth, createUserWithEmailAndPassword  } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-create-account',
@@ -44,22 +46,28 @@ export class CreateAccountComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      this.addUser();
-    } else {
-      console.error('Fehler beim Erstellen des Kontakts:');
+      this.createAuthUser(this.userData.email, this.userData.password);
     }
   }
 
-  async addUser() {
+  async createAuthUser(email: string, password: string) {
+    const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const docRef = await this.addUserToFirestore(user.uid);
+      this.router.navigate(['/avatar', docRef.id]);
+  }
+  
+  async addUserToFirestore(uid: string) {
     const usersCollection = collection(this.firestore, 'users');
-    const docRef = await addDoc(usersCollection, this.userData);
-    this.router.navigate(['/avatar', docRef.id]);
+    const userDataWithUID = { ...this.userData, uid };
+    const docRef = await addDoc(usersCollection, userDataWithUID);
+    console.log('Benutzer in Firestore hinzugefügt mit Dokument-ID:', docRef.id);
+    return docRef;
   }
 
   toggleClicked() {
@@ -75,3 +83,4 @@ export class CreateAccountComponent implements OnInit {
     this.isHovered = !this.isHovered;
   }
 }
+
