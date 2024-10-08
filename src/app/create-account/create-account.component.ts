@@ -30,13 +30,13 @@ import { getAuth, createUserWithEmailAndPassword  } from '@angular/fire/auth';
   styleUrl: './create-account.component.scss',
 })
 export class CreateAccountComponent implements OnInit {
-  isDisabled: boolean = true;
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
 
   firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
+  auth = getAuth(); 
   userData = {
     name: '',
     email: '',
@@ -45,7 +45,7 @@ export class CreateAccountComponent implements OnInit {
   };
   newUser = new User();
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute ) {}
 
   ngOnInit(): void {}
 
@@ -77,6 +77,7 @@ export class CreateAccountComponent implements OnInit {
 
   toggleChecked() {
     this.isChecked = !this.isChecked;
+    this.userData.privacyPolicy = this.isChecked;
   }
 
   toggleHover() {

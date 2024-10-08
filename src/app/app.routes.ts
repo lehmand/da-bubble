@@ -6,11 +6,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CreateNewPasswordComponent } from './create-new-password/create-new-password.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { StartScreenComponent } from './start-screen/start-screen.component';
-import { HeaderComponent } from './header/header.component';
-
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
+    { path: 'welcome/:id', component: HomeComponent },
     { path: '', component: LoginComponent },
     { path: 'create-account', component: CreateAccountComponent },
     { path: 'avatar/:id', component: AvatarComponent },
@@ -18,5 +17,4 @@ export const routes: Routes = [
     { path: 'create-new-password', component: CreateNewPasswordComponent },
     { path: 'impressum', component: ImpressumComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
-    { path: 'welcome/:id', component: StartScreenComponent },
 ];
