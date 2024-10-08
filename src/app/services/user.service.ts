@@ -1,22 +1,32 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.class';
-import { Subject } from 'rxjs';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private currentUser: User | null = null;
-  private currentUserSubject = new Subject<User | null>();
+  private currentUser: string | null = null;
 
-  currentUser$ = this.currentUserSubject.asObservable();
+  constructor(private firestore: Firestore) {}
 
-  setCurrentUser(user: User | null) {
-    this.currentUser = user;
-    this.currentUserSubject.next(user);
+  setCurrentUser(userId: string) {
+    this.currentUser = userId;
+    console.log('cu',this.currentUser);
   }
 
-  getCurrentUser(): User | null {
+  getCurrentUser(): string | null {
     return this.currentUser;
+  }
+
+  async getUserDataById(userId: string) {
+    const userRef = doc(this.firestore, 'users', userId);
+    const userSnapshot = await getDoc(userRef);
+    if (userSnapshot.exists()) {
+     const Userdata= userSnapshot.data();
+     console.log('currentUserData is', Userdata);
+     return Userdata;
+    } else {
+      return null;
+    }
   }
 }

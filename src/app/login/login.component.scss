@@ -148,6 +148,7 @@ input[type="text"]:focus::placeholder {
   font-size: 18px;
   text-align: center;
   text-decoration: none;
+  margin-top: 38px;
   transition: color 0.3s ease, background-color 0.3s ease, padding 0.3s ease,
     border-radius 0.3s ease;
   &:hover {
@@ -244,6 +245,10 @@ input[type="text"]:focus::placeholder {
 
 .mt {
   margin-top: 36px;
+}
+
+.t-90{
+  top: 90px;
 }
 
 @media (max-width: 640px) {
