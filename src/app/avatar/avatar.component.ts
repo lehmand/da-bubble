@@ -91,13 +91,13 @@ export class AvatarComponent implements OnInit {
         await this.updateUserAvatar(downloadURL);
         this.sendInfo=true;
         this.checkSendIfo();
-        // this.router.navigate(['']);
+        this.router.navigate(['']);
       } catch (error) {
         console.error('Error uploading file:', error);
       }
     } else if (this.choosePicture) {
       await this.updateUserAvatar(this.choosePicture);
-      // this.router.navigate(['']);
+      this.router.navigate(['']);
     } 
   }
 

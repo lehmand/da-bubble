@@ -4,8 +4,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { Firestore, doc, getDocs,getDoc, collection } from '@angular/fire/firestore';
-import { getAuth, signInWithEmailAndPassword  } from '@angular/fire/auth';
+import { Firestore, doc, getDocs, getDoc, collection, query, where } from '@angular/fire/firestore';
+import { getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -33,38 +33,51 @@ export class LoginComponent implements OnInit {
   // auth = inject(Auth);
   router = inject(Router);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
- 
-  } 
-//  async getD(){
-//   const querySnapshot = await getDocs(collection(this.firestore, "users"));
-//   querySnapshot.forEach((doc) => {
-//     // doc.data() is never undefined for query doc snapshots
-//     console.log(doc.id, " => ", doc.data());
-//   });
-//   }
-    
-async onSubmit(ngForm: NgForm) {
-  if (ngForm.submitted && ngForm.form.valid) {
-    const auth = getAuth();
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        this.loginData.email,
-        this.loginData.password
-      );
-      const user = userCredential.user;
-      console.log('Login successful:', user.uid);
 
-      // this.router.navigate(['/dashboard']); // Weiterleitung nach dem Login
+  }
+  //  async getD(){
+  //   const querySnapshot = await getDocs(collection(this.firestore, "users"));
+  //   querySnapshot.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+  //     console.log(doc.id, " => ", doc.data());
+  //   });
+  //   }
 
-    } catch (error) {
-      console.error('Error during login:', error);
+  async onSubmit(ngForm: NgForm) {
+    if (ngForm.submitted && ngForm.form.valid) {
+      const auth = getAuth();
+      try {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          this.loginData.email,
+          this.loginData.password
+        );
+        const user = userCredential.user;
+        const userID = await this.userDocId(user.uid)
+        console.log('Login successful:', user.uid);
+        this.router.navigate(['/dashboard', userID]);
+      } catch (error) {
+        console.error('Error during login:', error);
+      }
     }
   }
-}
 
-
+  async userDocId(uid: string) {
+    const docRef = collection(this.firestore, "users",);
+    const q = query(docRef, where('uid', '==', uid));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot) {
+      querySnapshot.forEach((doc) => {
+        return doc.id
+      })
+    }
+    if (!querySnapshot.empty) {
+      const userDoc = querySnapshot.docs[0];
+      return userDoc.id;
+    }
+    return null;
+  }
 }

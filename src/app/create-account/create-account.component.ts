@@ -52,40 +52,23 @@ export class CreateAccountComponent implements OnInit {
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
       this.createAuthUser(this.userData.email, this.userData.password);
-    } else {
-      console.error('Fehler beim Erstellen des Kontos:');
     }
   }
 
   async createAuthUser(email: string, password: string) {
     const auth = getAuth();
-  
-    try {
-      // Firebase Authentication Benutzer erstellen
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log('Benutzer erstellt mit UID:', user.uid);
-  
-      // Benutzer in der Firestore-Datenbank speichern und Firestore-Dokument-ID erhalten
       const docRef = await this.addUserToFirestore(user.uid);
-  
-      // Weiterleitung zum Avatar-Auswahl-Bildschirm mit der Firestore-Dokument-ID
       this.router.navigate(['/avatar', docRef.id]);
-  
-    } catch (error) {
-      console.error('Fehler beim Erstellen des Benutzers:', error);
-    }
   }
   
   async addUserToFirestore(uid: string) {
     const usersCollection = collection(this.firestore, 'users');
     const userDataWithUID = { ...this.userData, uid };
-    
-    // Firestore-Dokument erstellen und ID abrufen
     const docRef = await addDoc(usersCollection, userDataWithUID);
     console.log('Benutzer in Firestore hinzugefügt mit Dokument-ID:', docRef.id);
-    
-    return docRef; // Rückgabe der Firestore-Dokument-ID
+    return docRef;
   }
 
   toggleClicked() {
