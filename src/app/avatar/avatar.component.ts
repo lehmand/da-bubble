@@ -20,12 +20,14 @@ export class AvatarComponent implements OnInit {
   route = inject(ActivatedRoute);
   choosePicture: string = '';
   userId: any ='';
-  chooseOwnPicture: any
+  chooseOwnPicture: any;
   storage = inject(Storage)
   previewUrl: string | undefined;
   selectedFile: File | null = null;
   nameObject: any = {};
-  router = inject(Router)
+  router = inject(Router);
+  sendInfo:boolean=false;
+
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -87,6 +89,8 @@ export class AvatarComponent implements OnInit {
         await uploadBytes(storageRef, this.selectedFile);
         const downloadURL = await getDownloadURL(storageRef);
         await this.updateUserAvatar(downloadURL);
+        this.sendInfo=true;
+        this.checkSendIfo();
         // this.router.navigate(['']);
       } catch (error) {
         console.error('Error uploading file:', error);
@@ -104,6 +108,16 @@ export class AvatarComponent implements OnInit {
     const userSnapshot = await getDoc(userRef);   
     if (userSnapshot.exists()) {
     await updateDoc(userRef, { picture: avatarUrl });
+    this.sendInfo=true;
+    this.checkSendIfo();
     }
   }
+
+
+  checkSendIfo ():void{
+    setTimeout(() => {
+      this.sendInfo=false;
+    }, 1000);
+}
+
 }

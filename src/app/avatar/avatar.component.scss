@@ -261,6 +261,62 @@ label {
 }
 
 
+@media(max-width:1349px){
+
+    .email-sended-info{
+        padding: 10px 10px;
+        top: 92%;
+        right:-71px;
+    } 
+
+    .email-card-content{
+        span{
+            font-size: 22px;
+        } 
+
+         img{
+            width: 20px;
+            height: 20px;
+         }
+    }
+}  
+
+
+@media(max-width:650px){
+   
+
+    .email-sended-info{
+        padding: 5px 5px;
+        top: 95%;
+        right: -83px;
+    } 
+
+    .email-card-content{
+        gap: 11px;
+        span{
+            font-size: 16px;
+          
+        } 
+
+         img{
+            width: 20px;
+            height: 20px;
+         }
+    }
+}  
+
+
+ @media(max-width:610px){
+    .email-sended-info{
+        padding: 5px 5px;
+        top: 93%;
+        right: -83px;
+    } 
+ }
+
+
+
+
 @media(max-width:860px) {
     .image-box {
         position: absolute;
