@@ -1,0 +1,118 @@
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 96px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 5px 5px rgba(136, 136, 136, 0.25);
+  width: 100%;
+}
+.big-chat-card {
+  position: relative;
+  width: 1500px;
+  height: 100vh;
+}
+
+.drop-down-div {
+  display: flex;
+  align-items: center;
+  height: 96px;
+  position: absolute;
+  left: 20px;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Nunito";
+  &:hover {
+    color: #444df2;
+  }
+  img {
+    object-fit: contain;
+    width: 25px;
+    height: 30px;
+  }
+}
+
+.btn-text-img {
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.groupchat-header-img-box {
+  display: flex;
+  align-items: center;
+  height: 96px;
+  gap: 36px;
+  button {
+    display: flex;
+    align-items: center;
+    img {
+      width: 36px;
+      height: auto;
+      margin-right: 4px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.add-btn {
+  width: 32px;
+  background-color: #eceefe;
+  border-radius: 8px;
+  border-style: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.chat-member-number {
+  font-size: 20px;
+  height: 20px;
+  font-weight: 600;
+  margin: 0 0 6px 10px;
+}
+
+.chat-input {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 44px);
+  border: 1px solid #adb0d9;
+  border-radius: 20px;
+  min-height: 150px;
+  padding: 8px;
+  resize: none;
+  box-sizing: border-box;
+  outline: none;
+  &:focus {
+    border-color: #444df2;
+    outline: none;
+    font-size: 18px;
+  }
+  &::placeholder {
+    font-size: 18px;
+    font-family: "Figtree"; 
+    font-weight: 400;
+    color: grey;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+}
+
+.msg-send {
+  position: absolute;
+  bottom: 25px;
+  right: 45px;
+  &:hover {
+    filter: brightness(1.8);
+    cursor: pointer;
+  }
+}

@@ -36,6 +36,7 @@ export class CreateAccountComponent implements OnInit {
 
   firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
+  auth = getAuth(); 
   userData = {
     name: '',
     email: '',
@@ -44,7 +45,7 @@ export class CreateAccountComponent implements OnInit {
   };
   newUser = new User();
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute ) {}
 
   ngOnInit(): void {}
 
