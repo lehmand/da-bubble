@@ -45,10 +45,9 @@ header {
 .background {
   position: relative;
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
   }
-  &:hover >
-   .thread-topic-container > .topic-container > .topic-text {
+  &:hover > .thread-topic-container > .topic-container > .topic-text {
     background-color: white;
   }
   &:hover > .thread-message-container > .message-container > .message-text {
@@ -57,7 +56,7 @@ header {
 }
 
 .thread-topic-container,
-.thread-message-container, 
+.thread-message-container,
 .thread-user-message-container {
   display: flex;
   gap: 16px;
@@ -177,7 +176,7 @@ header {
     margin: 24px 0;
     outline: none;
     cursor: pointer;
-    border: 1px solid #ADB0D9
+    border: 1px solid #adb0d9;
   }
 }
 
@@ -229,7 +228,7 @@ header {
   position: absolute;
   box-sizing: content-box;
   padding: 3px 13px;
-  border: 1px solid #ADB0D9;
+  border: 1px solid #adb0d9;
   background-color: white;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
@@ -242,7 +241,7 @@ header {
   position: absolute;
   box-sizing: content-box;
   padding: 3px 13px;
-  border: 1px solid #ADB0D9;
+  border: 1px solid #adb0d9;
   background-color: white;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
@@ -257,11 +256,13 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
+  cursor: pointer;
 
   .reactions {
     box-sizing: content-box;
     padding: 5px 10px;
-    border: 1px solid #ADB0D9;
+    border: 1px solid #adb0d9;
     border-radius: 20px;
   }
 
@@ -280,4 +281,41 @@ header {
 .user-reaction-bar {
   width: 100%;
   justify-content: flex-end;
+}
+
+.reaction-popup,
+.user-reaction-popup {
+  max-width: 158px;
+  padding: 15px 10px;
+  background-color: #444df2;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: -99px;
+  left: 32px;
+  .header {
+    font-family: "Nunito";
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24.55px;
+    text-align: left;
+  }
+  .subheader {
+    font-family: "Nunito";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21.82px;
+    text-align: center;
+  }
+}
+
+.user-reaction-popup {
+  left: unset;
+  right: -50px;
 }

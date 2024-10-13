@@ -53,16 +53,22 @@ export class ThreadComponent {
   showTopicBubble: boolean = false;
   showMessageBubble: boolean = false;
   showUserBubble: boolean = false;
+  showMessagePopup: boolean = false;
+  showUserPopup: boolean = false;
 
   toggleTopicBubble() {
     this.showTopicBubble = !this.showTopicBubble;
   }
-
   toggleMessageBubble() {
     this.showMessageBubble = !this.showMessageBubble;
   }
-
   toggleUserBubble(){
     this.showUserBubble = !this.showUserBubble
+  }
+  toggleMessagePopup(){
+    this.showMessagePopup = !this.showMessagePopup
+  }
+  toggleUserPopup(){
+    this.showUserPopup = !this.showUserPopup
   }
 }

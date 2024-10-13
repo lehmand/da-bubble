@@ -139,7 +139,12 @@
           >
         </div>
         <div class="reaction-bar">
-          <div class="reactions">🙂 1</div>
+          <div class="reaction-popup" *ngIf="showMessagePopup" @fadeIn>
+            🙂
+            <span class="header">Noah Braun</span>
+            <span class="subheader">hat reagiert</span>
+          </div>
+          <div class="reactions" (mouseenter)="toggleMessagePopup()" (mouseleave)="toggleMessagePopup()">🙂 1</div>
           <div class="add-container">
             <svg
               width="25"
@@ -234,7 +239,12 @@
           <span>Lorem ipsum, dolor sit amet.</span>
         </div>
         <div class="user-reaction-bar">
-          <div class="reactions">🙂 1</div>
+          <div class="user-reaction-popup" *ngIf="showUserPopup" @fadeIn>
+            🙂
+            <span class="header">Noah Braun</span>
+            <span class="subheader">hat reagiert</span>
+          </div>
+          <div class="reactions" (mouseenter)="toggleUserPopup()" (mouseleave)="toggleUserPopup()">🙂 1</div>
           <div class="add-container">
             <svg
               width="25"
@@ -272,7 +282,7 @@
       name="message-input"
       id="message"
       placeholder="Antworten..."
-      rows="4"
+      rows="6"
       cols="48"
     ></textarea>
     <label class="message-label" for="message">
