@@ -12,7 +12,6 @@ export class WorkspaceComponent {
   constructor() {
     
   }
-
   channelDrawerOpen: boolean = true;
   messageDrawerOpen: boolean = true;
 
@@ -20,10 +19,8 @@ export class WorkspaceComponent {
     this.channelDrawerOpen = !this.channelDrawerOpen;
     console.log(this.channelDrawerOpen)
   }
-
   toggleMessageDrawer(){
     this.messageDrawerOpen = !this.messageDrawerOpen;
     console.log(this.messageDrawerOpen)
   }
-
 }
