@@ -3,7 +3,6 @@
   box-shadow: 0px 2px 10px 0px #00000014;
   border-radius: 30px;
   height: 100%;
-  max-height: 940px;
 }
 
 header {
@@ -67,7 +66,7 @@ header {
 
 .thread-topic-container,
 .thread-message-container {
-  margin: 28px 0;
+  margin: 16px 0;
 }
 
 .topic-container,
@@ -237,4 +236,48 @@ header {
   border-bottom-left-radius: 25px;
   right: 48px;
   top: -24px;
+}
+
+.user-emoji-bubble {
+  position: absolute;
+  box-sizing: content-box;
+  padding: 3px 13px;
+  border: 1px solid #ADB0D9;
+  background-color: white;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  left: 24px;
+  top: -24px;
+  display: flex;
+}
+
+.reaction-bar,
+.user-reaction-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .reactions {
+    box-sizing: content-box;
+    padding: 5px 10px;
+    border: 1px solid #ADB0D9;
+    border-radius: 20px;
+  }
+
+  .add-container {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background-color: white;
+    border-radius: 100%;
+    &:hover .icon path {
+      fill: #535af1;
+    }
+  }
+}
+
+.user-reaction-bar {
+  width: 100%;
+  justify-content: flex-end;
 }

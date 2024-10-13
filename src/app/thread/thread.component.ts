@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './thread.component.html',
   styleUrl: './thread.component.scss',
   animations: [
-    trigger('slide', [
+    trigger('slideFromRight', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(50%)' }),
         animate(
@@ -30,6 +30,21 @@ import { CommonModule } from '@angular/common';
         ),
       ]),
     ]),
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0}),
+        animate(
+          '125ms ease-in-out',
+          style({ opacity: 1})
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '125ms ease-in-out',
+          style({ opacity: 0})
+        ),
+      ]),
+    ])
   ],
 })
 export class ThreadComponent {
@@ -37,6 +52,7 @@ export class ThreadComponent {
 
   showTopicBubble: boolean = false;
   showMessageBubble: boolean = false;
+  showUserBubble: boolean = false;
 
   toggleTopicBubble() {
     this.showTopicBubble = !this.showTopicBubble;
@@ -44,5 +60,9 @@ export class ThreadComponent {
 
   toggleMessageBubble() {
     this.showMessageBubble = !this.showMessageBubble;
+  }
+
+  toggleUserBubble(){
+    this.showUserBubble = !this.showUserBubble
   }
 }
