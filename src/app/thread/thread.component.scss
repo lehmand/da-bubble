@@ -3,7 +3,7 @@
   box-shadow: 0px 2px 10px 0px #00000014;
   border-radius: 30px;
   height: 100%;
-  max-height: 768px;
+  max-height: 940px;
 }
 
 header {
@@ -44,6 +44,7 @@ header {
 }
 
 .background {
+  position: relative;
   &:hover {
     background-color: #ECEEFE;
   }
@@ -57,10 +58,16 @@ header {
 }
 
 .thread-topic-container,
-.thread-message-container {
+.thread-message-container, 
+.thread-user-message-container {
   display: flex;
   gap: 16px;
-  padding: 10px 20px;
+  padding: 10px 30px;
+}
+
+.thread-topic-container,
+.thread-message-container {
+  margin: 28px 0;
 }
 
 .topic-container,
@@ -106,6 +113,7 @@ header {
     font-weight: 400;
     line-height: 19.1px;
     text-align: left;
+    color: #686868;
   }
 }
 
@@ -114,7 +122,7 @@ header {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding: 0 20px;
+  padding: 0 40px;
   span {
     color: #adb0d9;
     font-family: Nunito;
@@ -160,7 +168,6 @@ header {
   display: flex;
   justify-content: center;
   position: relative;
-  top: 42px;
 
   textarea {
     resize: none;
@@ -171,6 +178,7 @@ header {
     margin: 24px 0;
     outline: none;
     cursor: pointer;
+    border: 1px solid #ADB0D9
   }
 }
 
@@ -179,7 +187,7 @@ header {
   align-items: center;
   position: absolute;
   justify-content: space-between;
-  left: 64px;
+  left: 48px;
   right: 64px;
   bottom: 42px;
   .left-side,
@@ -198,6 +206,9 @@ header {
 .img-container {
   padding: 8px;
   border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   &:hover {
     background-color: #eceefe;
@@ -213,4 +224,17 @@ header {
   &:hover .send-icon path {
     fill: #797ef3;
   }
+}
+
+.emoji-bubble {
+  position: absolute;
+  box-sizing: content-box;
+  padding: 3px 13px;
+  border: 1px solid #ADB0D9;
+  background-color: white;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  right: 48px;
+  top: -24px;
 }
