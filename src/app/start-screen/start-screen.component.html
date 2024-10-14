@@ -2,10 +2,14 @@
     <mat-card class="big-chat-card" appearance="outlined">
         <mat-card-header class="header">
             <div class="drop-down-div">
-                <button class="drop-down-button" mat-button><span class="btn-text-img"># Entwicklerteam<img
-                            src="./assets/img/arrow_drop_down.svg"></span></button>
+                <!-- <button class="drop-down-button" mat-button><span class="btn-text-img"># Entwicklerteam<img
+                            src="./assets/img/arrow_drop_down.svg"></span></button> -->
+                <div class="user-chat-info">
+                    <img [src]="selectedUser?.picture">
+                    <h4>{{selectedUser?.name}}</h4>
+                </div>
             </div>
-            <div class="groupchat-header-img-box">
+            <!-- <div class="groupchat-header-img-box">
                 <button mat-button>
                     <img src="./assets/img/character_man2.svg" alt="">
                     <img src="./assets/img/character_man2.svg" alt="">
@@ -13,10 +17,10 @@
                     <span class="chat-member-number">3</span>
                 </button>
                 <button class="add-btn"> <img src="./assets/img/person_add.svg"></button>
-            </div>
+            </div> -->
         </mat-card-header>
         <!-- Single-Chatbox fürs Rendern -->
-        <div class="full-single-chat-content">
+        <!-- <div class="full-single-chat-content">
             <div class="time-display-flex">
                 <img class="profile-picture" src="./assets/img/time_separator_line.svg">
                 <div class="time-output">
@@ -39,11 +43,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Ende Chatbox -->
 
         <!-- Single-Chatbox fürs Rendern -->
-        <div clas="full-single-chat-content">
+
+        <!-- <div clas="full-single-chat-content">
             <div class="time-display-flex">
                 <img src="./assets/img/time_separator_line.svg">
                 <div class="time-output">
@@ -67,11 +72,11 @@
                 </div>
                 <div class="interaction-display">
                     <div class="show-interaction">
-                        <img  src="./assets/img/rocket.svg">
+                        <img src="./assets/img/rocket.svg">
                         <span>1</span>
                     </div>
                     <div class="show-interaction">
-                        <img  src="./assets/img/check.svg">
+                        <img src="./assets/img/check.svg">
                         <span>1</span>
                     </div>
                     <div class="start-interaction-ct">
@@ -79,8 +84,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Ende Chatbox -->
+        <div class="chat-info">
+            <div class="user-box">
+                <img [src]="selectedUser?.picture">
+                <h4>{{selectedUser?.name}}</h4>
+            </div>
+            <span>Diese Unterhaltung findet nur zwischen <a class="malito-a" href="">&#64;{{selectedUser?.name}} </a>und
+                dir statt.</span>
+        </div>
+
+
+
         <div class="msg-input-ct">
             <label for="msg-input"></label>
             <textarea placeholder="Nachricht an #Entwicklerteam" class="chat-input" type="text"></textarea>
