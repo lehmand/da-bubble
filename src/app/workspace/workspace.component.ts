@@ -44,7 +44,7 @@ export class WorkspaceComponent implements OnInit {
       onSnapshot(usersCollection, (snapshot) => {
       this.allUsers = [];
       snapshot.forEach((doc) => {
-         this.checkUsersExsists=true;
+        this.checkUsersExsists=true;
         if (doc.id !== this.userId) {         
           this.allUsers.push({ id: doc.id, ...doc.data()});
         }
