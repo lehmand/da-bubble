@@ -178,7 +178,7 @@
           }"
         >
           <div class="channels">
-            <div class="channel-row">
+            <div class="channel-row" *ngFor="let channel of allChannels">
               <span>
                 <svg
                   width="25"
@@ -212,12 +212,12 @@
                     />
                   </g>
                 </svg>
-                Entwicklerteam</span
+                {{channel.channelName}}</span
               >
             </div>
           </div>
           <div class="add-channel-container">
-            <span
+            <span (click)="openDialog()"
               ><svg
                 width="24"
                 height="25"
