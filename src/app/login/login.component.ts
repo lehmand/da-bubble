@@ -86,11 +86,6 @@ export class LoginComponent implements OnInit {
     const docRef = collection(this.firestore, 'users');
     const q = query(docRef, where('uid', '==', uid));
     const querySnapshot = await getDocs(q);
-    if (querySnapshot) {
-      querySnapshot.forEach((doc) => {
-        return doc.id;
-      });
-    }
     if (!querySnapshot.empty) {
       const userDoc = querySnapshot.docs[0];
       return userDoc.id;

@@ -54,6 +54,7 @@ export class AvatarComponent implements OnInit {
     const userRef = doc(this.firestore, 'users', userId);
     const userSnapshot = await getDoc(userRef);
     if (userSnapshot.exists()) {
+       this.nameObject=userSnapshot.data();
       console.log('User data:', userSnapshot.data());
     }
   }

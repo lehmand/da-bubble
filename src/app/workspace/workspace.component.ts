@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-workspace',
@@ -8,10 +8,20 @@ import { Component } from '@angular/core';
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss'
 })
-export class WorkspaceComponent {
-  constructor() {
+export class WorkspaceComponent implements OnInit  {
+ 
+  
+ ngOnInit(): void {
     
-  }
+ }
+
+
+
+
+
+
+
+
   channelDrawerOpen: boolean = true;
   messageDrawerOpen: boolean = true;
 
@@ -22,5 +32,8 @@ export class WorkspaceComponent {
   toggleMessageDrawer(){
     this.messageDrawerOpen = !this.messageDrawerOpen;
     console.log(this.messageDrawerOpen)
-  }
+  } 
+
+
+
 }
