@@ -350,15 +350,25 @@
           <div class="contacts">
             <div class="contact">
               <img
-                src="../../assets/img/avatar/avatar1.png"
-                alt=""
+                [src]="userData.picture"
                 class="avatar"
               />
               <div class="status-border">
                 <span class="status"></span>
               </div>
-              <h4>Frederick Beck (Du)</h4>
+              <h4>{{userData.name}} (Du)</h4>
             </div>
+
+            <div *ngIf="checkUsersExsists" class="all-user-contacts">
+              <div class="all-user" *ngFor="let user of allUsers">
+               <img [src]="user.picture">
+               <div class="status-border">
+                <span class="status"></span>
+              </div>
+                <h4>{{user.name}}</h4>
+            </div>
+            </div>
+
           </div>
         </div>
       </div>

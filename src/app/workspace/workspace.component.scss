@@ -21,10 +21,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
   .left-side {
     display: flex;
     align-items: center;
     gap: 15px;
+
     h2 {
       font-family: "Nunito";
       font-size: 24px;
@@ -34,19 +36,21 @@
 }
 
 .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    width: 40px;
-    border-radius: 100%;
-    cursor: pointer;
-    &:hover {
-        background-color: #eceefe;
-    }
-    &:hover > .icon path {
-        fill: #444DF2;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eceefe;
+  }
+
+  &:hover>.icon path {
+    fill: #444DF2;
+  }
 }
 
 .channels-container {
@@ -58,10 +62,12 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 16px;
+
   .header-left-side {
     display: flex;
     align-items: center;
     gap: 15px;
+
     .middle-part {
       display: flex;
       gap: 8px;
@@ -71,14 +77,16 @@
 
 .header-left-side,
 .message-header {
-    cursor: pointer;
-    &:hover {
-        color: #535AF1;
-    }
-    &:hover > .icon path,
-    &:hover .middle-part > .icon path {
-        fill: #535AF1
-    }
+  cursor: pointer;
+
+  &:hover {
+    color: #535AF1;
+  }
+
+  &:hover>.icon path,
+  &:hover .middle-part>.icon path {
+    fill: #535AF1
+  }
 }
 
 .channels {
@@ -91,46 +99,48 @@
 
 .channel-row,
 .add-channel-container {
-    span {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 4px 20px;
-        border-radius: 20px;
-        cursor: pointer;
-        &:hover {
-            background-color: #ECEEFE;
-        }
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 20px;
+    border-radius: 20px;
+    cursor: pointer;
 
-        &:hover > .icon path {
-            fill: #535AF1;
-        }
+    &:hover {
+      background-color: #ECEEFE;
     }
+
+    &:hover>.icon path {
+      fill: #535AF1;
+    }
+  }
 }
 
 .add-channel-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 24px;
 }
 
 .channels-drawer {
-    max-height: 600px;
-    overflow: hidden;
-    transition: max-height 175ms ease-in-out;
+  max-height: 600px;
+  overflow: hidden;
+  transition: max-height 175ms ease-in-out;
 }
 
 .channels-drawer-closed {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 175ms ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 175ms ease-in-out;
 }
 
 .message-header {
   display: flex;
   align-items: center;
   gap: 15px;
+
   .middle-part {
     display: flex;
     gap: 8px;
@@ -138,55 +148,90 @@
 }
 
 .message-drawer {
-    max-height: 600px;
-    overflow: hidden;
-    transition: max-height 175ms ease-in-out;
+  max-height: 600px;
+  overflow: hidden;
+  transition: max-height 175ms ease-in-out;
 }
 
 .message-drawer-closed {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 175ms ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 175ms ease-in-out;
 }
 
 .contacts {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .contact {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 4px 20px;
-    margin-left: 24px;
-    border-radius: 30px;
-    position: relative;
-    img {
-        height: 50px;
-    }
-    h4 {
-        font-family: 'Nunito';
-        font-size: 18px;
-        font-weight: 400;
-    }
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 4px 20px;
+  margin-left: 24px;
+  border-radius: 30px;
+  position: relative;
 
-    &:hover {
-        background: #ECEEFE;
-    }
+  img {
+    height: 50px;
+  }
+
+  h4 {
+    font-family: 'Nunito';
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  &:hover {
+    background: #ECEEFE;
+  }
 }
 
-.status-border {
-    position: absolute;
-    background-color: white;
-    padding: 2px;
-    border-radius: 100%;
-    top: 34px;
-    left: 53px;
-    span {
-      display: block;
-      background-color: #92c83e;
-      height: 14px;
-      width: 14px;
-      border-radius: 100%;
-    }
+.all-user-contacts {
+  margin-top: 24px;
+}
+
+
+.all-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 4px 20px;
+  margin-left: 24px;
+  border-radius: 30px;
+  position: relative;
+
+  img {
+    height: 50px;
   }
+
+  h4 {
+    font-family: 'Nunito';
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  &:hover {
+    background: #ECEEFE;
+  } 
+}
+
+
+
+
+.status-border {
+  position: absolute;
+  background-color: white;
+  padding: 2px;
+  border-radius: 100%;
+  top: 34px;
+  left: 53px;
+
+  span {
+    display: block;
+    background-color: #92c83e;
+    height: 14px;
+    width: 14px;
+    border-radius: 100%;
+  }
+}
