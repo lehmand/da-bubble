@@ -360,7 +360,7 @@
             </div>
 
             <div *ngIf="checkUsersExsists" class="all-user-contacts">
-              <div class="all-user" *ngFor="let user of allUsers">
+              <div class="all-user" *ngFor="let user of allUsers" (click)="selectUser(user)">
                <img [src]="user.picture">
                <div class="status-border">
                 <span class="status"></span>

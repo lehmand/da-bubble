@@ -1,5 +1,5 @@
 import { CommonModule, } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject,Output,EventEmitter} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, collection, doc, getDoc, getDocs,onSnapshot } from '@angular/fire/firestore';
 
@@ -20,6 +20,15 @@ export class WorkspaceComponent implements OnInit {
   userData: any = {};
   allUsers: any = [];
   checkUsersExsists:boolean=false;
+  @Output() userSelected = new EventEmitter<any>();
+
+  selectUser(user:any){
+  console.log(user)
+  this.userSelected.emit(user);
+   
+  }
+
+
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -28,7 +37,6 @@ export class WorkspaceComponent implements OnInit {
       this.getUserById(this.userId);
     }
   }
-
 
   async getUserById(userId: string) {
     const userDocref = doc(this.firestore, 'users', userId)

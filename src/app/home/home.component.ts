@@ -11,4 +11,10 @@ import { ThreadComponent } from '../thread/thread.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  selectedUser: any;
+
+  onUserSelected(user: any) {
+    this.selectedUser = user;
+  }
+}
