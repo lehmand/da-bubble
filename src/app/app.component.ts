@@ -12,4 +12,5 @@ import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.componen
 })
 export class AppComponent {
   title = 'da-bubble';
+  aaa:boolean=false
 }

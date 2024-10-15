@@ -1,7 +1,9 @@
 import { CommonModule, } from '@angular/common';
-import { Component, OnInit, inject,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit, inject, Output, EventEmitter,Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Firestore, collection, doc, getDoc, getDocs,onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, onSnapshot } from '@angular/fire/firestore';
+import { GlobalVariableService } from '../services/global-variable.service';
+
 
 @Component({
   selector: 'app-workspace',
@@ -11,23 +13,33 @@ import { Firestore, collection, doc, getDoc, getDocs,onSnapshot } from '@angular
   styleUrl: './workspace.component.scss'
 })
 
-
-
 export class WorkspaceComponent implements OnInit {
   userId: any | null = null;
   route = inject(ActivatedRoute);
   firestore = inject(Firestore);
-  userData: any = {};
+  currentUserData: any = {};
   allUsers: any = [];
-  checkUsersExsists:boolean=false;
+  checkUsersExsists: boolean = false;
+ 
   @Output() userSelected = new EventEmitter<any>();
-
-  selectUser(user:any){
-  console.log(user)
-  this.userSelected.emit(user);
+  
    
+
+  constructor( private global:GlobalVariableService ){}
+
+  selectUser(user: any) {
+    this.userSelected.emit(user);
+    this.global.statusCheck=false;
+    console.log(this.allUsers)
+    console.log(this.global.statusCheck);
   }
 
+  selectCurrentUser() {
+    this.userSelected.emit(this.currentUserData); 
+    this.global.statusCheck=true;
+    console.log(this.currentUserData);
+    console.log(this.global.statusCheck);
+  }
 
 
   ngOnInit(): void {
@@ -42,18 +54,19 @@ export class WorkspaceComponent implements OnInit {
     const userDocref = doc(this.firestore, 'users', userId)
     const userDoc = await getDoc(userDocref)
     if (userDoc.exists()) {
-      this.userData = userDoc.data();
+      this.currentUserData = userDoc.data();
+      console.log(this.currentUserData)
     }
   }
 
 
   async getAllUsers() {
     const usersCollection = collection(this.firestore, 'users');
-      onSnapshot(usersCollection, (snapshot) => {
+    onSnapshot(usersCollection, (snapshot) => {
       this.allUsers = [];
       snapshot.forEach((doc) => {
-        this.checkUsersExsists=true;
-        if (doc.id !== this.userId) {         
+        this.checkUsersExsists = true;
+        if (doc.id !== this.userId) {
           this.allUsers.push({ id: doc.id, ...doc.data()});
         }
       });
@@ -74,7 +87,4 @@ export class WorkspaceComponent implements OnInit {
     this.messageDrawerOpen = !this.messageDrawerOpen;
     console.log(this.messageDrawerOpen)
   }
-
-
-
 }

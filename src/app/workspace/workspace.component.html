@@ -348,15 +348,15 @@
           }"
         >
           <div class="contacts">
-            <div class="contact">
+            <div class="contact" (click)="selectCurrentUser()">
               <img
-                [src]="userData.picture"
+                [src]="currentUserData.picture"
                 class="avatar"
               />
               <div class="status-border">
                 <span class="status"></span>
               </div>
-              <h4>{{userData.name}} (Du)</h4>
+              <h4>{{currentUserData.name}} (Du)</h4>
             </div>
 
             <div *ngIf="checkUsersExsists" class="all-user-contacts">

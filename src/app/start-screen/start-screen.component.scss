@@ -419,6 +419,16 @@
   position: absolute;
   left: 45px;
   top: 392px;
+  padding: 0 45px;
+
+
+  span {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 27.28px;
+    color: #686868;
+    cursor: pointer;
+  }
 }
 
 .user-box {
@@ -441,15 +451,6 @@
   img {
     width: 100px;
     height: 100px;
-  }
-
-  span {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 27.28px;
-    color: #686868;
-    cursor: pointer;
-
   }
 }
 
