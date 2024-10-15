@@ -20,6 +20,15 @@
 
 .img-container {
   display: flex;
+  padding: 4px;
+  border-radius: 100%;
+  cursor: pointer;
+  &:hover {
+    background-color: #ECEEFE;
+  }
+  &:hover .icon path {
+    fill: #535AF1;
+  }
 }
 
 p {
@@ -73,4 +82,10 @@ form {
 .button-row {
     display: flex;
     justify-content: flex-end;
+}
+
+@media (min-width: 768px){
+  .card {
+    padding: 40px;
+  }
 }
