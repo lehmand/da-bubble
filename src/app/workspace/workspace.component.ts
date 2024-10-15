@@ -13,7 +13,6 @@ import { GlobalVariableService } from '../services/global-variable.service';
 })
 
 
-
 export class WorkspaceComponent implements OnInit {
   userId: any | null = null;
   route = inject(ActivatedRoute);
@@ -25,7 +24,7 @@ export class WorkspaceComponent implements OnInit {
   @Output() userCurrentSelected = new EventEmitter<any>();
    
 
-  constructor( private global:GlobalVariableService ){}
+  constructor(private global:GlobalVariableService ){}
 
   selectUser(user: any) {
     this.userSelected.emit(user);
