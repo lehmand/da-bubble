@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Firestore, collection, doc, getDoc, onSnapshot } from '@angular/fire/firestore';
 import { GlobalVariableService } from '../services/global-variable.service';
 
-
 @Component({
   selector: 'app-workspace',
   standalone: true,
@@ -12,6 +11,8 @@ import { GlobalVariableService } from '../services/global-variable.service';
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss'
 })
+
+
 
 export class WorkspaceComponent implements OnInit {
   userId: any | null = null;
@@ -30,7 +31,6 @@ export class WorkspaceComponent implements OnInit {
     this.userSelected.emit(user);
     this.global.statusCheck=false;
     console.log(this.allUsers)
-    
   }
 
   selectCurrentUser() {
@@ -59,7 +59,6 @@ export class WorkspaceComponent implements OnInit {
     }
   }
 
-
   async getAllUsers() {
     const usersCollection = collection(this.firestore, 'users');
     onSnapshot(usersCollection, (snapshot) => {
@@ -73,8 +72,6 @@ export class WorkspaceComponent implements OnInit {
       console.log(this.allUsers);
     });
   }
-
-
 
   channelDrawerOpen: boolean = true;
   messageDrawerOpen: boolean = true;

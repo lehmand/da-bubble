@@ -99,7 +99,7 @@
             
         <div class="msg-input-ct">
             <label for="msg-input"></label>
-            <textarea placeholder="Nachricht an #Entwicklerteam" class="chat-input" type="text"></textarea>
+            <textarea placeholder="Nachricht an #Entwicklerteam" class="chat-input" type="text" [(ngModel)]="chatMessage" ></textarea>
             <div class="interactions-send-msg-ct">
                 <div class="only-interactions-bottom-ct">
                     <div class="plus-separator-flex">
@@ -111,7 +111,7 @@
                         <div> <img src="./assets/img/at_react.svg"></div>
                     </div>
                 </div>
-                <img class="msg-send" src="./assets/img/msg_send.svg">
+                <img class="msg-send" src="./assets/img/msg_send.svg" (click)="sendMessage()">
             </div>
         </div>
     </mat-card>
