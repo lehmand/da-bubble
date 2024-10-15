@@ -18,7 +18,8 @@ export class StartScreenComponent implements OnInit {
 
   chatMessage: string = '';
   @Input() selectedUser: any;
-  @Input() currentUser: any;
+  
+  @Input() userCurrentSelected: any;
 
   ngOnInit(): void {
 

@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalVariableService {
   statusCheck:boolean=false;
+  currentUserData: any = {};
   constructor() { }
 }

@@ -20,9 +20,8 @@ export class WorkspaceComponent implements OnInit {
   currentUserData: any = {};
   allUsers: any = [];
   checkUsersExsists: boolean = false;
- 
   @Output() userSelected = new EventEmitter<any>();
-  
+  @Output() userCurrentSelected = new EventEmitter<any>();
    
 
   constructor( private global:GlobalVariableService ){}
@@ -31,16 +30,13 @@ export class WorkspaceComponent implements OnInit {
     this.userSelected.emit(user);
     this.global.statusCheck=false;
     console.log(this.allUsers)
-    console.log(this.global.statusCheck);
+    
   }
 
   selectCurrentUser() {
-    this.userSelected.emit(this.currentUserData); 
-    this.global.statusCheck=true;
-    console.log(this.currentUserData);
-    console.log(this.global.statusCheck);
+    this.userCurrentSelected.emit(this.currentUserData); 
+    this.global.statusCheck=true;    
   }
-
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -51,11 +47,15 @@ export class WorkspaceComponent implements OnInit {
   }
 
   async getUserById(userId: string) {
-    const userDocref = doc(this.firestore, 'users', userId)
-    const userDoc = await getDoc(userDocref)
+    const userDocref = doc(this.firestore, 'users', userId);
+    const userDoc = await getDoc(userDocref);
+  
     if (userDoc.exists()) {
-      this.currentUserData = userDoc.data();
-      console.log(this.currentUserData)
+      this.currentUserData = {
+        id: userDoc.id,
+        ...userDoc.data() 
+      };
+      console.log(this.currentUserData);
     }
   }
 

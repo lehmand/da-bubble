@@ -5,9 +5,9 @@
                 <!-- <button class="drop-down-button" mat-button><span class="btn-text-img"># Entwicklerteam<img
                             src="./assets/img/arrow_drop_down.svg"></span></button> -->
                 <div  class="user-chat-info">
-                    <img [src]="selectedUser?.picture">
-                    <h4 *ngIf="!global.statusCheck">{{selectedUser?.name}} </h4>
-                    <h4 *ngIf="global.statusCheck">{{selectedUser?.name}} (Du)</h4>
+                    <img [src]="global.statusCheck? userCurrentSelected.picture : selectedUser?.picture  ">
+                    <h4>{{ global.statusCheck ? userCurrentSelected.name + '(Du)' : selectedUser?.name }}</h4>
+                    
                 </div>
             </div>
             <!-- <div class="groupchat-header-img-box">
@@ -25,7 +25,7 @@
             <div class="time-display-flex">
                 <img class="profile-picture" src="./assets/img/time_separator_line.svg">
                 <div class="time-output">
-                    <span>Dienstag,14 Januar {{selectedUser?.name}}</span>
+                    <span>Dienstag,14 Januar </span>
                 </div>
             </div>
             <div class="single-user-chat-section reverse">
@@ -89,15 +89,14 @@
         <!-- Ende Chatbox -->
         <div class="chat-info">
             <div class="user-box">
-                <img [src]="selectedUser?.picture">
-                <h4 *ngIf="!global.statusCheck">{{selectedUser?.name}}</h4>
-                <h4 *ngIf="global.statusCheck">{{selectedUser?.name}} (Du)</h4>
+                <img [src]="global.statusCheck? userCurrentSelected.picture : selectedUser?.picture  ">
+                <h4>{{ global.statusCheck ? userCurrentSelected.name + '(Du)' : selectedUser?.name }}</h4>
             </div>
             <span *ngIf="!global.statusCheck">Diese Unterhaltung findet nur zwischen <a class="malito-a" href="">&#64;{{selectedUser?.name}} </a>und
                 dir statt.</span>
             <span *ngIf="global.statusCheck"> Dieser Raum ist nur für dich da. Mache dir Notizen, liste deine To-dos auf oder bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst besprechen.</span>
         </div>
-
+            
         <div class="msg-input-ct">
             <label for="msg-input"></label>
             <textarea placeholder="Nachricht an #Entwicklerteam" class="chat-input" type="text"></textarea>
