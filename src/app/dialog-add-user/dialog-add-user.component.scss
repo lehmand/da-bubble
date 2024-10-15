@@ -1,0 +1,46 @@
+.card {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    label > span {
+        color: #535AF1;
+    }
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.img-container {
+    display: flex;
+    padding: 4px;
+    border-radius: 100%;
+    cursor: pointer;
+    &:hover {
+      background-color: #ECEEFE;
+    }
+    &:hover .icon path {
+      fill: #535AF1;
+    }
+  }

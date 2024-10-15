@@ -12,7 +12,6 @@ import {
 } from '@angular/fire/firestore';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { DialogCreateChannelComponent } from '../dialog-create-channel/dialog-create-channel.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-workspace',

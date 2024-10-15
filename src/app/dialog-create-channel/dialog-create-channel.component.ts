@@ -5,16 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore"; 
 import { CommonModule } from '@angular/common';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 
 
 @Component({
   selector: 'app-dialog-create-channel',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatDialogModule],
+  imports: [FormsModule, CommonModule, MatDialogModule, DialogAddUserComponent],
   templateUrl: './dialog-create-channel.component.html',
   styleUrl: './dialog-create-channel.component.scss'
 })
-export class DialogCreateChannelComponent implements OnInit {
+export class DialogCreateChannelComponent implements OnInit{
   constructor(
     private db: Firestore
   ){
@@ -24,21 +25,25 @@ export class DialogCreateChannelComponent implements OnInit {
   channel: Channel = new Channel();
   readonly dialog = inject(MatDialog);
 
-  ngOnInit(): void {
-    
+  onSubmit(form: any){
+    this.addChannel()
   }
 
-  onSubmit(form: any){
-    if(form.valid){
-      this.addChannel()
-    }
-    setTimeout(() => {
-      this.closeDialog()
-    }, 1000);
+  ngOnInit(): void {
+  }
+
+
+  openDialog(channelId: string) {
+    const dialogRef = this.dialog.open(DialogAddUserComponent, {
+      data: channelId
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   closeDialog(){
-    const dialogRef = this.dialog.closeAll()
+    this.dialog.closeAll();
   }
 
   async addChannel(){
@@ -48,7 +53,8 @@ export class DialogCreateChannelComponent implements OnInit {
     await updateDoc(doc(channelsRef, docRef.id), {
       channelId: docRef.id
     })
-
+    this.closeDialog();
+    this.openDialog(docRef.id)
   }
 
   toggleHover() {
