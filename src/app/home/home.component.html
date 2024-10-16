@@ -1,9 +1,8 @@
 <app-header></app-header>
 <div class="full-page-content">
-    <app-workspace (userSelected)="onUserSelected($event)" (userCurrentSelected)="OnCurrentSellected($event)"></app-workspace> 
+    <app-workspace (userSelected)="onUserSelected($event)" ></app-workspace> 
     <app-start-screen 
     [selectedUser]="selectedUser" 
-    [userCurrentSelected]="userCurrentSelected"
      >
      </app-start-screen>
 </div>

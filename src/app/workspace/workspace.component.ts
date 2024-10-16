@@ -17,24 +17,23 @@ export class WorkspaceComponent implements OnInit {
   userId: any | null = null;
   route = inject(ActivatedRoute);
   firestore = inject(Firestore);
-  currentUserData: any = {};
+
   allUsers: any = [];
   checkUsersExsists: boolean = false;
   @Output() userSelected = new EventEmitter<any>();
   @Output() userCurrentSelected = new EventEmitter<any>();
    
 
-  constructor(private global:GlobalVariableService ){}
+  constructor(public global:GlobalVariableService ){}
 
   selectUser(user: any) {
     this.userSelected.emit(user);
     this.global.statusCheck=false;
-    console.log(this.allUsers)
   }
 
-  selectCurrentUser() {
-    this.userCurrentSelected.emit(this.currentUserData); 
-    this.global.statusCheck=true;    
+  selectCurrentUser() { 
+    this.global.statusCheck=true;
+    this.userSelected.emit(this.global.currentUserData);   
   }
 
   ngOnInit(): void {
@@ -50,11 +49,11 @@ export class WorkspaceComponent implements OnInit {
     const userDoc = await getDoc(userDocref);
   
     if (userDoc.exists()) {
-      this.currentUserData = {
+      this.global.currentUserData = {
         id: userDoc.id,
         ...userDoc.data() 
       };
-      console.log(this.currentUserData);
+
     }
   }
 
@@ -68,9 +67,11 @@ export class WorkspaceComponent implements OnInit {
           this.allUsers.push({ id: doc.id, ...doc.data()});
         }
       });
-      console.log(this.allUsers);
     });
-  }
+  } 
+
+   
+
 
   channelDrawerOpen: boolean = true;
   messageDrawerOpen: boolean = true;
@@ -82,5 +83,5 @@ export class WorkspaceComponent implements OnInit {
   toggleMessageDrawer() {
     this.messageDrawerOpen = !this.messageDrawerOpen;
     console.log(this.messageDrawerOpen)
-  }
+  } 
 }

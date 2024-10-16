@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class GlobalVariableService {
+export class GlobalService {
   statusCheck:boolean=false;
-  currentUserData: any = {};
-  curentUserId:any;
   constructor() { }
 }
