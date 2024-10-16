@@ -35,7 +35,9 @@ export class DialogCreateChannelComponent implements OnInit{
 
   openDialog(channelId: string) {
     const dialogRef = this.dialog.open(DialogAddUserComponent, {
-      data: channelId
+      data: channelId,
+      height: '310px',
+      width: '710px'
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -49,9 +51,9 @@ export class DialogCreateChannelComponent implements OnInit{
   async addChannel(){
     const channelsRef = collection(this.db, 'channels');
     const docRef = await addDoc(channelsRef, this.channel.toJSON());
-    this.channel.channelId = docRef.id;
+    this.channel.id = docRef.id;
     await updateDoc(doc(channelsRef, docRef.id), {
-      channelId: docRef.id
+      id: docRef.id
     })
     this.closeDialog();
     this.openDialog(docRef.id)

@@ -1,22 +1,22 @@
 export class Channel {
-  channelId: string;
-  channelName: string;
-  channelDescription?: string;
-  invitedUser: any []
+  id: string;
+  name: string;
+  description: string;
+  usersId: any []
 
   constructor(obj?: any) {
-    this.channelId = obj?.channelId || '';
-    this.channelName = obj?.channelName || '';
-    this.channelDescription = obj?.channelDescription || '';
-    this.invitedUser = obj?.invitedUser || '';
+    this.id = obj?.id || '';
+    this.name = obj?.name || '';
+    this.description = obj?.description || '';
+    this.usersId = obj?.usersId || '';
   }
 
   public toJSON() {
     return {
-      channelId: this.channelId,
-      channelName: this.channelName,
-      channelDescription: this.channelDescription,
-      invitedUser: this.invitedUser
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      usersId: this.usersId
     };
   }
 }

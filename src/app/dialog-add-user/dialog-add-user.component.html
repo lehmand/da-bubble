@@ -33,20 +33,31 @@
   <form #addUserForm="ngForm" (submit)="onSubmit(addUserForm)">
     <div class="form-row">
         <input
+        (click)="toggleAllUsers()"
         value="allUsers"
         name="option" 
         type="radio" 
         id="all-user">
-        <label for="all-user">Alle mitglieder von <span> {{ channel.channelName }} </span> hinzufügen </label>
+        <label for="all-user">Alle mitglieder von <span> {{ channel.name }} </span> hinzufügen </label>
     </div>
     <div class="form-row">
         <input
-        (click)="toggleAllUsers()"
+        (click)="toggleSelectUsers()"
         value="selectedUsers"
         name="option" 
         type="radio" 
         id="selected-user">
         <label for="selected-user">Bestimmte Leute hinzufügen</label>
+    </div>
+    <div class="form-row">
+      <input 
+      class="search-field" 
+      type="text" 
+      name="search-input"
+      #search="ngModel"
+      [(ngModel)]="searchInput" 
+      placeholder="Name eingeben..." 
+      *ngIf="selectUsers">
     </div>
     <div class="button-row">
         <button 
