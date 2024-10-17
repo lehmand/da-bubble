@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { GlobalVariableService } from '../services/global-variable.service';
 import { FormsModule } from '@angular/forms';
-import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, getDocs } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, updateDoc,} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 
 interface SendMessageInfo {
@@ -16,7 +16,6 @@ interface SendMessageInfo {
   recipientname: string;
   timestamp: Date;
 }
-
 
 
 @Component({
@@ -39,13 +38,15 @@ export class StartScreenComponent implements OnInit, OnChanges {
   userId: any | null = null;
   route = inject(ActivatedRoute);
   @Input() selectedUser: any;
-
+  isMessagesended: boolean = false;
+  dayInfo: boolean = false;
+  messagesData: any = [];
 
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.getcurrentUserById(this.userId);
-    if(this.global.statusCheck){
+    if (this.global.statusCheck) {
       console.log(this.userId)
     }
   }
@@ -54,11 +55,9 @@ export class StartScreenComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedUser'] && this.selectedUser?.id) {
       this.getMessages();
-    } 
-     
+    }
+
   }
-
-
 
   async getcurrentUserById(userId: string) {
     const userRef = doc(this.firestore, 'users', userId);
@@ -95,12 +94,16 @@ export class StartScreenComponent implements OnInit, OnChanges {
     }
     const messagesRef = collection(this.firestore, 'messages');
     await addDoc(messagesRef, this.messageData()).then(() => {
+      this.isMessagesended = true;
       this.chatMessage = '';
+
+       const userStatusRef=doc(this.firestore,'users',this.global.currentUserData.id);
+        updateDoc(userStatusRef,{isMessagesended:true});
     })
   }
 
-  messagesData: any = [];
-  
+
+
 
   async getMessages() {
     const docRef = collection(this.firestore, 'messages');
@@ -113,15 +116,18 @@ export class StartScreenComponent implements OnInit, OnChanges {
       this.messagesData = [];
       querySnapshot.forEach((doc) => {
         const messageData = doc.data();
+        if (messageData['timestamp'] && messageData['timestamp'].toDate) {
+          messageData['timestamp'] = messageData['timestamp'].toDate();
+        }
         if (
           (messageData['senderId'] === this.global.currentUserData.id && messageData['recipientId'] === this.selectedUser.id) ||
-          (messageData['senderId'] === this.selectedUser.id && messageData['recipientId'] === this.global.currentUserData.id)||
-          (this.global.statusCheck && messageData['senderId'] === this.global.currentUserData.id && messageData['recipientId'] === this.global.currentUserData.id) 
+          (messageData['senderId'] === this.selectedUser.id && messageData['recipientId'] === this.global.currentUserData.id) ||
+          (this.global.statusCheck && messageData['senderId'] === this.global.currentUserData.id && messageData['recipientId'] === this.global.currentUserData.id)
         ) {
           this.messagesData.push({ id: doc.id, ...messageData });
         }
       });
-      // console.log(this.messagesus);
+      this.messagesData.sort((a: any, b: any) => a.timestamp - b.timestamp);
     });
   }
 

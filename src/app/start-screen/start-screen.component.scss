@@ -383,6 +383,17 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
 .user-chat-info {
   display: flex;
   align-items: center;
@@ -418,9 +429,11 @@
 .chat-info {
   position: absolute;
   left: 45px;
-  top: 392px;
+  top: 439px;
   padding: 0 45px;
 
+  
+ 
 
   span {
     font-size: 20px;
@@ -429,6 +442,16 @@
     color: #686868;
     cursor: pointer;
   }
+} 
+
+.chat-info.upstairs{
+  position: absolute;
+  top: 140px;
+}
+ 
+::-webkit-scrollbar {
+  width: 8px;  /* Breite des Scrollbalkens */
+  background-color: transparent;  /* Hintergrund des Scrollbalkens */
 }
 
 .user-box {
@@ -464,15 +487,121 @@
 }
 
 
-
-
-
-.sent-message {
-  text-align: right;
-  background-color: #e0f7fa;
+.main-day-info {
+  padding: 0 35px;
+  position: absolute;
+  top: 288px;
+  width: 100%;
+  cursor: default;
 }
 
-.received-message {
+.line {
+  width: 100%;
+  border: 1px solid #ADB0D9;
+}
+
+.day-info {
+  display: flex;
+  align-items: center;
+}
+
+
+.day-span {
+  border-radius: 30px;
+  border: 1px solid #ADB0D9;
+  padding: 5px 15px;
+  background-color: #FFFFFF;
+  position: absolute;
+  right: 50%;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.55px;
   text-align: left;
-  background-color: #ffebee;
+  color: #000000;
+}
+
+
+
+.main-current-messagebox {
+  position: absolute;
+  top: 373px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.main-mesage-info {
+  width: 100%;
+}
+
+.message-content {
+  margin: 10px 145px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+
+.current-name-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.message-time {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.1px;
+  color: #686868;
+}
+
+.sender-name {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24.55px;
+  color: #000000;
+}
+
+.message-card {
+  max-width: 698px;
+  max-height: 105px;
+  background-color: #797EF3;
+  border-top-right-radius: 0;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  max-width: max-content;
+}
+
+.card-content {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.55px;
+  color: #FFFFFF;
+}
+
+.avatar-box {
+  cursor: pointer;
+  width: 23px;
+  height: 21px;
+  &:hover {
+    svg {
+      path {
+        &:hover {
+          fill: #444DF2;
+        }
+      }
+    }
+  }
+}
+
+.sender-picture{
+  width: 70px;
+  height: 70px;
+}
+
+.picture-box{
+  position: absolute;
+  right: 45px;
 }
