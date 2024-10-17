@@ -1,76 +1,154 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, inject, OnInit } from '@angular/core';
-import { MatDialogModule, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { collection, doc, Firestore, getDoc, onSnapshot } from '@angular/fire/firestore';
-import { User } from '../models/user.class';
+import {
+  arrayUnion,
+  collection,
+  doc,
+  Firestore,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from '@angular/fire/firestore';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-dialog-add-user',
   standalone: true,
-  imports: [CommonModule ,MatDialogModule, FormsModule],
+  imports: [CommonModule, MatDialogModule, FormsModule],
   templateUrl: './dialog-add-user.component.html',
-  styleUrl: './dialog-add-user.component.scss'
+  styleUrl: './dialog-add-user.component.scss',
 })
-export class DialogAddUserComponent implements OnInit{
+export class DialogAddUserComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public channelId: string,
     private db: Firestore,
-    private dialogRef: MatDialogRef<DialogAddUserComponent>
-  ){
-  }
+    private dialogRef: MatDialogRef<DialogAddUserComponent>,
+    private userService: UserService
+  ) {}
+
+  
   readonly dialog = inject(MatDialog);
   isHovered: boolean = false;
   channel: any = {};
   searchInput: string = '';
   addAllUsers: boolean = false;
   selectUsers: boolean = false;
-  
-
-  allUsers: string [] = [];
-  filteredUsers: string [] = [];
-
-
+  allUsers: any[] = [];
+  filteredUsers: any[] = [];
+  selectedUsers: any[] = [];
 
   ngOnInit(): void {
     this.getCreatedChannel(this.channelId);
-    this.getAllUsers()
+    this.getAllUsers();
   }
 
-  onSubmit(form: any){
+  async onSubmit(form: any) {
+    if (this.addAllUsers && form.valid) {
+      await this.addAllUsersToChannel();
+    } else if (this.selectUsers && this.selectedUsers.length > 0) {
+      await this.addSelectedUsersToChannel();
+    }
 
+    this.dialogRef.close(true);
   }
 
-  closeDialog(){
-    this.dialog.closeAll()
+  private async addAllUsersToChannel() {
+    const userIds = this.allUsers.map(user => user.uid);
+    await this.updateChannelUserIds(userIds);
   }
 
-  getAllUsers(){
+  private async addSelectedUsersToChannel() {
+    const userIds = this.selectedUsers.map(user => user.uid);
+    await this.updateChannelUserIds(userIds);
+  }
+
+  private async updateChannelUserIds(userIds: string[]) {
+    const channelRef = doc(this.db, 'channels', this.channelId);
+    try {
+      await updateDoc(channelRef, {
+        userIds: arrayUnion(...userIds)
+      });
+      console.log('Users added successfully to the channel');
+    } catch (error) {
+      console.error('Error adding users to the channel:', error);
+    }
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
+  }
+
+  getAllUsers() {
     const colRef = collection(this.db, 'users');
     const docRef = onSnapshot(colRef, (user) => {
-      user.forEach((data) => {
-        this.allUsers.push(data.id)
-      })
-    })
+      user.forEach((doc) => {
+        this.allUsers.push(doc.data());
+      });
+    });
   }
 
-  async getCreatedChannel(channelId: string){
+  async getCreatedChannel(channelId: string) {
     const docRef = doc(this.db, 'channels', channelId);
     const docSnap = await getDoc(docRef);
-    this.channel = docSnap.data()
+    this.channel = docSnap.data();
   }
 
-  toggleHover(){
+  searchUser() {
+    this.filteredUsers = [];
+    if (this.searchInput) {
+      this.filteredUsers = [];
+      const searchTerm = this.searchInput.toLowerCase();
+      this.filteredUsers = this.allUsers.filter((user) => {
+        return (
+          user && user.name && user.name.toLowerCase().includes(searchTerm)
+        );
+      });
+    }
+  }
+
+  selectUser(index: number) {
+    const selectedUser = this.filteredUsers[index];
+    if (!this.selectedUsers.includes(selectedUser)) {
+      this.selectedUsers.push(selectedUser);
+    }
+    this.allUsers = this.allUsers.filter(
+      (user) => user.uid !== selectedUser.uid
+    );
+    this.filteredUsers = this.filteredUsers.filter(
+      (user) => user.uid !== selectedUser.uid
+    );
+    this.searchInput = '';
+  }
+
+  deleteUser(index: number) {
+    const removedUser = this.selectedUsers[index];
+    this.selectedUsers.splice(index, 1);
+    if (!this.allUsers.some((user) => user.uid === removedUser.uid)) {
+      this.allUsers.push(removedUser);
+    }
+    if (this.searchInput) {
+      this.searchUser();
+    }
+  }
+
+  toggleHover() {
     this.isHovered = !this.isHovered;
   }
 
-  toggleAllUsers(){
+  toggleAllUsers() {
     this.addAllUsers = true;
     this.selectUsers = false;
     this.updateDialogHeight();
   }
 
-  toggleSelectUsers(){
+  toggleSelectUsers() {
     this.addAllUsers = false;
     this.selectUsers = true;
     this.updateDialogHeight();
