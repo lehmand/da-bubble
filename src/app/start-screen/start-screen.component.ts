@@ -106,7 +106,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
   }
 
   getConversationId(): string {
-    const ids = [this.global.currentUserData.id, this.selectedUser.id];
+    const ids = [this.global.currentUserData?.id, this.selectedUser?.id];
     ids.sort();
     return ids.join('_'); 
   }
