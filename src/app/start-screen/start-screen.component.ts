@@ -28,11 +28,8 @@ interface SendMessageInfo {
 
 
 export class StartScreenComponent implements OnInit, OnChanges {
-
   constructor(public global: GlobalVariableService) { }
-
   chatMessage: string = '';
-
   firestore = inject(Firestore);
   messageInfos: any = [];
   userId: any | null = null;
@@ -41,6 +38,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
   isMessagesended: boolean = false;
   dayInfo: boolean = false;
   messagesData: any = [];
+
 
 
   ngOnInit(): void {
@@ -104,15 +102,14 @@ export class StartScreenComponent implements OnInit, OnChanges {
       }, { merge: true });     
     })
   }
+    
 
   getConversationId(): string {
-    const ids = [this.global.currentUserData.id, this.selectedUser.id];
+    const ids = [this.global.currentUserData?.id, this.selectedUser?.id];
     ids.sort();
     return ids.join('_'); 
   }
  
-
-   
   async watchConversationStatus() {
     const conversationId = this.getConversationId();
     const conversationRef = doc(this.firestore, 'conversations', conversationId);
@@ -123,15 +120,10 @@ export class StartScreenComponent implements OnInit, OnChanges {
           this.isMessagesended = data['isMessagesended'];
         }
       } else {
-        
         this.isMessagesended = false;
       }
     });
-  }
-
-
-
-
+  } 
 
   async getMessages() {
     const docRef = collection(this.firestore, 'messages');
@@ -158,10 +150,4 @@ export class StartScreenComponent implements OnInit, OnChanges {
       this.messagesData.sort((a: any, b: any) => a.timestamp - b.timestamp);
     });
   }
-
-
-
-
-
-
 }
