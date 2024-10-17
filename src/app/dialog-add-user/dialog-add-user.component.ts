@@ -57,9 +57,7 @@ export class DialogAddUserComponent implements OnInit {
   }
 
   private async addAllUsersToChannel() {
-    console.log('All Users:', this.allUsers); 
     const userIds = this.allUsers.map(user => user.uid);
-    console.log(userIds);
     await this.updateChannelUserIds(userIds);
   }
 
