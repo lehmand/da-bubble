@@ -16,9 +16,16 @@ export class AuthService {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        const user = result.user;
-        console.log('Benutzer eingeloggt:', user.uid);
-        this.router.navigate(['/welcome', user.uid]);
+/*       const user = result.user;  */
+        const name = result.user.displayName || '';
+        const email = result.user.email || '';
+        console.log('result name', name);
+        console.log('result mail', email);
+
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email); 
+        console.log('Benutzer eingeloggt:', result.user.uid);
+        this.router.navigate(['/welcome', result.user.uid]);
       })
       .catch((error) => {
         console.error('Fehler', error);

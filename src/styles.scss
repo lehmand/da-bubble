@@ -1,5 +1,5 @@
 @import "./assets/fonts/font.scss";
-@import './assets/styles/buttons';
+@import "./assets/styles/buttons";
 
 * {
   margin: 0;
@@ -19,9 +19,9 @@ body {
   font-family: Nunito, "Helvetica Neue", sans-serif;
 }
 
-.mat-mdc-button .mdc-button__label{
+.mat-mdc-button .mdc-button__label {
   display: flex;
-    align-items: center;
+  align-items: center;
 }
 
 img {

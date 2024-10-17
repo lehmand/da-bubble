@@ -14,7 +14,6 @@ import {
 import {
   signInWithEmailAndPassword,
   signInAnonymously,
-  onAuthStateChanged
 } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from '../services/auth.service';
