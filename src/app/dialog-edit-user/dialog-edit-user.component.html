@@ -1,0 +1,22 @@
+<div *ngIf="editModusOpen" class="profile-card-ct">
+    <div class="name-escape-flex">
+        <span>Dein Profil bearbeiten</span>
+        <div>
+            <img (click)="closeEditModus()" src="./assets/img/close.svg">
+        </div>
+    </div>
+    <div class="img-frame">
+        <img src="./assets/img/avatar/avatar1.png">
+    </div>
+    <div class="name-edit-flex">
+        <div class="name-status-flex">
+            <h2>{{user.displayName}}</h2>
+        </div>
+    </div>
+
+    <div class="mail-flex-column">
+        <img src="./assets/img/mail.svg">
+        <span class="email-title">E-Mail-Adresse</span>
+    </div>
+    <span class="user-mail">{{user.email}}</span>
+</div>
