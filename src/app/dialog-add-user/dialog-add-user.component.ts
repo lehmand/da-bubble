@@ -36,7 +36,7 @@ export class DialogAddUserComponent implements OnInit {
   isHovered: boolean = false;
   channel: any = {};
   searchInput: string = '';
-  addAllUsers: boolean = false;
+  addAllUsers: boolean = true;
   selectUsers: boolean = false;
   allUsers: any[] = [];
   filteredUsers: any[] = [];
@@ -53,12 +53,13 @@ export class DialogAddUserComponent implements OnInit {
     } else if (this.selectUsers && this.selectedUsers.length > 0) {
       await this.addSelectedUsersToChannel();
     }
-
     this.dialogRef.close(true);
   }
 
   private async addAllUsersToChannel() {
+    console.log('All Users:', this.allUsers); 
     const userIds = this.allUsers.map(user => user.uid);
+    console.log(userIds);
     await this.updateChannelUserIds(userIds);
   }
 
@@ -72,7 +73,7 @@ export class DialogAddUserComponent implements OnInit {
     try {
       await updateDoc(channelRef, {
         userIds: arrayUnion(...userIds),
-        createdBy: this.data.userId
+        createdBy: this.data.userId || ''
       });
       console.log('Users added successfully to the channel');
     } catch (error) {
@@ -106,7 +107,7 @@ export class DialogAddUserComponent implements OnInit {
       const searchTerm = this.searchInput.toLowerCase();
       this.filteredUsers = this.allUsers.filter((user) => {
         return (
-          user && user.name && user.name.toLowerCase().includes(searchTerm)
+          user.name && user.name.toLowerCase().includes(searchTerm)
         );
       });
     }
