@@ -17,6 +17,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { UserService } from '../services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -27,13 +28,10 @@ import { UserService } from '../services/user.service';
 })
 export class DialogAddUserComponent implements OnInit {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public channelId: string,
+    @Inject(MAT_DIALOG_DATA) public data: { channelId: string, userId: string},
     private db: Firestore,
     private dialogRef: MatDialogRef<DialogAddUserComponent>,
-    private userService: UserService
   ) {}
-
-  
   readonly dialog = inject(MatDialog);
   isHovered: boolean = false;
   channel: any = {};
@@ -45,7 +43,7 @@ export class DialogAddUserComponent implements OnInit {
   selectedUsers: any[] = [];
 
   ngOnInit(): void {
-    this.getCreatedChannel(this.channelId);
+    this.getCreatedChannel(this.data.channelId);
     this.getAllUsers();
   }
 
@@ -70,10 +68,11 @@ export class DialogAddUserComponent implements OnInit {
   }
 
   private async updateChannelUserIds(userIds: string[]) {
-    const channelRef = doc(this.db, 'channels', this.channelId);
+    const channelRef = doc(this.db, 'channels', this.data.channelId);
     try {
       await updateDoc(channelRef, {
-        userIds: arrayUnion(...userIds)
+        userIds: arrayUnion(...userIds),
+        createdBy: this.data.userId
       });
       console.log('Users added successfully to the channel');
     } catch (error) {

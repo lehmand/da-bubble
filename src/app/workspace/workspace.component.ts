@@ -34,6 +34,9 @@ export class WorkspaceComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateChannelComponent, {
+      data: {
+        userId: this.userId
+      },
       height: '539px',
       width: '872px',
     });
@@ -43,7 +46,6 @@ export class WorkspaceComponent implements OnInit {
   }
 
   selectUser(user: any) {
-    console.log(user);
     this.userSelected.emit(user);
   }
 
@@ -53,6 +55,7 @@ export class WorkspaceComponent implements OnInit {
     if (this.userId) {
       this.getUserById(this.userId);
     }
+    console.log('workspace', this.userId)
     this.getAllChannels();
   }
 
@@ -87,7 +90,6 @@ export class WorkspaceComponent implements OnInit {
           this.allUsers.push({ id: doc.id, ...doc.data() });
         }
       });
-      console.log(this.allUsers);
     });
   }
 
