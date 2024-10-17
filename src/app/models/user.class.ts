@@ -1,13 +1,13 @@
 export class User {
     uid: string;
-    displayName: string;
+    name: string;
     email: string;
     password: string;
     picture?: string;
 
     constructor(obj?: any) {
         this.uid = obj?.uid || '';
-        this.displayName = obj?.displayName || '';
+        this.name = obj?.name || '';
         this.email = obj?.email || '';
         this.password = obj?.password || '';
         this.picture = obj?.picture || '';
@@ -16,7 +16,7 @@ export class User {
     public toJSON() {
         return {
             uid: this.uid,
-            displayName: this.displayName,
+            name: this.name,
             email: this.email,
             password: this.password,
             picture: this.picture

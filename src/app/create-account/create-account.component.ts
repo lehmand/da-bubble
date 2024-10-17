@@ -64,7 +64,7 @@ export class CreateAccountComponent implements OnInit {
 
     this.newUser = new User({
       uid: authUser.uid,
-      displayName: this.userData.name,
+      name: this.userData.name,
       email: authUser.email || email,
       picture: '',
       password: '',
