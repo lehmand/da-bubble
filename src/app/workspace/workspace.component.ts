@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +13,13 @@ import {
 } from '@angular/fire/firestore';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { DialogCreateChannelComponent } from '../dialog-create-channel/dialog-create-channel.component';
+=======
+import { CommonModule, } from '@angular/common';
+import { Component, OnInit, inject, Output, EventEmitter,Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Firestore, collection, doc, getDoc, onSnapshot } from '@angular/fire/firestore';
+import { GlobalVariableService } from '../services/global-variable.service';
+>>>>>>> e8f8a4c31c815c2cdee6952216598dad1fbc6732
 
 @Component({
   selector: 'app-workspace',
@@ -20,10 +28,16 @@ import { DialogCreateChannelComponent } from '../dialog-create-channel/dialog-cr
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss',
 })
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> e8f8a4c31c815c2cdee6952216598dad1fbc6732
 export class WorkspaceComponent implements OnInit {
   userId: any | null = null;
   route = inject(ActivatedRoute);
   firestore = inject(Firestore);
+<<<<<<< HEAD
   userData: any = {};
   allUsers: any = [];
   allChannels: any = [];
@@ -47,6 +61,25 @@ export class WorkspaceComponent implements OnInit {
 
   selectUser(user: any) {
     this.userSelected.emit(user);
+=======
+
+  allUsers: any = [];
+  checkUsersExsists: boolean = false;
+  @Output() userSelected = new EventEmitter<any>();
+  @Output() userCurrentSelected = new EventEmitter<any>();
+   
+
+  constructor(public global:GlobalVariableService ){}
+
+  selectUser(user: any) {
+    this.userSelected.emit(user);
+    this.global.statusCheck=false;
+  }
+
+  selectCurrentUser() { 
+    this.global.statusCheck=true;
+    this.userSelected.emit(this.global.currentUserData);   
+>>>>>>> e8f8a4c31c815c2cdee6952216598dad1fbc6732
   }
 
   ngOnInit(): void {
@@ -75,8 +108,16 @@ export class WorkspaceComponent implements OnInit {
   async getUserById(userId: string) {
     const userDocref = doc(this.firestore, 'users', userId);
     const userDoc = await getDoc(userDocref);
+<<<<<<< HEAD
+=======
+  
+>>>>>>> e8f8a4c31c815c2cdee6952216598dad1fbc6732
     if (userDoc.exists()) {
-      this.userData = userDoc.data();
+      this.global.currentUserData = {
+        id: userDoc.id,
+        ...userDoc.data() 
+      };
+
     }
   }
 
@@ -87,12 +128,22 @@ export class WorkspaceComponent implements OnInit {
       snapshot.forEach((doc) => {
         this.checkUsersExsists = true;
         if (doc.id !== this.userId) {
+<<<<<<< HEAD
           this.allUsers.push({ id: doc.id, ...doc.data() });
+=======
+          this.allUsers.push({ id: doc.id, ...doc.data()});
+>>>>>>> e8f8a4c31c815c2cdee6952216598dad1fbc6732
         }
       });
     });
-  }
+  } 
 
+<<<<<<< HEAD
+=======
+   
+
+
+>>>>>>> e8f8a4c31c815c2cdee6952216598dad1fbc6732
   channelDrawerOpen: boolean = true;
   messageDrawerOpen: boolean = true;
 
@@ -102,6 +153,11 @@ export class WorkspaceComponent implements OnInit {
   }
   toggleMessageDrawer() {
     this.messageDrawerOpen = !this.messageDrawerOpen;
+<<<<<<< HEAD
     console.log(this.messageDrawerOpen);
   }
+=======
+    console.log(this.messageDrawerOpen)
+  } 
+>>>>>>> e8f8a4c31c815c2cdee6952216598dad1fbc6732
 }
