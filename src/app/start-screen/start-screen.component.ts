@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { GlobalVariableService } from '../services/global-variable.service';
 import { FormsModule } from '@angular/forms';
-import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, updateDoc,} from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, setDoc,} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 
 interface SendMessageInfo {
@@ -49,6 +49,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
     if (this.global.statusCheck) {
       console.log(this.userId)
     }
+    this.watchConversationStatus();
   }
 
 
@@ -56,7 +57,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
     if (changes['selectedUser'] && this.selectedUser?.id) {
       this.getMessages();
     }
-
+    this.watchConversationStatus() 
   }
 
   async getcurrentUserById(userId: string) {
@@ -94,13 +95,40 @@ export class StartScreenComponent implements OnInit, OnChanges {
     }
     const messagesRef = collection(this.firestore, 'messages');
     await addDoc(messagesRef, this.messageData()).then(() => {
-      this.isMessagesended = true;
       this.chatMessage = '';
-
-       const userStatusRef=doc(this.firestore,'users',this.global.currentUserData.id);
-        updateDoc(userStatusRef,{isMessagesended:true});
+      const conversationRef = doc(this.firestore, 'conversations', this.getConversationId());
+       setDoc(conversationRef, { 
+        senderId: this.global.currentUserData.id,
+        recipientId: this.selectedUser.id,
+        isMessagesended: true
+      }, { merge: true });     
     })
   }
+
+  getConversationId(): string {
+    const ids = [this.global.currentUserData.id, this.selectedUser.id];
+    ids.sort();
+    return ids.join('_'); 
+  }
+ 
+
+   
+  async watchConversationStatus() {
+    const conversationId = this.getConversationId();
+    const conversationRef = doc(this.firestore, 'conversations', conversationId);
+    onSnapshot(conversationRef, (conversationSnapshot) => {
+      if (conversationSnapshot.exists()) {
+        const data = conversationSnapshot.data();
+        if (data['isMessagesended'] !== undefined) {
+          this.isMessagesended = data['isMessagesended'];
+        }
+      } else {
+        
+        this.isMessagesended = false;
+      }
+    });
+  }
+
 
 
 
