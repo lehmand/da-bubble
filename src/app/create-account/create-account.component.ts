@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { AvatarComponent } from '../avatar/avatar.component';
 import {
-  Firestore,
-  collection,
-  addDoc,
-} from '@angular/fire/firestore';
+  ActivatedRoute,
+  Router,
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
+import { AvatarComponent } from '../avatar/avatar.component';
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
-import { UserService } from '../services/user.service';
 import { UserComponent } from '../user/user.component';
-import { getAuth, createUserWithEmailAndPassword  } from '@angular/fire/auth';
-
+import { getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-create-account',
@@ -36,16 +35,16 @@ export class CreateAccountComponent implements OnInit {
 
   firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
-  auth = getAuth(); 
+  auth = getAuth();
   userData = {
     name: '',
     email: '',
     password: '',
     privacyPolicy: false,
   };
-  newUser = new User();
+  newUser: User = new User();
 
-  constructor(private route: ActivatedRoute ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
@@ -56,18 +55,31 @@ export class CreateAccountComponent implements OnInit {
   }
 
   async createAuthUser(email: string, password: string) {
-    const auth = getAuth();
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      const docRef = await this.addUserToFirestore(user.uid);
-      this.router.navigate(['/avatar', docRef.id]);
+    const userCredential = await createUserWithEmailAndPassword(
+      this.auth,
+      email,
+      password
+    );
+    const authUser = userCredential.user;
+
+    this.newUser = new User({
+      uid: authUser.uid,
+      displayName: this.userData.name,
+      email: authUser.email || email,
+      picture: '',
+      password: '',
+    });
+    const docRef = await this.addUserToFirestore(this.newUser);
+    this.router.navigate(['/avatar', docRef.id]);
   }
-  
-  async addUserToFirestore(uid: string) {
+
+  async addUserToFirestore(user: User) {
     const usersCollection = collection(this.firestore, 'users');
-    const userDataWithUID = { ...this.userData, uid };
-    const docRef = await addDoc(usersCollection, userDataWithUID);
-    console.log('Benutzer in Firestore hinzugefügt mit Dokument-ID:', docRef.id);
+    const docRef = await addDoc(usersCollection, user.toJSON()); 
+    console.log(
+      'Benutzer in Firestore hinzugefügt mit Dokument-ID:',
+      docRef.id
+    );
     return docRef;
   }
 
@@ -84,4 +96,3 @@ export class CreateAccountComponent implements OnInit {
     this.isHovered = !this.isHovered;
   }
 }
-

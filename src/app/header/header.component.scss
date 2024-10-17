@@ -48,7 +48,7 @@ input {
     display: flex;
     align-items: center;
     gap: 10px;
-
+    position: relative;
     &:hover {
         h2 {
             color: #444DF2;
@@ -66,6 +66,7 @@ input {
         font-weight: 700;
         line-height: 43.65px;
         color: #000000;
+        white-space: nowrap;
     }
 
     .user-img {
@@ -82,3 +83,25 @@ input {
         }
     }
 }
+
+.arrow-down-btn{
+    border: none;
+    cursor: pointer;
+    background-color: #eceefe;
+    .svg-down{
+        position: relative;
+        z-index: 20;
+    }
+}
+
+.overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 10; 
+}
+
+
