@@ -65,7 +65,6 @@
         [(ngModel)]="searchInput"
         [placeholder]="selectedUsers.length === 0 ? 'Name eingeben...' : ''"
         *ngIf="selectUsers"
-        [autofocus]="selectedUsers"
       />
       <div class="user-list" *ngIf="filteredUsers.length > 0">
         <div class="status-border">

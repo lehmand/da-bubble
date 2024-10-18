@@ -162,7 +162,7 @@ export class DialogAddUserComponent implements OnInit {
 
   getInputHeight(): string {
     const baseHeight = 53;
-    const extraHeightPerUser = 50;
+    const extraHeightPerUser = 100;
     const maxUsersPerLine = 2;
   
     if (this.selectedUsers.length <= 2) {
