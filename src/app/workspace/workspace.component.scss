@@ -227,11 +227,20 @@
   top: 34px;
   left: 53px;
 
-  span {
-    display: block;
-    background-color: #92c83e;
-    height: 14px;
-    width: 14px;
-    border-radius: 100%;
-  }
+}
+
+.online {
+  display: block;
+  background-color: #92c83e;
+  height: 14px;
+  width: 14px;
+  border-radius: 100%;
+}
+
+.offline {
+  display: block;
+  background-color: #757575;
+  height: 14px;
+  width: 14px;
+  border-radius: 100%;
 }
