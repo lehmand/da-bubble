@@ -10,11 +10,13 @@
 
 .image-box {
     position: absolute;
-    top: 25px;
-    left: 50px;
+    top: 75px;
+    left: 75px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 
     img {
-        width: 242px;
         height: 70px;
     }
 }
