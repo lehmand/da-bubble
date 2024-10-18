@@ -154,9 +154,23 @@ export class DialogAddUserComponent implements OnInit {
 
   updateDialogHeight() {
     if (this.selectUsers) {
-      this.dialogRef.updateSize('710px', '354px'); // Set height to 500px when selectUsers is true
+      this.dialogRef.updateSize('710px', '354px');
     } else {
-      this.dialogRef.updateSize('710px', '310px'); // Set height to 300px when selectUsers is false
+      this.dialogRef.updateSize('710px', '310px');
     }
+  }
+
+  getInputHeight(): string {
+    const baseHeight = 53;
+    const extraHeightPerUser = 50;
+    const maxUsersPerLine = 2;
+  
+    if (this.selectedUsers.length <= 2) {
+      return `${baseHeight}px`;
+    }
+    const additionalLines = Math.ceil(this.selectedUsers.length / maxUsersPerLine) - 1; 
+    const totalHeight = baseHeight + additionalLines * extraHeightPerUser;
+  
+    return `${totalHeight}px`;
   }
 }

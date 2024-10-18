@@ -61,9 +61,11 @@
         type="text"
         name="search-input"
         #search="ngModel"
+        [style.height]="getInputHeight()"
         [(ngModel)]="searchInput"
-        placeholder="Name eingeben..."
+        [placeholder]="selectedUsers.length === 0 ? 'Name eingeben...' : ''"
         *ngIf="selectUsers"
+        [autofocus]="selectedUsers"
       />
       <div class="user-list" *ngIf="filteredUsers.length > 0">
         <div class="status-border">
@@ -78,7 +80,7 @@
           <p>{{ user.name }}</p>
         </div>
       </div>
-      <div class="selected-users" *ngIf="selectedUsers.length > 0">
+      <div class="selected-users" *ngIf="selectedUsers.length > 0 && !addAllUsers" >
         <div
           class="selected-contact"
           *ngFor="let selectedUser of selectedUsers; let i = index"
