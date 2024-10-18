@@ -68,9 +68,11 @@ export class CreateAccountComponent implements OnInit {
       email: authUser.email || email,
       picture: '',
       password: '',
+      status: 'offline'
     });
     const docRef = await this.addUserToFirestore(this.newUser);
     this.router.navigate(['/avatar', docRef.id]);
+    console.log(this.newUser)
   }
 
   async addUserToFirestore(user: User) {
