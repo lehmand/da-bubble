@@ -4,7 +4,6 @@ import {
   collection,
   doc,
   getDoc,
-  getDocs,
   onSnapshot,
 } from '@angular/fire/firestore';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
@@ -13,6 +12,8 @@ import { CommonModule, } from '@angular/common';
 import { Component, OnInit, inject, Output, EventEmitter,Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalVariableService } from '../services/global-variable.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-workspace',
@@ -28,7 +29,10 @@ export class WorkspaceComponent implements OnInit {
   userData: any = {};
   allUsers: any = [];
   allChannels: any = [];
+  user : User = new User();
+  unsub?: () => void;
   checkUsersExsists: boolean = false;
+  userService =inject(UserService);
   @Output() userSelected = new EventEmitter<any>();
   readonly dialog = inject(MatDialog);
   private channelsUnsubscribe: Unsubscribe | undefined;
@@ -64,11 +68,14 @@ export class WorkspaceComponent implements OnInit {
     this.getAllUsers();
     this.userId = this.route.snapshot.paramMap.get('id');
     if (this.userId) {
-      this.getUserById(this.userId);
+        this.getUserById(this.userId);
+        this.userService.observingUserChanges(this.userId, (updatedUser: User) => {
+            this.global.currentUserData.name = updatedUser.name;  
+        });
     }
-    console.log('workspace', this.userId)
+    console.log('workspace', this.userId);
     this.getAllChannels();
-  }
+}
 
   ngOnDestroy(): void {
     if (this.channelsUnsubscribe) {
