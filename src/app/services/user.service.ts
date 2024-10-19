@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  doc,
+  getDoc,
+  updateDoc,
+  onSnapshot,
+  collection,
+  QuerySnapshot,
+  DocumentData,
+} from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 
 @Injectable({
@@ -8,12 +17,13 @@ import { User } from '../models/user.class';
 export class UserService {
   private currentUser: string | null = null;
   user: User = new User();
+  userID: any;
+  unsub?: () => void;
 
   constructor(private firestore: Firestore) {}
 
   setCurrentUser(userId: string) {
     this.currentUser = userId;
-    console.log('cu', this.currentUser);
   }
 
   getCurrentUser(): string | null {
@@ -31,4 +41,20 @@ export class UserService {
       return this.user;
     } else return null;
   }
-}
+
+  observingUserChanges(userID: string, callback: (user: User) => void) {
+    const newUsersRef = collection(this.firestore, 'users');
+    this.unsub = onSnapshot(
+      newUsersRef,
+      (snapshot: QuerySnapshot<DocumentData>) => {
+        snapshot.forEach((docSnapshot) => {
+          const userData = docSnapshot.data();
+          const snapID = docSnapshot.id;
+          if (snapID === userID) {
+            const updatedUser = new User(userData, userID);
+            callback(updatedUser); 
+          }
+        });
+      }
+    );
+}}

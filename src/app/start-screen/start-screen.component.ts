@@ -6,6 +6,8 @@ import { GlobalVariableService } from '../services/global-variable.service';
 import { FormsModule } from '@angular/forms';
 import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, setDoc,} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.class';
 
 interface SendMessageInfo {
   text: string,
@@ -38,15 +40,20 @@ export class StartScreenComponent implements OnInit, OnChanges {
   isMessagesended: boolean = false;
   dayInfo: boolean = false;
   messagesData: any = [];
-
+  userservice =inject(UserService)
+  user: User = new User();
+  unsub?: () => void;
 
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.getcurrentUserById(this.userId);
-    if (this.global.statusCheck) {
-      console.log(this.userId)
-    }
+   // this.userservice.observingUserChanges(this.userId, (updatedUser: User) => {
+      //this.user = updatedUser;  
+      if (this.global.statusCheck) {
+        console.log(this.userId);
+      }
+    //}); 
     this.watchConversationStatus();
   }
 

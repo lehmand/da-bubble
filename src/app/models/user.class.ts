@@ -5,8 +5,8 @@ export class User {
     password: string;
     picture?: string;
 
-    constructor(obj?: any) {
-        this.uid = obj?.uid || '';
+    constructor(obj?: any, uid?: string ) {
+        this.uid = uid || obj?.uid || ''; 
         this.name = obj?.name || '';
         this.email = obj?.email || '';
         this.password = obj?.password || '';
