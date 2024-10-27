@@ -1,11 +1,31 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit, inject, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  OnInit,
+  inject,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { GlobalVariableService } from '../services/global-variable.service';
 import { FormsModule } from '@angular/forms';
-import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, setDoc, updateDoc, } from '@angular/fire/firestore';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  onSnapshot,
+  doc,
+  getDoc,
+  query,
+  where,
+  setDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
@@ -20,14 +40,14 @@ interface SendMessageInfo {
   recipientId: string;
   recipientName: string;
   timestamp: Date;
-  senderSticker?: string
+  senderSticker?: string;
   senderStickerCount?: number;
   recipientSticker?: string;
   recipientStickerCount?: number;
   senderchoosedStickereBackColor?: string | null;
   recipientChoosedStickerBackColor?: string | null;
   stickerBoxCurrentStyle?: any;
-  stickerBoxOpacity?:any
+  stickerBoxOpacity?: any;
 }
 
 @Component({
@@ -44,8 +64,10 @@ interface SendMessageInfo {
   styleUrl: './start-screen.component.scss',
 })
 export class StartScreenComponent implements OnInit, OnChanges {
-  constructor(public global: GlobalVariableService) { }
+  constructor(public global: GlobalVariableService) {}
 
+  overlayStatusService = inject(OverlayStatusService);
+  openMyProfile = false;
   chatMessage: string = '';
   firestore = inject(Firestore);
   messageInfos: any = [];
@@ -58,14 +80,17 @@ export class StartScreenComponent implements OnInit, OnChanges {
   messagesData: any = [];
   commentImages: string[] = [
     '../../assets/img/comment/hand.png',
-    "../../assets/img/comment/celebration.png"
+    '../../assets/img/comment/celebration.png',
   ];
   commentStricker: string[] = [
     '../../assets/img/comment/face.png',
-    '../../assets/img/comment/rocket.png'
-  ]
+    '../../assets/img/comment/rocket.png',
+  ];
 
-  concatStickerArray: string[] = [...this.commentImages, ...this.commentStricker];
+  concatStickerArray: string[] = [
+    ...this.commentImages,
+    ...this.commentStricker,
+  ];
   isHovered: any = false;
   hoveredName: any;
   hoveredSenderName: any;
@@ -73,10 +98,11 @@ export class StartScreenComponent implements OnInit, OnChanges {
   hoveredRecipienUser: any;
   @ViewChild('scrollContainer') private scrollContainer: any = ElementRef;
   editMessageStatus: boolean = false;
-  messageIdHovered: any
-  userservice=inject(UserService) 
+  messageIdHovered: any;
+  userservice = inject(UserService);
   scrollToBottom(): void {
-    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    this.scrollContainer.nativeElement.scrollTop =
+      this.scrollContainer.nativeElement.scrollHeight;
   }
 
   scrollAutoDown(): void {
@@ -99,11 +125,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
       this.getMessages();
     }
     this.watchConversationStatus();
-
-
   }
-
-
 
   async getcurrentUserById(userId: string) {
     try {
@@ -123,7 +145,10 @@ export class StartScreenComponent implements OnInit, OnChanges {
     }
   }
 
-  messageData(senderStickerCount: number, recipientStickerCount: number): SendMessageInfo {
+  messageData(
+    senderStickerCount: number,
+    recipientStickerCount: number
+  ): SendMessageInfo {
     let recipientId = this.selectedUser.id;
     let recipientName = this.selectedUser.name;
     if (this.global.statusCheck) {
@@ -145,34 +170,50 @@ export class StartScreenComponent implements OnInit, OnChanges {
       senderchoosedStickereBackColor: '',
       recipientChoosedStickerBackColor: '',
       stickerBoxCurrentStyle: null,
-      stickerBoxOpacity:null
+      stickerBoxOpacity: null,
     };
   }
-
 
   async sendMessage() {
     if (this.chatMessage.trim() === '') {
       return;
     }
     const messagesRef = collection(this.firestore, 'messages');
-    const messageData = this.messageData(this.messagesData.senderStickerCount, this.messagesData.recipientStickerCount);
+    const messageData = this.messageData(
+      this.messagesData.senderStickerCount,
+      this.messagesData.recipientStickerCount
+    );
     await addDoc(messagesRef, messageData).then(() => {
       this.chatMessage = '';
       this.scrollToBottom();
     });
-    const conversationRef = doc(this.firestore, 'conversations', this.getConversationId());
+    const conversationRef = doc(
+      this.firestore,
+      'conversations',
+      this.getConversationId()
+    );
     const conversationSnapshot = await getDoc(conversationRef);
     let firstMessageDate;
     const today = new Date();
-    if (!conversationSnapshot.exists() || !this.isSameDay(conversationSnapshot.data()?.['firstMessageDate']?.toDate(), today)) {
+    if (
+      !conversationSnapshot.exists() ||
+      !this.isSameDay(
+        conversationSnapshot.data()?.['firstMessageDate']?.toDate(),
+        today
+      )
+    ) {
       firstMessageDate = today;
-      await setDoc(conversationRef, {
-        senderId: this.global.currentUserData.id,
-        recipientId: this.selectedUser.id,
-        isMessagesended: true,
-        firstMessageDate: firstMessageDate,
-        checkDayInfo: true
-      }, { merge: true });
+      await setDoc(
+        conversationRef,
+        {
+          senderId: this.global.currentUserData.id,
+          recipientId: this.selectedUser.id,
+          isMessagesended: true,
+          firstMessageDate: firstMessageDate,
+          checkDayInfo: true,
+        },
+        { merge: true }
+      );
     }
   }
 
@@ -184,7 +225,11 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
   async watchConversationStatus() {
     const conversationId = this.getConversationId();
-    const conversationRef = doc(this.firestore, 'conversations', conversationId);
+    const conversationRef = doc(
+      this.firestore,
+      'conversations',
+      conversationId
+    );
 
     onSnapshot(conversationRef, (conversationSnapshot) => {
       if (conversationSnapshot.exists()) {
@@ -209,13 +254,12 @@ export class StartScreenComponent implements OnInit, OnChanges {
     });
   }
 
-
-
-
   isSameDay(date1: Date, date2: Date): boolean {
-    return date1.getDate() === date2.getDate() &&
+    return (
+      date1.getDate() === date2.getDate() &&
       date1.getMonth() === date2.getMonth() &&
-      date1.getFullYear() === date2.getFullYear();
+      date1.getFullYear() === date2.getFullYear()
+    );
   }
 
   formatDate(date: Date): string {
@@ -224,7 +268,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
     const year = date.getFullYear();
     return `${day}.${month}.${year}`;
   }
-
 
   async getMessages() {
     const docRef = collection(this.firestore, 'messages');
@@ -265,7 +308,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
   editMessageId: string | null = null;
   editableMessageText: string = '';
 
-
   editMessages(message: any) {
     this.editMessageId = message.id;
     this.editableMessageText = message.text;
@@ -294,78 +336,73 @@ export class StartScreenComponent implements OnInit, OnChanges {
     this.isiconShow = null;
     const strickerRef = doc(this.firestore, 'messages', message.id);
     updateDoc(strickerRef, { stickerBoxCurrentStyle: null });
-  } 
+  }
 
-  removeOpacity(message:any){
-    const  opacityRef=doc(this.firestore,'messages',message.id)
-    updateDoc(opacityRef,{stickerBoxOpacity:null})
+  removeOpacity(message: any) {
+    const opacityRef = doc(this.firestore, 'messages', message.id);
+    updateDoc(opacityRef, { stickerBoxOpacity: null });
   }
 
   async chooseStricker(event: Event, message: any, selectedSticker: string) {
-
     if (this.global.currentUserData?.id === message.senderId) {
-      
       message.senderchoosedStickereBackColor = selectedSticker;
 
       message.stickerBoxCurrentStyle = true;
       // message.stickerBoxOpacity=true;
-       
+
       if (message.senderSticker === selectedSticker) {
         message.senderSticker = '';
         if (message.senderStickerCount === 2) {
           message.senderStickerCount = 1;
         }
-      }
-      else {
+      } else {
         message.senderSticker = selectedSticker;
         message.senderStickerCount = 1;
       }
       if (message.recipientSticker === selectedSticker) {
-        message.recipientStickerCount = (message.recipientStickerCount || 1) + 1;
+        message.recipientStickerCount =
+          (message.recipientStickerCount || 1) + 1;
         message.senderSticker = '';
 
         if (message.recipientStickerCount === 2) {
-          message.senderSticker = message.recipientSticker
+          message.senderSticker = message.recipientSticker;
         }
         if (message.recipientStickerCount >= 3) {
-          message.recipientStickerCount = 1
+          message.recipientStickerCount = 1;
         }
       }
 
       if (message.senderSticker !== message.recipientSticker) {
-        message.recipientStickerCount = 1
+        message.recipientStickerCount = 1;
       }
 
       if (message.senderSticker === message.recipientSticker) {
         message.senderStickerCount = (message.senderStickerCount || 1) + 1;
       }
-    }
-    else if (this.global.currentUserData?.id !== message.senderId) {
+    } else if (this.global.currentUserData?.id !== message.senderId) {
       message.recipientChoosedStickerBackColor = selectedSticker;
       message.stickerBoxCurrentStyle = true;
       // message.stickerBoxOpacity=true
-     
+
       if (message.recipientSticker === selectedSticker) {
         message.recipientSticker = '';
         if (message.recipientStickerCount === 2) {
           message.recipientStickerCount = 1;
         }
-      }
-      else {
+      } else {
         message.recipientSticker = selectedSticker;
         message.recipientStickerCount = 1;
-
       }
       if (message.senderSticker === selectedSticker) {
         message.senderStickerCount = (message.senderStickerCount || 1) + 1;
         if (message.senderStickerCount >= 3) {
-          message.senderStickerCount = 1
+          message.senderStickerCount = 1;
         }
       }
 
       if (message.recipientSticker !== '' && message.senderStickerCount === 2) {
-        message.senderStickerCount = 1
-        message.recipientSticker = selectedSticker
+        message.senderStickerCount = 1;
+        message.recipientSticker = selectedSticker;
       }
 
       if (message.recipientSticker === message.senderSticker) {
@@ -377,19 +414,23 @@ export class StartScreenComponent implements OnInit, OnChanges {
       message.recipientStickerCount
     );
 
-    const strickerRef = doc(this.firestore, 'messages', message.id)
+    const strickerRef = doc(this.firestore, 'messages', message.id);
     const stikerObj = {
       senderSticker: message.senderSticker,
       senderStickerCount: message.senderStickerCount,
       recipientSticker: message.recipientSticker,
       recipientStickerCount: message.recipientStickerCount,
       senderchoosedStickereBackColor: message.senderchoosedStickereBackColor,
-      recipientChoosedStickerBackColor: message.recipientChoosedStickerBackColor,
+      recipientChoosedStickerBackColor:
+        message.recipientChoosedStickerBackColor,
       stickerBoxCurrentStyle: message.stickerBoxCurrentStyle,
-      stickerBoxOpacity:message.stickerBoxOpacity
-    }
+      stickerBoxOpacity: message.stickerBoxOpacity,
+    };
     await updateDoc(strickerRef, stikerObj);
   }
+
+  showMyUserProfile() {
+    this.openMyProfile = true;
+    this.overlayStatusService.setOverlayStatus(this.openMyProfile);
+  }
 }
-
-

@@ -4,15 +4,17 @@
             <div class="drop-down-div">
                 <!-- <button class="drop-down-button" mat-button><span class="btn-text-img"># Entwicklerteam<img
                             src="./assets/img/arrow_drop_down.svg"></span></button> -->
-                <div class="user-chat-info">
+                <div (click)="showMyUserProfile()" class="user-chat-info">
                     <img [src]="global.statusCheck? global.currentUserData.picture : selectedUser?.picture  ">
                     <h4>{{ global.statusCheck ? global.currentUserData.name + '(Du)' : selectedUser?.name }}</h4>
 
                 </div>
             </div>
             <div>
-    <app-dialog-header-profil-card></app-dialog-header-profil-card>
-</div>
+                <div *ngIf="openMyProfile">
+                    <app-dialog-header-profil-card></app-dialog-header-profil-card>
+                </div>
+            </div>
 
         </mat-card-header>
 
@@ -53,8 +55,7 @@
                             <button class="btn-primary" (click)="saveMessage(message)">Speichern</button>
                         </div>
                     </div>
-                    <mat-card *ngIf="editMessageId !== message.id"
-                        [ngClass]="{'comment-box-current':message.senderId===global.currentUserData.id,
+                    <mat-card *ngIf="editMessageId !== message.id" [ngClass]="{'comment-box-current':message.senderId===global.currentUserData.id,
                         'comment-box-user':message.senderId !== global.currentUserData.id,
                         'position':message.stickerBoxCurrentStyle,
                         'position-user':message.stickerBoxCurrentStyle,
@@ -62,13 +63,13 @@
                         <mat-card-content style="padding: 5px 5px;" class="comment-content">
                             <div *ngFor="let image of commentImages let i=index"
                                 (click)="chooseStricker($event,message,image)">
-                                <div  class="comment-stricker"  
-                                [ngClass]="{'backColor-current':message.senderchoosedStickereBackColor===image && message.senderId===global.currentUserData.id && message.senderSticker!== '',
+                                <div class="comment-stricker"
+                                    [ngClass]="{'backColor-current':message.senderchoosedStickereBackColor===image && message.senderId===global.currentUserData.id && message.senderSticker!== '',
                                             'backColor-user':message.recipientChoosedStickerBackColor===image  && message.senderId!==global.currentUserData.id && message.recipientSticker !== ''}">
                                     <img [src]="image">
                                 </div>
                             </div>
-                              
+
 
                             <div [ngClass]="{'hidden': isiconShow===message.id}" class="add-reaction"
                                 (click)="displayHiddenIcon(message)">
@@ -88,9 +89,9 @@
                             <div *ngFor="let stricker of commentStricker"
                                 (click)="chooseStricker ($event,message,stricker)">
                                 <div *ngIf="isiconShow===message.id" class="comment-icon-box"
-                                  [ngClass]="{'backColor-current':message.senderchoosedStickereBackColor===stricker && message.senderId===global.currentUserData.id && message.senderSticker!== '',
-                                   'backColor-user':message.recipientChoosedStickerBackColor===stricker  && message.senderId!==global.currentUserData.id && message.recipientSticker !== '' }" >
-                                    <img [src]="stricker" >
+                                    [ngClass]="{'backColor-current':message.senderchoosedStickereBackColor===stricker && message.senderId===global.currentUserData.id && message.senderSticker!== '',
+                                   'backColor-user':message.recipientChoosedStickerBackColor===stricker  && message.senderId!==global.currentUserData.id && message.recipientSticker !== '' }">
+                                    <img [src]="stricker">
                                 </div>
                             </div>
                             <div class="open-thread">
@@ -255,7 +256,7 @@
                                 <span>{{message.recipientStickerCount || 1}}</span>
                             </div>
 
-                            <div  (mouseleave)="removeOpacity(message)"  class="show-stricker">
+                            <div (mouseleave)="removeOpacity(message)" class="show-stricker">
                                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <mask id="mask0_489_4318" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="8"
@@ -268,12 +269,12 @@
                                             fill="black" />
                                     </g>
                                 </svg>
-                                <mat-card  class="show-sticker-card" appearance="outlined" [ngClass]=" {'opacity':message.stickerBoxOpacity }">
+                                <mat-card class="show-sticker-card" appearance="outlined"
+                                    [ngClass]=" {'opacity':message.stickerBoxOpacity }">
                                     <mat-card-content class="show-sticker-cardContent">
                                         <div *ngFor="let sticker of concatStickerArray">
                                             <div class="show-sticker-box"
-                                                (click)="chooseStricker($event,message,sticker)"
-                                                [ngClass]="{'backColor-current':message.senderchoosedStickereBackColor===sticker && message.senderId===global.currentUserData.id && message.senderSticker!== '',
+                                                (click)="chooseStricker($event,message,sticker)" [ngClass]="{'backColor-current':message.senderchoosedStickereBackColor===sticker && message.senderId===global.currentUserData.id && message.senderSticker!== '',
                                                             'backColor-user':message.recipientChoosedStickerBackColor===sticker && message.senderId!== global.currentUserData.id && message.recipientSticker !== '',
                                         }">
                                                 <img [src]="sticker">
