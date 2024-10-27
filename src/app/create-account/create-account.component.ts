@@ -32,7 +32,6 @@ export class CreateAccountComponent implements OnInit {
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
-
   firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
   auth = getAuth();
@@ -68,11 +67,9 @@ export class CreateAccountComponent implements OnInit {
       email: authUser.email || email,
       picture: '',
       password: '',
-      status: 'offline'
     });
     const docRef = await this.addUserToFirestore(this.newUser);
     this.router.navigate(['/avatar', docRef.id]);
-    console.log(this.newUser)
   }
 
   async addUserToFirestore(user: User) {

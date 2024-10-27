@@ -54,14 +54,8 @@ export class StartScreenComponent implements OnInit, OnChanges {
   @Input() selectedUser: any;
   isMessagesended: boolean = false;
   checkDayInfo: boolean = false;
+  dayInfo: any;
   messagesData: any = [];
-<<<<<<< HEAD
-  userservice = inject(UserService);
-  user: User = new User();
-  unsub?: () => void;
-  openMyProfile = false;
-  overlayStatusService = inject(OverlayStatusService);
-=======
   commentImages: string[] = [
     '../../assets/img/comment/hand.png',
     "../../assets/img/comment/celebration.png"
@@ -78,11 +72,9 @@ export class StartScreenComponent implements OnInit, OnChanges {
   hoveredCurrentUser: any;
   hoveredRecipienUser: any;
   @ViewChild('scrollContainer') private scrollContainer: any = ElementRef;
-  dayInfo: any;
   editMessageStatus: boolean = false;
   messageIdHovered: any
   userservice=inject(UserService) 
-
   scrollToBottom(): void {
     this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
   }
@@ -92,7 +84,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
       this.scrollToBottom();
     }, 1000);
   }
->>>>>>> b7c21f5fa939f61c4b4b7206e57c2f40b5ea93de
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -100,7 +91,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
     if (this.global.statusCheck) {
       console.log(this.userId);
     }
-    console.log(this.concatStickerArray)
+    this.watchConversationStatus();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -184,9 +175,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
       }, { merge: true });
     }
   }
-
-
-
 
   getConversationId(): string {
     const ids = [this.global.currentUserData?.id, this.selectedUser?.id];
@@ -274,11 +262,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
     });
   }
 
-<<<<<<< HEAD
-  openCurrentUser() {
-    this.openMyProfile = !this.openMyProfile;
-    this.overlayStatusService.setOverlayStatus(this.openMyProfile);
-=======
   editMessageId: string | null = null;
   editableMessageText: string = '';
 
@@ -406,7 +389,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
       stickerBoxOpacity:message.stickerBoxOpacity
     }
     await updateDoc(strickerRef, stikerObj);
->>>>>>> b7c21f5fa939f61c4b4b7206e57c2f40b5ea93de
   }
 }
 
