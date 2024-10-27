@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, OnInit, inject, ElementRef, ViewChild } from '@angular/core';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -6,12 +7,14 @@ import { GlobalVariableService } from '../services/global-variable.service';
 import { FormsModule } from '@angular/forms';
 import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, setDoc, updateDoc, } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.class';
 
 interface SendMessageInfo {
-  text: string,
-  senderId: string,
-  senderName: string,
-  senderPicture?: string,
+  text: string;
+  senderId: string;
+  senderName: string;
+  senderPicture?: string;
   recipientId: string;
   recipientName: string;
   timestamp: Date;
@@ -25,7 +28,6 @@ interface SendMessageInfo {
   stickerBoxOpacity?:any
 }
 
-
 @Component({
   selector: 'app-start-screen',
   standalone: true,
@@ -33,8 +35,6 @@ interface SendMessageInfo {
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
 })
-
-
 export class StartScreenComponent implements OnInit, OnChanges {
   constructor(public global: GlobalVariableService) { }
 
@@ -66,6 +66,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
   dayInfo: any;
   editMessageStatus: boolean = false;
   messageIdHovered: any
+  userservice=inject(UserService) 
 
   scrollToBottom(): void {
     this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
@@ -81,7 +82,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.getcurrentUserById(this.userId);
     if (this.global.statusCheck) {
-      console.log(this.userId)
+      console.log(this.userId);
     }
     console.log(this.concatStickerArray)
   }
@@ -98,13 +99,20 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
 
   async getcurrentUserById(userId: string) {
-    const userRef = doc(this.firestore, 'users', userId);
-    const userSnapshot = await getDoc(userRef);
-    if (userSnapshot.exists()) {
-      this.global.currentUserData = {
-        id: userSnapshot.id,
-        ...userSnapshot.data()
-      };
+    try {
+      const userRef = doc(this.firestore, 'users', userId);
+      const userSnapshot = await getDoc(userRef);
+      if (userSnapshot.exists()) {
+        this.global.currentUserData = {
+          id: userSnapshot.id,
+          ...userSnapshot.data(),
+        };
+        this.userservice.observingUserChanges(userId, (updatedUser: User) => {
+          this.selectedUser = updatedUser;
+        });
+      }
+    } catch (error) {
+      console.error('Fehler beim Abruf s Benutzers:', error);
     }
   }
 
@@ -218,8 +226,14 @@ export class StartScreenComponent implements OnInit, OnChanges {
     const docRef = collection(this.firestore, 'messages');
     const q = query(
       docRef,
-      where('recipientId', 'in', [this.selectedUser.id, this.global.currentUserData.id]),
-      where('senderId', 'in', [this.selectedUser.id, this.global.currentUserData.id])
+      where('recipientId', 'in', [
+        this.selectedUser.id,
+        this.global.currentUserData.id,
+      ]),
+      where('senderId', 'in', [
+        this.selectedUser.id,
+        this.global.currentUserData.id,
+      ])
     );
     onSnapshot(q, (querySnapshot) => {
       this.messagesData = [];
@@ -229,9 +243,13 @@ export class StartScreenComponent implements OnInit, OnChanges {
           messageData['timestamp'] = messageData['timestamp'].toDate();
         }
         if (
-          (messageData['senderId'] === this.global.currentUserData.id && messageData['recipientId'] === this.selectedUser.id) ||
-          (messageData['senderId'] === this.selectedUser.id && messageData['recipientId'] === this.global.currentUserData.id) ||
-          (this.global.statusCheck && messageData['senderId'] === this.global.currentUserData.id && messageData['recipientId'] === this.global.currentUserData.id)
+          (messageData['senderId'] === this.global.currentUserData.id &&
+            messageData['recipientId'] === this.selectedUser.id) ||
+          (messageData['senderId'] === this.selectedUser.id &&
+            messageData['recipientId'] === this.global.currentUserData.id) ||
+          (this.global.statusCheck &&
+            messageData['senderId'] === this.global.currentUserData.id &&
+            messageData['recipientId'] === this.global.currentUserData.id)
         ) {
           this.messagesData.push({ id: doc.id, ...messageData });
         }

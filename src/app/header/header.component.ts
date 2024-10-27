@@ -9,6 +9,7 @@ import { DialogHeaderDropdownComponent } from '../dialog-header-dropdown/dialog-
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { collection, onSnapshot, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,8 @@ export class HeaderComponent implements OnInit {
   userID: any;
   userservice = inject(UserService);
   clicked = false;
+  allUsers: User[] = [];
+  unsub?: () => void;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -40,9 +43,18 @@ export class HeaderComponent implements OnInit {
         const userResult = await this.userservice.getUser(this.userID);
         if (userResult) {
           this.user = userResult;
+          this.userservice.observingUserChanges(this.userID, (updatedUser: User) => {
+            this.user = updatedUser;  
+          });
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.unsub) {
+      this.unsub();
+    }
   }
 
   toggleDropDown() {
