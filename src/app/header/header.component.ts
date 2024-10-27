@@ -10,6 +10,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { collection, onSnapshot, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
+import { OverlayStatusService } from '../services/overlay-status.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -33,8 +35,12 @@ export class HeaderComponent implements OnInit {
   clicked = false;
   allUsers: User[] = [];
   unsub?: () => void;
+  overlayStatusService = inject(OverlayStatusService);
+  overlayOpen = false;
+  private overlayStatusSub!: Subscription;
 
   constructor(private route: ActivatedRoute) {}
+
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(async (paramMap) => {
@@ -49,19 +55,29 @@ export class HeaderComponent implements OnInit {
         }
       }
     });
+    this.overlayStatusSub = this.overlayStatusService.overlayStatus$.subscribe(
+      (status) => {
+        this.overlayOpen = status;
+      }
+    );
   }
 
   ngOnDestroy(): void {
     if (this.unsub) {
       this.unsub();
     }
+    if (this.overlayStatusSub) {
+      this.overlayStatusSub.unsubscribe();
+    }
   }
+
 
   toggleDropDown() {
     this.clicked = !this.clicked;
+    this.overlayStatusService.setOverlayStatus(this.clicked); 
   }
 
   closeDropDown() {
-    this.clicked = false;
+    this.overlayStatusService.setOverlayStatus(false);
   }
 }

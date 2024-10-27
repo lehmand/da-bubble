@@ -37,7 +37,6 @@ export class UserService {
     if (userSnapshot.exists()) {
       const userData = userSnapshot.data() as User;
       this.user = userData;
-      console.log('cu', this.user);
       return this.user;
     } else return null;
   }

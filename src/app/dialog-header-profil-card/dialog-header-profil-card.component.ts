@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { DialogEditUserComponent } from "../dialog-edit-user/dialog-edit-user.component";
+import { OverlayStatusService } from '../services/overlay-status.service';
 
 @Component({
   selector: 'app-dialog-header-profil-card',
@@ -19,6 +20,8 @@ export class DialogHeaderProfilCardComponent implements OnInit {
   isCurrentUser = false;
   openEdit = false;
   profileCardopen = true;
+  overlayStatusService = inject(OverlayStatusService);
+  clicked = true;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -41,6 +44,7 @@ export class DialogHeaderProfilCardComponent implements OnInit {
 
   closeProfile() {
     this.profileCardopen = false;
+    this.overlayStatusService.setOverlayStatus(false);
   }
 
 

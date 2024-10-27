@@ -401,12 +401,16 @@ mat-card {
 .user-chat-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  justify-content: flex-start;
+  gap: 5px;
   cursor: pointer;
   padding: 4px 8px;
-  width: 217px;
+  width: fit-content;
   height: 58px;
-
+h4 {
+  white-space: nowrap;
+  padding-right: 12px;
+}
   &:hover {
     background: #ECEEFE;
     border-radius: 30px;

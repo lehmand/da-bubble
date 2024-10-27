@@ -4,11 +4,13 @@
             <div class="drop-down-div">
                 <!-- <button class="drop-down-button" mat-button><span class="btn-text-img"># Entwicklerteam<img
                             src="./assets/img/arrow_drop_down.svg"></span></button> -->
-                <div class="user-chat-info">
+                <div (click)="openCurrentUser()" class="user-chat-info">
                     <img [src]="global.statusCheck? global.currentUserData.picture : selectedUser?.picture  ">
                     <h4>{{ global.statusCheck ? global.currentUserData.name + '(Du)' : selectedUser?.name }}</h4>
-
                 </div>
+            </div>
+            <div *ngIf="openMyProfile">
+                <app-dialog-header-profil-card (closeProfileCard)="openMyProfile = false"></app-dialog-header-profil-card>
             </div>
             <!-- <div class="groupchat-header-img-box">
                 <button mat-button>

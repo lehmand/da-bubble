@@ -10,13 +10,14 @@ import {
   collection,
   query,
   where,
+  addDoc
 } from '@angular/fire/firestore';
 import {
   signInWithEmailAndPassword,
-  signInAnonymously,
 } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from '../services/auth.service';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-login',
@@ -39,8 +40,10 @@ export class LoginComponent implements OnInit {
   auth = inject(AuthService);
   emailLoginFailed = false;
   formFailed = false;
+  guestUser: User = new User();
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
 
@@ -67,7 +70,6 @@ export class LoginComponent implements OnInit {
       );
       const user = userCredential.user;
       const userID = await this.userDocId(user.uid);
-      console.log('Login successful:', user.uid);
       this.router.navigate(['/welcome', userID]);
     } catch (error) {
       this.formFailed = true;
@@ -100,20 +102,27 @@ export class LoginComponent implements OnInit {
     this.formFailed = false;
   }
 
-  guestLogin() {
-    const auth = getAuth();
-    signInAnonymously(auth)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (user.isAnonymous) {
-          console.log('Anonymer Benutzer UID: ', user.uid);
-          this.router.navigate(['/welcome', user.uid]);
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+  async guestLogin() {
+    const guestDocId = await this.userDocId('xx-guest-2024'); 
+    if (guestDocId) {
+      this.router.navigate(['/welcome', guestDocId]);
+    } else {
+      this.guestUser = new User({
+        uid: 'xx-guest-2024',
+        name: 'Guest',
+        email: 'guest@account.de',
+        picture: './assets/img/picture_frame.png',
       });
+      const docRef = await this.addUserToFirestore(this.guestUser);
+      this.router.navigate(['/welcome', docRef.id]);
+    }
+  }
+
+
+  async addUserToFirestore(user: User) {
+    const usersCollection = collection(this.firestore, 'users');
+    const docRef = await addDoc(usersCollection, user.toJSON()); 
+    return docRef;
   }
 
   googleLogIn() {

@@ -25,6 +25,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
+import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/dialog-header-profil-card.component';
+import { OverlayStatusService } from '../services/overlay-status.service';
 
 interface SendMessageInfo {
   text: string;
@@ -39,7 +41,13 @@ interface SendMessageInfo {
 @Component({
   selector: 'app-start-screen',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, CommonModule, FormsModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    CommonModule,
+    FormsModule,
+    DialogHeaderProfilCardComponent,
+  ],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
 })
@@ -57,6 +65,8 @@ export class StartScreenComponent implements OnInit, OnChanges {
   userservice = inject(UserService);
   user: User = new User();
   unsub?: () => void;
+  openMyProfile = false;
+  overlayStatusService = inject(OverlayStatusService);
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -193,5 +203,10 @@ export class StartScreenComponent implements OnInit, OnChanges {
       });
       this.messagesData.sort((a: any, b: any) => a.timestamp - b.timestamp);
     });
+  }
+
+  openCurrentUser() {
+    this.openMyProfile = !this.openMyProfile;
+    this.overlayStatusService.setOverlayStatus(this.openMyProfile);
   }
 }
