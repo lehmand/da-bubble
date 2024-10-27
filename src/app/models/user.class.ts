@@ -4,6 +4,7 @@ export class User {
     email: string;
     password: string;
     picture?: string;
+    status: string;
 
     constructor(obj?: any, uid?: string ) {
         this.uid = uid || obj?.uid || ''; 
@@ -11,6 +12,7 @@ export class User {
         this.email = obj?.email || '';
         this.password = obj?.password || '';
         this.picture = obj?.picture || '';
+        this.status = obj?.status || '';
     }
 
     public toJSON() {
@@ -19,7 +21,8 @@ export class User {
             name: this.name,
             email: this.email,
             password: this.password,
-            picture: this.picture
+            picture: this.picture,
+            status: this.status
         };
     }
 }

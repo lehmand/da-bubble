@@ -9,6 +9,17 @@
   color: white;
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    font-family: "Nunito";
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 25px;
+    padding: 12px 25px;
+    background-color: #797ef3;
+    color: white;
+    cursor: pointer;
+  }
 }
 
 .btn-primary-hover {
@@ -57,6 +68,11 @@
   background-color: white;
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    background-color: #535af1;
+    color: white;
+  }
 }
 
 .btn-secondary-hover {

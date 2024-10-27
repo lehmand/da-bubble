@@ -192,7 +192,7 @@
             <div class="contact" (click)="selectCurrentUser()">
               <img [src]="global.currentUserData.picture" class="avatar" />
               <div class="status-border">
-                <span class="status"></span>
+                <span [ngClass]="{'online': global.currentUserData.status === 'online', 'offline': global.currentUserData.status === 'offline'}"></span>
               </div>
               <h4>{{global.currentUserData.name}} (Du)</h4>
             </div>
@@ -201,7 +201,7 @@
               <div class="all-user" *ngFor="let user of allUsers" (click)="selectUser(user)">
                 <img [src]="user.picture">
                 <div class="status-border">
-                  <span class="status"></span>
+                  <span [ngClass]="{'online': user.status === 'online', 'offline': user.status === 'offline'}"></span>
                 </div>
                 <h4>{{user.name}}</h4>
               </div>
