@@ -10,6 +10,8 @@ import {
   collection,
   query,
   where,
+  doc,
+  getDoc,
 } from '@angular/fire/firestore';
 import {
   signInWithEmailAndPassword,
@@ -17,6 +19,7 @@ import {
 } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from '../services/auth.service';
+import { updateDoc } from '@firebase/firestore';
 
 @Component({
   selector: 'app-login',
@@ -69,9 +72,19 @@ export class LoginComponent implements OnInit {
       const userID = await this.userDocId(user.uid);
       console.log('Login successful:', user.uid);
       this.router.navigate(['/welcome', userID]);
+      if(userID){
+        this.updateStatus(userID);
+      }
     } catch (error) {
       this.formFailed = true;
     }
+  }
+
+  async updateStatus(userId: string){
+    const docRef = doc(this.firestore, 'users', userId);
+    await updateDoc(docRef, {
+      status: 'online'
+    })   
   }
 
   async proofMail(email: string): Promise<boolean> {
