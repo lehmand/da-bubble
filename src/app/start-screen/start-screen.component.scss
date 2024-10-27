@@ -112,6 +112,7 @@ mat-card {
   height: 150px;
   padding: 20px 8px 8px 16px;
   position: relative;
+  resize: none;
 
   &:focus {
     border-color: #444df2;
@@ -431,13 +432,12 @@ mat-card {
 }
 
 .chat-info {
-  position: absolute;
   left: 45px;
   top: 439px;
   padding: 0 45px;
 
-  
- 
+
+
 
   span {
     font-size: 20px;
@@ -446,16 +446,15 @@ mat-card {
     color: #686868;
     cursor: pointer;
   }
-} 
-
-.chat-info.upstairs{
-  position: absolute;
-  top: 140px;
 }
- 
+
+.chat-info.upstairs {
+  display: none;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;  /* Breite des Scrollbalkens */
-  background-color: transparent;  /* Hintergrund des Scrollbalkens */
+  width: 0;
+  background-color: transparent;
 }
 
 .user-box {
@@ -494,7 +493,7 @@ mat-card {
 .main-day-info {
   padding: 0 35px;
   position: absolute;
-  top: 288px;
+  top: 17px;
   width: 100%;
   cursor: default;
 }
@@ -528,21 +527,92 @@ mat-card {
 
 .main-current-messagebox {
   position: absolute;
-  top: 373px;
+  top: 140px;
   width: 100%;
-  max-height: 200px;
+  height: 437px;
   overflow-y: auto;
+  margin-top: -28px;
 }
 
-.main-mesage-info {
+.main-mesage-info-current {
   width: 100%;
+  position: relative;
+  margin-top: 0;
+  padding: 5px 0;
+  top: 44px;
+  margin-top: 37px;
+
+  &:hover {
+    background-color: #ECEEFE;
+    cursor: pointer;
+
+    .comment-box-current {
+      left: 50px;
+      opacity: 1;
+      cursor: pointer;
+   
+    }
+
+    .show-comment-stricker {
+      background-color: #FFFFFF;
+    }
+
+    .show-stricker {
+      background-color: #FFFFFF;
+      border-radius: 100%;
+    }
+  }
 }
 
-.message-content {
-  margin: 10px 145px;
+
+
+.main-message-info-user {
+  width: 100%;
+  position: relative;
+  margin-top: 0;
+  padding: 5px 0;
+  top: 44px;
+  margin-top: 37px;
+
+  &:hover {
+    background-color: #ECEEFE;
+    cursor: pointer;
+
+    .comment-box-user {
+      right: 50px;
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .message-card-user {
+      background-color: #FFFFFF;
+    }
+
+    .show-comment-stricker {
+      background-color: #FFFFFF;
+    }
+
+    .show-stricker {
+      background-color: #FFFFFF;
+      border-radius: 100%;
+    }
+  }
+}
+
+
+.message-content-current {
+  margin: 15px 145px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  gap: 8px;
+}
+
+
+.message-content-user {
+  margin: 15px 145px;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -551,6 +621,15 @@ mat-card {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+
+.user-name-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
 }
 
 .message-time {
@@ -567,8 +646,7 @@ mat-card {
   color: #000000;
 }
 
-.message-card {
-  max-width: 698px;
+.message-card-current {
   max-height: 105px;
   background-color: #797EF3;
   border-top-right-radius: 0;
@@ -578,34 +656,476 @@ mat-card {
   max-width: max-content;
 }
 
-.card-content {
+.message-card-user {
+  max-height: 105px;
+  background-color: #ECEEFE;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  max-width: max-content;
+
+}
+
+.card-content-current {
   font-size: 18px;
   font-weight: 400;
   line-height: 24.55px;
   color: #FFFFFF;
 }
 
+.card-content-user {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.55px;
+  color: #000000;
+}
+
 .avatar-box {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+  position: relative;
+
+  img {
+    width: 23px;
+    height: 21px;
+  }
+}
+
+.show-stricker {
   cursor: pointer;
-  width: 23px;
-  height: 21px;
+  width: 40px;
+  height: 40px;
+  position: relative;
+
   &:hover {
+    background-color: unset !important;
+    border-radius: unset !important;
+
+    .show-sticker-card {
+      opacity: 1;
+    }
+
     svg {
       path {
-        &:hover {
-          fill: #444DF2;
-        }
+        fill: #444DF2;
+      }
+    }
+  }
+
+}
+
+.show-sticker-card {
+  position: absolute;
+  top: -153px;
+  left: 29px;
+  background-color: #444DF2;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 30px;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+} 
+
+.show-sticker-card.opacity{
+  position: absolute;
+  top: -153px;
+  left: 29px;
+  opacity: 1; 
+} 
+
+
+   
+
+.show-sticker-cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0 5px;
+}
+
+.show-sticker-box {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #FFFFFF;
+    border-radius: 100%;
+  }
+}
+
+
+.show-sticker-box.backColor-current {
+  background-color: #FFFFFF;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #444df2;
+  }
+}
+
+.show-sticker-box.backColor-user {
+  background-color: #FFFFFF;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #444df2;
+  }
+}
+
+
+
+.sender-picture {
+  width: 70px;
+  height: 70px;
+}
+
+.picture-box-current {
+  position: absolute;
+  right: 45px;
+}
+
+.picture-box-user {
+  position: absolute;
+  left: 45px;
+}
+
+.comment-box-current {
+  position: absolute;
+  left: 40px;
+  opacity: 0;
+  border: 1px solid #adb0d9;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 0;
+  top: -22px;
+  transition: left 0.3s ease, opacity 0.3s ease;
+}
+
+.comment-box-current.position {
+  left: 50px;
+  opacity: 1;
+}
+
+
+.comment-box-user {
+  position: absolute;
+  right: 40px;
+  opacity: 0;
+  border: 1px solid #adb0d9;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 0;
+  top: -22px;
+  transition: right 0.3s ease, opacity 0.3s ease;
+}  
+
+.comment-box-user.position-user {
+  right: 50px;
+  opacity: 1;
+}
+ 
+
+
+.comment-content {
+  display: flex;
+  align-items: center;
+}
+
+
+.comment-stricker {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #ECEEFE;
+    border-radius: 100%;
+  }
+}
+
+.comment-stricker.backColor-current {
+  background-color: #ECEEFE;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #444df2;
+  }
+}
+
+.comment-stricker.backColor-user {
+  background-color: #ECEEFE;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #444df2;
+  }
+}
+
+
+.add-reaction {
+  width: 40px;
+  height: 40px;
+
+  &:hover {
+    background-color: #ECEEFE;
+    border-radius: 100%;
+
+    svg {
+      path {
+        fill: #444DF2;
       }
     }
   }
 }
 
-.sender-picture{
-  width: 70px;
-  height: 70px;
+.add-reaction.hidden {
+  display: none;
 }
 
-.picture-box{
+.open-thread {
+  width: 40px;
+  height: 40px;
+
+  &:hover {
+    background-color: #ECEEFE;
+    border-radius: 100%;
+
+    svg {
+      path {
+        fill: #444DF2;
+      }
+    }
+  }
+}
+
+.edit-message {
+  &:hover {
+    .edit-messages-card {
+      opacity: 1;
+    }
+  }
+
+
+}
+
+.edit-icon {
+  width: 40px;
+  height: 40px;
+
+  &:hover {
+    background-color: #ECEEFE;
+    border-radius: 100%;
+
+    .edit-messages-card {
+      opacity: 1;
+    }
+
+    svg {
+      path {
+        fill: #444DF2;
+      }
+    }
+  }
+}
+
+.edit-messages-card {
   position: absolute;
-  right: 45px;
+  left: 194px;
+  top: 22px;
+  max-width: max-content;
+  background-color: #FFFFFF;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  opacity: 1;
+  max-width: max-content;
+  width: 100%;
+  box-shadow: 0px 2px 10px 0px #00000014;
+
+
+}
+
+.edit-message-content {
+  color: #000000;
+  width: 100%;
+
+
+  span {
+    padding: 7px;
+  }
+
+  &:hover {
+    span {
+      color: #444DF2;
+      background-color: #ECEEFE;
+      border: 0 solid;
+      border-radius: 30px;
+    }
+  }
+}
+
+.edit-mesage-box {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+}
+
+
+.edit-input {
+  width: 88%;
+  height: 148px;
+  padding: 16px;
+  resize: none;
+  border: 1px solid #adb0d9;
+  border-radius: 20px;
+  font-family: Nunito, "Helvetica Neue";
+  font-size: 18px;
+
+  &:focus {
+    border-color: #444df2;
+    outline: none;
+  }
+}
+
+.button-box {
+  position: absolute;
+  left: 58%;
+  top: 90px;
+  display: flex;
+  gap: 10px;
+}
+
+.comment-icon-box {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #ECEEFE;
+    border-radius: 100%;
+  }
+}
+
+.comment-icon-box.backColor-current {
+  background-color: #ECEEFE;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #444df2;
+  }
+}
+
+.comment-icon-box.backColor-user {
+  background-color: #ECEEFE;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #444df2;
+  }
+}
+
+
+
+
+.show-comment-stricker {
+  display: flex;
+  border: 1px solid #adb0d9;
+  padding: 1px;
+  border-radius: 16px;
+  padding: 5px;
+  gap: 6px;
+
+  &:hover {
+    border-color: #444df2;
+  }
+
+
+
+}
+
+
+.sticker-senderName-current {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  background-color: #444DF2;
+  color: #FFFFFF;
+  position: absolute;
+  width: 167px;
+  top: -94px;
+  left: 27px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+}
+
+.sticker-senderName-current.hovered {
+  opacity: 1;
+  z-index: 200;
+}
+
+.sticker-senderName-current.hoveredRecipienUser {
+  left: 95px;
+}
+
+.sticker-senderName-user {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 30px;
+  background-color: #444DF2;
+  color: #FFFFFF;
+  position: absolute;
+  width: 167px;
+  top: -94px;
+  left: -132px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sticker-senderName-user.hovered {
+  opacity: 1;
+  z-index: 200;
+}
+
+.sticker-senderName-user.hoveredSenderName {
+  position: absolute;
+  width: 167px;
+  top: -94px;
+}
+
+.sticker-senderName-user.hoveredName {
+  position: absolute;
+  top: -94px;
+  left: -58px;
+}
+
+.sticker-senderName-user.seperateName {
+  position: absolute;
+  left: -130px;
+}
+
+.sticker-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sticker-sender-name {
+  text-align: center;
 }
