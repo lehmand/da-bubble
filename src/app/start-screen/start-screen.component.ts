@@ -433,4 +433,9 @@ export class StartScreenComponent implements OnInit, OnChanges {
     this.openMyProfile = true;
     this.overlayStatusService.setOverlayStatus(this.openMyProfile);
   }
+
+  closeMyUserProfile() {
+    this.openMyProfile = false; 
+    this.overlayStatusService.setOverlayStatus(false);
+}
 }

@@ -11,16 +11,11 @@ import {
   query,
   where,
   doc,
-  getDoc,
-  addDoc
 } from '@angular/fire/firestore';
-import {
-  signInWithEmailAndPassword,
-} from '@angular/fire/auth';
+import { signInWithEmailAndPassword } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from '../services/auth.service';
 import { updateDoc } from '@firebase/firestore';
-import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-login',
@@ -38,19 +33,15 @@ export class LoginComponent implements OnInit {
   loading = false; // Optional: to show a loading spinner during login
   userService = inject(UserService);
   firestore = inject(Firestore);
-  // auth = inject(Auth);
-  router = inject(Router);
   auth = inject(AuthService);
+  router = inject(Router);
   emailLoginFailed = false;
   formFailed = false;
-  guestUser: User = new User();
+ 
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   async onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
@@ -74,7 +65,7 @@ export class LoginComponent implements OnInit {
       const user = userCredential.user;
       const userID = await this.userDocId(user.uid);
       this.router.navigate(['/welcome', userID]);
-      if(userID){
+      if (userID) {
         this.updateStatus(userID);
       }
     } catch (error) {
@@ -82,11 +73,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async updateStatus(userId: string){
+  async updateStatus(userId: string) {
     const docRef = doc(this.firestore, 'users', userId);
     await updateDoc(docRef, {
-      status: 'online'
-    })   
+      status: 'online',
+    });
   }
 
   async proofMail(email: string): Promise<boolean> {
@@ -115,28 +106,10 @@ export class LoginComponent implements OnInit {
     this.formFailed = false;
   }
 
-  async guestLogin() {
-    const guestDocId = await this.userDocId('xx-guest-2024'); 
-    if (guestDocId) {
-      this.router.navigate(['/welcome', guestDocId]);
-    } else {
-      this.guestUser = new User({
-        uid: 'xx-guest-2024',
-        name: 'Guest',
-        email: 'guest@account.de',
-        picture: './assets/img/picture_frame.png',
-      });
-      const docRef = await this.addUserToFirestore(this.guestUser);
-      this.router.navigate(['/welcome', docRef.id]);
-    }
+  guestLogin() {
+    this.auth.SignGuestIn();
   }
 
-
-  async addUserToFirestore(user: User) {
-    const usersCollection = collection(this.firestore, 'users');
-    const docRef = await addDoc(usersCollection, user.toJSON()); 
-    return docRef;
-  }
 
   googleLogIn() {
     this.auth.googleLogIn();

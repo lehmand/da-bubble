@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Firestore } from '@angular/fire/firestore';
@@ -9,7 +9,7 @@ import { DialogHeaderDropdownComponent } from '../dialog-header-dropdown/dialog-
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { collection, onSnapshot, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
+import { switchMap } from 'rxjs';
 import { OverlayStatusService } from '../services/overlay-status.service';
 import { Subscription } from 'rxjs';
 
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   auth = inject(AuthService);
   firestore = inject(Firestore);
   user: User = new User();
@@ -41,7 +41,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
-
   ngOnInit(): void {
     this.route.paramMap.subscribe(async (paramMap) => {
       this.userID = paramMap.get('id');
@@ -49,15 +48,19 @@ export class HeaderComponent implements OnInit {
         const userResult = await this.userservice.getUser(this.userID);
         if (userResult) {
           this.user = userResult;
-          this.userservice.observingUserChanges(this.userID, (updatedUser: User) => {
-            this.user = updatedUser;  
-          });
+          this.userservice.observingUserChanges(
+            this.userID,
+            (updatedUser: User) => {
+              this.user = updatedUser;
+            }
+          );
         }
       }
     });
     this.overlayStatusSub = this.overlayStatusService.overlayStatus$.subscribe(
       (status) => {
         this.overlayOpen = status;
+        console.log('Overlay Status:', status); 
       }
     );
   }
@@ -71,10 +74,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-
   toggleDropDown() {
     this.clicked = !this.clicked;
-    this.overlayStatusService.setOverlayStatus(this.clicked); 
+    this.overlayStatusService.setOverlayStatus(this.clicked);
   }
 
   closeDropDown() {
