@@ -13,16 +13,18 @@ import { ThreadComponent } from '../thread/thread.component';
 })
 export class HomeComponent  implements OnInit{
   selectedUser: any;
-
+  selectedChannel: any;
 
   onUserSelected(user: any) {
     this.selectedUser = user;
+    this.selectedChannel = null;
+  }     
  
-  }  
+  onChannelSelected(channel: any) {
+    this.selectedChannel = channel;
+    this.selectedUser = null
+  }
 
- 
-    
- 
   ngOnInit(): void {
     
   }

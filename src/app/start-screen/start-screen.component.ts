@@ -74,9 +74,11 @@ export class StartScreenComponent implements OnInit, OnChanges {
   userId: any | null = null;
   route = inject(ActivatedRoute);
   @Input() selectedUser: any;
+  @Input() selectedChannel: any;
   isMessagesended: boolean = false;
   checkDayInfo: boolean = false;
   dayInfo: any;
+  channelMembers: any[] = [];
   messagesData: any = [];
   commentImages: string[] = [
     '../../assets/img/comment/hand.png',
@@ -123,8 +125,41 @@ export class StartScreenComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedUser'] && this.selectedUser?.id) {
       this.getMessages();
+      this.global.clearCurrentChannel();
+    }
+    if (changes['selectedChannel'] && this.selectedChannel) {
+      this.fetchChannelMembers();
+      this.global.setCurrentChannel(this.selectedChannel);
     }
     this.watchConversationStatus();
+  }
+
+  async fetchChannelMembers() {
+    if (!this.selectedChannel?.userIds) {
+      this.channelMembers = [];
+      return;
+    }
+
+    try {
+      const membersPromises = this.selectedChannel.userIds.map(async (userId: string) => {
+        const userRef = doc(this.firestore, 'users', userId);
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists()) {
+          return {
+            id: userSnap.id,
+            ...userSnap.data(),
+          };
+        }
+        return null;
+      });
+
+      const members = await Promise.all(membersPromises);
+      this.channelMembers = members.filter(member => member !== null);
+      console.log(this.channelMembers);
+    } catch (error) {
+      console.error('Error fetching channel members:', error);
+    }
   }
 
   async getcurrentUserById(userId: string) {

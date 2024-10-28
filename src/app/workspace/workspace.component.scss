@@ -173,9 +173,8 @@
   position: relative;
 
   img {
-    height: 42px;
+    height: 50px;
     border-radius: 40px;
-    width: 44px;
   }
 
   h4 {
@@ -200,11 +199,12 @@
   gap: 15px;
   padding: 4px 20px;
   margin-left: 24px;
-  border-radius: 30px;
   position: relative;
-
+  
   img {
     height: 50px;
+    min-width: 50px;
+    border-radius: 30px;
   }
 
   h4 {

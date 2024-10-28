@@ -50,6 +50,69 @@ mat-card {
   }
 }
 
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 8px;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  &:hover {
+    background-color: rgb(236, 238, 254);
+    cursor: pointer;
+
+    .icon path {
+      fill: #444df2;
+    }
+  }
+}
+
+.members-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.member-avatars {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  &:hover {
+    background: #eceefe;
+  }
+  &:hover > .member-count span {
+    color: #535af1;
+  }
+}
+
+.member-count {
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 27.28px;
+  text-align: left;
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  height: 40px;
+  border-radius: 100%;
+  margin-left: -12px;
+  border: 2px solid white;
+}
+
+.avatar:first-child {
+  margin: 0;
+}
+
 .btn-text-img {
   display: flex;
   align-items: center;
@@ -83,7 +146,8 @@ mat-card {
   img {
     &:hover {
       scale: 1.2;
-      filter: brightness(0) saturate(100%) invert(14%) sepia(70%) saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
+      filter: brightness(0) saturate(100%) invert(14%) sepia(70%)
+        saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
     }
   }
 }
@@ -161,7 +225,8 @@ mat-card {
   .plus {
     &:hover {
       scale: 1.1;
-      filter: brightness(0) saturate(100%) invert(14%) sepia(70%) saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
+      filter: brightness(0) saturate(100%) invert(14%) sepia(70%)
+        saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
     }
   }
 }
@@ -181,7 +246,8 @@ mat-card {
   img {
     &:hover {
       scale: 1.1;
-      filter: brightness(0) saturate(100%) invert(14%) sepia(70%) saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
+      filter: brightness(0) saturate(100%) invert(14%) sepia(70%)
+        saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
     }
   }
 }
@@ -382,22 +448,11 @@ mat-card {
   img {
     &:hover {
       scale: 1.1;
-      filter: brightness(0) saturate(100%) invert(51%) sepia(51%) saturate(937%) hue-rotate(203deg) brightness(93%) contrast(106%);
+      filter: brightness(0) saturate(100%) invert(51%) sepia(51%) saturate(937%)
+        hue-rotate(203deg) brightness(93%) contrast(106%);
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .user-chat-info {
   display: flex;
@@ -408,16 +463,16 @@ mat-card {
   padding: 4px 8px;
   width: fit-content;
   height: 58px;
-h4 {
-  white-space: nowrap;
-  padding-right: 12px;
-}
+  h4 {
+    white-space: nowrap;
+    padding-right: 12px;
+  }
   &:hover {
-    background: #ECEEFE;
+    background: #eceefe;
     border-radius: 30px;
 
     h4 {
-      color: #444DF2;
+      color: #444df2;
     }
   }
 
@@ -440,9 +495,6 @@ h4 {
   left: 45px;
   top: 439px;
   padding: 0 45px;
-
-
-
 
   span {
     font-size: 20px;
@@ -474,7 +526,7 @@ h4 {
     color: #000000;
 
     &:hover {
-      color: #444DF2;
+      color: #444df2;
       cursor: pointer;
     }
   }
@@ -487,13 +539,12 @@ h4 {
 
 .malito-a {
   text-decoration: none;
-  color: #535AF1;
+  color: #535af1;
   font-size: 20px;
   font-weight: 400;
   line-height: 27.28px;
   text-align: left;
 }
-
 
 .main-day-info {
   padding: 0 35px;
@@ -505,7 +556,7 @@ h4 {
 
 .line {
   width: 100%;
-  border: 1px solid #ADB0D9;
+  border: 1px solid #adb0d9;
 }
 
 .day-info {
@@ -513,12 +564,11 @@ h4 {
   align-items: center;
 }
 
-
 .day-span {
   border-radius: 30px;
-  border: 1px solid #ADB0D9;
+  border: 1px solid #adb0d9;
   padding: 5px 15px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: absolute;
   right: 50%;
   font-size: 18px;
@@ -527,8 +577,6 @@ h4 {
   text-align: left;
   color: #000000;
 }
-
-
 
 .main-current-messagebox {
   position: absolute;
@@ -548,28 +596,25 @@ h4 {
   margin-top: 37px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     cursor: pointer;
 
     .comment-box-current {
       left: 50px;
       opacity: 1;
       cursor: pointer;
-   
     }
 
     .show-comment-stricker {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
 
     .show-stricker {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       border-radius: 100%;
     }
   }
 }
-
-
 
 .main-message-info-user {
   width: 100%;
@@ -580,7 +625,7 @@ h4 {
   margin-top: 37px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     cursor: pointer;
 
     .comment-box-user {
@@ -590,20 +635,19 @@ h4 {
     }
 
     .message-card-user {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
 
     .show-comment-stricker {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
 
     .show-stricker {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       border-radius: 100%;
     }
   }
 }
-
 
 .message-content-current {
   margin: 15px 145px;
@@ -613,7 +657,6 @@ h4 {
   gap: 8px;
 }
 
-
 .message-content-user {
   margin: 15px 145px;
   display: flex;
@@ -621,13 +664,11 @@ h4 {
   gap: 8px;
 }
 
-
 .current-name-box {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
 
 .user-name-box {
   display: flex;
@@ -653,7 +694,7 @@ h4 {
 
 .message-card-current {
   max-height: 105px;
-  background-color: #797EF3;
+  background-color: #797ef3;
   border-top-right-radius: 0;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -663,20 +704,19 @@ h4 {
 
 .message-card-user {
   max-height: 105px;
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-top-right-radius: 30px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   max-width: max-content;
-
 }
 
 .card-content-current {
   font-size: 18px;
   font-weight: 400;
   line-height: 24.55px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .card-content-user {
@@ -714,18 +754,17 @@ h4 {
 
     svg {
       path {
-        fill: #444DF2;
+        fill: #444df2;
       }
     }
   }
-
 }
 
 .show-sticker-card {
   position: absolute;
   top: -153px;
   left: 29px;
-  background-color: #444DF2;
+  background-color: #444df2;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 0;
@@ -733,17 +772,14 @@ h4 {
   padding: 0;
   opacity: 0;
   transition: opacity 0.3s ease;
-} 
+}
 
-.show-sticker-card.opacity{
+.show-sticker-card.opacity {
   position: absolute;
   top: -153px;
   left: 29px;
-  opacity: 1; 
-} 
-
-
-   
+  opacity: 1;
+}
 
 .show-sticker-cardContent {
   display: flex;
@@ -760,14 +796,13 @@ h4 {
   justify-content: center;
 
   &:hover {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 100%;
   }
 }
 
-
 .show-sticker-box.backColor-current {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 100%;
 
   &:hover {
@@ -776,15 +811,13 @@ h4 {
 }
 
 .show-sticker-box.backColor-user {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 100%;
 
   &:hover {
     background-color: #444df2;
   }
 }
-
-
 
 .sender-picture {
   width: 70px;
@@ -819,7 +852,6 @@ h4 {
   opacity: 1;
 }
 
-
 .comment-box-user {
   position: absolute;
   right: 40px;
@@ -831,20 +863,17 @@ h4 {
   border-bottom-right-radius: 0;
   top: -22px;
   transition: right 0.3s ease, opacity 0.3s ease;
-}  
+}
 
 .comment-box-user.position-user {
   right: 50px;
   opacity: 1;
 }
- 
-
 
 .comment-content {
   display: flex;
   align-items: center;
 }
-
 
 .comment-stricker {
   width: 40px;
@@ -854,13 +883,13 @@ h4 {
   align-items: center;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
   }
 }
 
 .comment-stricker.backColor-current {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
@@ -869,7 +898,7 @@ h4 {
 }
 
 .comment-stricker.backColor-user {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
@@ -877,18 +906,17 @@ h4 {
   }
 }
 
-
 .add-reaction {
   width: 40px;
   height: 40px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
 
     svg {
       path {
-        fill: #444DF2;
+        fill: #444df2;
       }
     }
   }
@@ -903,12 +931,12 @@ h4 {
   height: 40px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
 
     svg {
       path {
-        fill: #444DF2;
+        fill: #444df2;
       }
     }
   }
@@ -920,8 +948,6 @@ h4 {
       opacity: 1;
     }
   }
-
-
 }
 
 .edit-icon {
@@ -929,7 +955,7 @@ h4 {
   height: 40px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
 
     .edit-messages-card {
@@ -938,7 +964,7 @@ h4 {
 
     svg {
       path {
-        fill: #444DF2;
+        fill: #444df2;
       }
     }
   }
@@ -949,7 +975,7 @@ h4 {
   left: 194px;
   top: 22px;
   max-width: max-content;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-top-left-radius: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -958,14 +984,11 @@ h4 {
   max-width: max-content;
   width: 100%;
   box-shadow: 0px 2px 10px 0px #00000014;
-
-
 }
 
 .edit-message-content {
   color: #000000;
   width: 100%;
-
 
   span {
     padding: 7px;
@@ -973,8 +996,8 @@ h4 {
 
   &:hover {
     span {
-      color: #444DF2;
-      background-color: #ECEEFE;
+      color: #444df2;
+      background-color: #eceefe;
       border: 0 solid;
       border-radius: 30px;
     }
@@ -986,7 +1009,6 @@ h4 {
   z-index: 10;
   width: 100%;
 }
-
 
 .edit-input {
   width: 88%;
@@ -1020,13 +1042,13 @@ h4 {
   align-items: center;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
   }
 }
 
 .comment-icon-box.backColor-current {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
@@ -1035,16 +1057,13 @@ h4 {
 }
 
 .comment-icon-box.backColor-user {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
     background-color: #444df2;
   }
 }
-
-
-
 
 .show-comment-stricker {
   display: flex;
@@ -1057,26 +1076,21 @@ h4 {
   &:hover {
     border-color: #444df2;
   }
-
-
-
 }
-
 
 .sticker-senderName-current {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 30px;
   border-top-right-radius: 30px;
-  background-color: #444DF2;
-  color: #FFFFFF;
+  background-color: #444df2;
+  color: #ffffff;
   position: absolute;
   width: 167px;
   top: -94px;
   left: 27px;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-
 }
 
 .sticker-senderName-current.hovered {
@@ -1093,8 +1107,8 @@ h4 {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 30px;
-  background-color: #444DF2;
-  color: #FFFFFF;
+  background-color: #444df2;
+  color: #ffffff;
   position: absolute;
   width: 167px;
   top: -94px;

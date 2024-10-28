@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalVariableService } from '../services/global-variable.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
+import { Channel } from '../models/channel.class';
 
 @Component({
   selector: 'app-workspace',
@@ -34,6 +35,7 @@ export class WorkspaceComponent implements OnInit {
   checkUsersExsists: boolean = false;
   userService =inject(UserService);
   @Output() userSelected = new EventEmitter<any>();
+  @Output() channelSelected = new EventEmitter<Channel>();
   readonly dialog = inject(MatDialog);
   private channelsUnsubscribe: Unsubscribe | undefined;
 
@@ -53,6 +55,12 @@ export class WorkspaceComponent implements OnInit {
    
 
   constructor(public global:GlobalVariableService ){}
+
+  selectChannel(channel: any){
+    this.channelSelected.emit(channel);
+    this.global.channelSelected = true;
+    this.global.setCurrentChannel(channel);
+  }
 
   selectUser(user: any) {
     this.userSelected.emit(user);
