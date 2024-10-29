@@ -5,10 +5,14 @@ import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/di
 import { doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-dialog-header-dropdown',
   standalone: true,
-  imports: [CommonModule, DialogHeaderProfilCardComponent],
+  imports: [
+    CommonModule,
+    DialogHeaderProfilCardComponent,
+  ],
   templateUrl: './dialog-header-dropdown.component.html',
   styleUrl: './dialog-header-dropdown.component.scss',
 })
@@ -33,7 +37,6 @@ export class DialogHeaderDropdownComponent {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
   }
-
 
   async updateStatus(userId: string) {
     const docRef = doc(this.firestore, 'users', userId);

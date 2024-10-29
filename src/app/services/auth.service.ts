@@ -15,6 +15,7 @@ import {
   addDoc,
 } from '@angular/fire/firestore';
 import { OverlayStatusService } from './overlay-status.service';
+import { GlobalService } from '../global.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,7 @@ export class AuthService {
   firestore = inject(Firestore);
   guestUser: User = new User();
   overlayStatusService =inject(OverlayStatusService);
+  globalservice =inject(GlobalService);
 
   constructor() {}
 
@@ -40,6 +42,7 @@ export class AuthService {
           picture: result.user.photoURL,
         });
         await this.addGoogleUserToFirestore(this.user);
+        this.globalservice.googleAccountLogIn = true;
         this.router.navigate(['/welcome', this.user.uid]);
       })
       .catch((error) => {
@@ -91,7 +94,6 @@ export class AuthService {
     const usersCollection = collection(this.firestore, 'users');
     const q = query(usersCollection, where('email', '==', identifier)); 
     const querySnapshot = await getDocs(q);
-
     if (!querySnapshot.empty) {
       return querySnapshot.docs[0].id;
     } else {

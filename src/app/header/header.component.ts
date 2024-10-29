@@ -60,7 +60,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.overlayStatusSub = this.overlayStatusService.overlayStatus$.subscribe(
       (status) => {
         this.overlayOpen = status;
-        console.log('Overlay Status:', status); 
       }
     );
   }

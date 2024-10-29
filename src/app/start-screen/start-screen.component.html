@@ -12,7 +12,14 @@
             </div>
             <div>
                 <div *ngIf="openMyProfile">
-                    <app-dialog-header-profil-card (closeProfile)="closeMyUserProfile()"></app-dialog-header-profil-card>
+                    <div *ngIf="currentUserwasSelected">
+                        <app-dialog-header-profil-card
+                            (closeProfile)="closeMyUserProfile()"></app-dialog-header-profil-card>
+                    </div>
+                    <div *ngIf="contactWasSelected">
+                        <app-profile-contact-card (closeProfile)="closeMyUserProfile()"
+                            [selectedContact]="selectedUser"></app-profile-contact-card>
+                    </div>
                 </div>
             </div>
         </mat-card-header>

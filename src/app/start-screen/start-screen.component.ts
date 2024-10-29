@@ -31,6 +31,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/dialog-header-profil-card.component';
 import { OverlayStatusService } from '../services/overlay-status.service';
+import { ProfileContactCardComponent } from '../profile-contact-card/profile-contact-card.component';
 
 interface SendMessageInfo {
   text: string;
@@ -59,6 +60,7 @@ interface SendMessageInfo {
     CommonModule,
     FormsModule,
     DialogHeaderProfilCardComponent,
+    ProfileContactCardComponent,
   ],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
@@ -66,6 +68,8 @@ interface SendMessageInfo {
 export class StartScreenComponent implements OnInit, OnChanges {
   constructor(public global: GlobalVariableService) {}
 
+  currentUserwasSelected = false;
+  contactWasSelected = false;
   overlayStatusService = inject(OverlayStatusService);
   openMyProfile = false;
   chatMessage: string = '';
@@ -122,6 +126,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedUser'] && this.selectedUser?.id) {
+      this.checkProfileType();
       this.getMessages();
     }
     this.watchConversationStatus();
@@ -429,9 +434,25 @@ export class StartScreenComponent implements OnInit, OnChanges {
     await updateDoc(strickerRef, stikerObj);
   }
 
+
+resetProfileSelection() {
+  this.currentUserwasSelected = false; 
+  this.contactWasSelected = false; 
+}
+
   showMyUserProfile() {
+    this.resetProfileSelection();
+    this.checkProfileType();
     this.openMyProfile = true;
     this.overlayStatusService.setOverlayStatus(this.openMyProfile);
+  }
+
+  checkProfileType() {
+    if (this.selectedUser.uid === this.userId) {
+      this.currentUserwasSelected = true; 
+    } else {
+      this.contactWasSelected = true;
+    }
   }
 
   closeMyUserProfile() {

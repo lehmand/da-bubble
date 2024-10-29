@@ -37,6 +37,18 @@ export class WorkspaceComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   private channelsUnsubscribe: Unsubscribe | undefined;
 
+  constructor(public global:GlobalVariableService ){}
+
+  selectUser(user: any) {
+    this.userSelected.emit(user);
+    this.global.statusCheck=false;
+  }
+
+  selectCurrentUser() { 
+    this.global.statusCheck=true;
+    this.userSelected.emit(this.global.currentUserData);   
+  }
+
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateChannelComponent, {
       data: {
@@ -49,20 +61,8 @@ export class WorkspaceComponent implements OnInit {
       this.getAllChannels();
     });
   }
-  @Output() userCurrentSelected = new EventEmitter<any>();
-   
 
-  constructor(public global:GlobalVariableService ){}
 
-  selectUser(user: any) {
-    this.userSelected.emit(user);
-    this.global.statusCheck=false;
-  }
-
-  selectCurrentUser() { 
-    this.global.statusCheck=true;
-    this.userSelected.emit(this.global.currentUserData);   
-  }
 
   ngOnInit(): void {
     this.getAllUsers();

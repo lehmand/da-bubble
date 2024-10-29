@@ -5,7 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 import { OverlayStatusService } from '../services/overlay-status.service';
-import {  Firestore, where, query, updateDoc, collection, getDocs } from '@angular/fire/firestore';
+import {
+  Firestore,
+} from '@angular/fire/firestore';
+import { GlobalService } from '../global.service';
 @Component({
   selector: 'app-dialog-header-profil-card',
   standalone: true,
@@ -15,6 +18,7 @@ import {  Firestore, where, query, updateDoc, collection, getDocs } from '@angul
 })
 export class DialogHeaderProfilCardComponent implements OnInit {
   guestLogin = false;
+  googleAccount = false;
   noGuestAccount = false;
   user: User = new User();
   userID: any;
@@ -23,7 +27,8 @@ export class DialogHeaderProfilCardComponent implements OnInit {
   openEdit = false;
   profileCardopen = true;
   overlayStatusService = inject(OverlayStatusService);
-  firestore =inject(Firestore);
+  firestore = inject(Firestore);
+  globalService = inject(GlobalService);
   clicked = true;
   @Output() closeProfile = new EventEmitter<void>();
 
@@ -40,17 +45,17 @@ export class DialogHeaderProfilCardComponent implements OnInit {
         }
       }
     });
-
   }
   async checkGuestUser(userResult: User) {
     const guestEmail = 'guest@account.de';
     if (userResult.email === guestEmail) {
       this.guestLogin = true;
+    } else if (this.globalService.googleAccountLogIn) {
+      this.googleAccount = true;
     } else {
       this.noGuestAccount = true;
     }
   }
-
 
   closeProfileCard() {
     this.profileCardopen = false;
