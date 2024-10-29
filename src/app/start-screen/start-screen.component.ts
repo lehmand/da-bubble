@@ -31,6 +31,8 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/dialog-header-profil-card.component';
 import { OverlayStatusService } from '../services/overlay-status.service';
+import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface SendMessageInfo {
   text: string;
@@ -59,6 +61,8 @@ interface SendMessageInfo {
     CommonModule,
     FormsModule,
     DialogHeaderProfilCardComponent,
+    DialogEditChannelComponent
+
   ],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
@@ -102,6 +106,18 @@ export class StartScreenComponent implements OnInit, OnChanges {
   editMessageStatus: boolean = false;
   messageIdHovered: any;
   userservice = inject(UserService);
+  dialog = inject(MatDialog);
+
+  openDialog(){
+    this.dialog.open(DialogEditChannelComponent, {
+      data: this.selectedChannel,
+      panelClass: 'edit-dialog',
+      maxWidth: '872px',
+      maxHeight: '616px',
+    })
+  }
+
+
   scrollToBottom(): void {
     this.scrollContainer.nativeElement.scrollTop =
       this.scrollContainer.nativeElement.scrollHeight;

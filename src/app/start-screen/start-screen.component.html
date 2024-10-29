@@ -6,6 +6,7 @@
           *ngIf="global.channelSelected"
           class="drop-down-button"
           mat-button
+          (click)="openDialog()"
         >
           <span class="btn-text-img"
             ># {{ global.currentChannel?.name }}
