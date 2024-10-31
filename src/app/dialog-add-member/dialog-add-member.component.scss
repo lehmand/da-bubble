@@ -1,0 +1,42 @@
+.card {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subheader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #797EF3;
+  .hashtag path {
+    fill: #797EF3;
+  }
+}
+
+.add-input {
+  padding: 15px 20px;
+  border: 1px solid #ADB0D9;
+  outline: none;
+  border-radius: 30px;
+  width: 100%;
+
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+}
