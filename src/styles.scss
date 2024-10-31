@@ -38,3 +38,14 @@ img {
     box-shadow: 0px 6px 10px 0px #00000033;
   }
 }
+
+.member-dialog {
+  width: 100%;
+  .mat-mdc-dialog-surface {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    box-shadow: 0px 6px 10px 0px #00000033;
+  }
+}

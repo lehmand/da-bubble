@@ -1,18 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { doc, Firestore, getDoc } from '@angular/fire/firestore';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { arrayRemove, deleteField, doc, Firestore, getDoc, updateDoc } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
+import { checkActionCode } from '@angular/fire/auth';
+import { DialogChannelUserComponent } from '../dialog-channel-user/dialog-channel-user.component';
 
 @Component({
   selector: 'app-dialog-edit-channel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, DialogChannelUserComponent],
   templateUrl: './dialog-edit-channel.component.html',
   styleUrl: './dialog-edit-channel.component.scss',
 })
 export class DialogEditChannelComponent implements OnInit {
   db: Firestore = inject(Firestore);
+  authService = inject(AuthService)
   channel = inject(MAT_DIALOG_DATA);
+  dialog = inject(MatDialog);
   createdBy: string = '';
   isEditingName: boolean = false;
   isEditingDescription: boolean = false;
@@ -20,7 +27,6 @@ export class DialogEditChannelComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.channel);
     this.getCreaterData();
   }
 
@@ -34,6 +40,10 @@ export class DialogEditChannelComponent implements OnInit {
     }
   }
 
+  closeDialog() {
+    this.dialog.closeAll();
+  }
+
   editName() {
     this.isEditingName = true;
   }
@@ -42,11 +52,30 @@ export class DialogEditChannelComponent implements OnInit {
     this.isEditingDescription = true;
   }
 
-  saveName() {
+  async saveName() {
     this.isEditingName = false;
+    const channelRef = doc(this.db, 'channels', this.channel.id);
+    await updateDoc(channelRef, {
+      name: this.channel.name
+    })
   }
 
-  saveDescription() {
+  async saveDescription() {
     this.isEditingDescription = false;
+    const channelRef = doc(this.db, 'channels', this.channel.id);
+    await updateDoc(channelRef, {
+      description: this.channel.description
+    })
+  }
+
+
+  async leaveChannel() {
+    const currentUserId = this.authService.currentUser.uid;
+    const channelRef = doc(this.db, 'channels', this.channel.id);
+
+    await updateDoc(channelRef, {
+      userIds: arrayRemove(currentUserId)
+    })
+    this.closeDialog()
   }
 }

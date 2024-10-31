@@ -13,6 +13,7 @@ export class AuthService {
   router = inject(Router);
   user: User = new User();
   firestore = inject(Firestore);
+  currentUser: any;
 
   constructor(private sanitizer: DomSanitizer) {}
 

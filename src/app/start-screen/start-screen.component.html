@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="members-container" *ngIf="global.channelSelected">
-        <div class="member-avatars">
+        <div class="member-avatars" (click)="openMemberDialog()">
           <div class="avatar-container">
             <img
               class="avatar"

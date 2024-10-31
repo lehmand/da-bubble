@@ -57,8 +57,6 @@ header {
 
 .edit-name-container,
 .edit-description-container {
-  padding: 20px;
-  border: 1px solid #adb0d9;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -77,6 +75,46 @@ header {
     line-height: 24.55px;
     text-align: left;
   }
+}
+
+.padding-border {
+  padding: 20px;
+  border: 1px solid #adb0d9;
+  transition: all 175ms ease-in-out;
+}
+
+.no-padding-border {
+  padding: 0;
+  border: none;
+  transition: all 175ms ease-in-out;
+}
+
+.input-name {
+  padding: 18px 20px 18px 48px;
+  border: 1px solid #adb0d9;
+  border-radius: 30px;
+  background-image: url(../../assets/img/hashtag.svg);
+  background-repeat: no-repeat;
+  background-position: 16px;
+  width: 100%;
+  outline: none;
+}
+
+.input-description {
+  padding: 18px 20px;
+  border: 1px solid #adb0d9;
+  border-radius: 30px;
+  width: 100%;
+  outline: none;
+}
+
+.input-name,
+.input-description {
+  font-family: Nunito;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.55px;
+  text-align: left;
 }
 
 .created-by-container {

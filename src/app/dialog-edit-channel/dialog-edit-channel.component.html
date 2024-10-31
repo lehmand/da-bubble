@@ -39,6 +39,7 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         class="icon"
+        (click)="closeDialog()"
       >
         <mask
           id="mask0_85344_17707"
@@ -60,7 +61,7 @@
       </svg>
     </div>
   </header>
-  <div class="edit-name-container">
+  <div class="edit-name-container" [ngClass]="{ 'no-padding-border': isEditingName, 'padding-border': !isEditingName }">
     <div class="heading">
       <h4>Channel name</h4>
       <button *ngIf="!isEditingName" class="edit-button" (click)="editName()">Bearbeiten</button>
@@ -95,14 +96,20 @@
       </svg>
       <span> {{ channel.name }} </span>
     </div>
+    <div class="input-container" *ngIf="isEditingName">
+      <input class="input-name" type="text" placeholder="{{ channel.name }}" [(ngModel)]="channel.name" #name="ngModel">
+    </div>
   </div>
-  <div class="edit-description-container">
+  <div class="edit-description-container" [ngClass]="{ 'no-padding-border': isEditingDescription, 'padding-border': !isEditingDescription }">
     <div class="heading">
       <h4>Beschreibung</h4>
       <button *ngIf="!isEditingDescription" class="edit-button" (click)="editDescription()">Bearbeiten</button>
       <button *ngIf="isEditingDescription" class="edit-button" (click)="saveDescription()">Speichern</button>
     </div>
     <span *ngIf="!isEditingDescription"> {{ channel.description }} </span>
+    <div class="input-container" *ngIf="isEditingDescription">
+      <input class="input-description" type="text" placeholder="{{ channel.description }}" [(ngModel)]="channel.description" #description="ngModel">
+    </div>
     <hr />
     <div class="created-by-container">
       <h4>Erstellt von</h4>
@@ -110,6 +117,6 @@
     </div>
   </div>
   <div class="button-row">
-    <button class="btn-primary">Channel verlassen</button>
+    <button (click)="leaveChannel()" class="btn-primary">Channel verlassen</button>
   </div>
 </div>

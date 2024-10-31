@@ -33,6 +33,7 @@ import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/di
 import { OverlayStatusService } from '../services/overlay-status.service';
 import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogChannelUserComponent } from '../dialog-channel-user/dialog-channel-user.component';
 
 interface SendMessageInfo {
   text: string;
@@ -117,6 +118,15 @@ export class StartScreenComponent implements OnInit, OnChanges {
     })
   }
 
+  openMemberDialog() {
+    this.dialog.open(DialogChannelUserComponent, {
+      data: this.selectedChannel.userIds,
+      panelClass: 'member-dialog',
+      maxWidth: '415px',
+      maxHeight: '411px',
+    })
+  }
+
 
   scrollToBottom(): void {
     this.scrollContainer.nativeElement.scrollTop =
@@ -172,7 +182,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
       const members = await Promise.all(membersPromises);
       this.channelMembers = members.filter(member => member !== null);
-      console.log(this.channelMembers);
     } catch (error) {
       console.error('Error fetching channel members:', error);
     }

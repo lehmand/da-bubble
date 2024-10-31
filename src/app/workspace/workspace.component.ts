@@ -81,7 +81,6 @@ export class WorkspaceComponent implements OnInit {
             this.global.currentUserData.name = updatedUser.name;  
         });
     }
-    console.log('workspace', this.userId);
     this.getAllChannels();
 }
 
@@ -128,10 +127,8 @@ export class WorkspaceComponent implements OnInit {
 
   toggleChannelDrawer() {
     this.channelDrawerOpen = !this.channelDrawerOpen;
-    console.log(this.channelDrawerOpen);
   }
   toggleMessageDrawer() {
     this.messageDrawerOpen = !this.messageDrawerOpen;
-    console.log(this.messageDrawerOpen);
   }
 }
