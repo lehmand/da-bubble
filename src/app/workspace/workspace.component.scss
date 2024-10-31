@@ -48,8 +48,8 @@
     background-color: #eceefe;
   }
 
-  &:hover>.icon path {
-    fill: #444DF2;
+  &:hover > .icon path {
+    fill: #444df2;
   }
 }
 
@@ -80,12 +80,12 @@
   cursor: pointer;
 
   &:hover {
-    color: #535AF1;
+    color: #535af1;
   }
 
-  &:hover>.icon path,
-  &:hover .middle-part>.icon path {
-    fill: #535AF1
+  &:hover > .icon path,
+  &:hover .middle-part > .icon path {
+    fill: #535af1;
   }
 }
 
@@ -108,11 +108,11 @@
     cursor: pointer;
 
     &:hover {
-      background-color: #ECEEFE;
+      background-color: #eceefe;
     }
 
-    &:hover>.icon path {
-      fill: #535AF1;
+    &:hover > .icon path {
+      fill: #535af1;
     }
   }
 }
@@ -178,20 +178,19 @@
   }
 
   h4 {
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-size: 18px;
     font-weight: 400;
   }
 
   &:hover {
-    background: #ECEEFE;
+    background: #eceefe;
   }
 }
 
 // .all-user-contacts {
 //   margin-top: 24px;
 // }
-
 
 .all-user {
   display: flex;
@@ -200,7 +199,7 @@
   padding: 4px 20px;
   margin-left: 24px;
   position: relative;
-  
+
   img {
     height: 50px;
     min-width: 50px;
@@ -208,27 +207,23 @@
   }
 
   h4 {
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-size: 18px;
     font-weight: 400;
   }
 
   &:hover {
-    background: #ECEEFE;
-  } 
+    background: #eceefe;
+  }
 }
-
-
-
 
 .status-border {
   position: absolute;
   background-color: white;
   padding: 2px;
   border-radius: 100%;
-  top: 34px;
-  left: 53px;
-
+  top: 37px;
+  left: 56px;
 }
 
 .online {

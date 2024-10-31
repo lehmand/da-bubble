@@ -34,6 +34,7 @@ import { OverlayStatusService } from '../services/overlay-status.service';
 import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChannelUserComponent } from '../dialog-channel-user/dialog-channel-user.component';
+import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 
 interface SendMessageInfo {
   text: string;
@@ -62,8 +63,8 @@ interface SendMessageInfo {
     CommonModule,
     FormsModule,
     DialogHeaderProfilCardComponent,
-    DialogEditChannelComponent
-
+    DialogEditChannelComponent,
+    DialogAddMemberComponent
   ],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
@@ -124,6 +125,15 @@ export class StartScreenComponent implements OnInit, OnChanges {
       panelClass: 'member-dialog',
       maxWidth: '415px',
       maxHeight: '411px',
+    })
+  }
+
+  openAddMemberDialog() {
+    this.dialog.open(DialogAddMemberComponent, {
+      data: this.selectedChannel,
+      panelClass: 'add-member-dialog',
+      maxWidth: '514px',
+      maxHeight: '294px', 
     })
   }
 
