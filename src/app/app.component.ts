@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
     RouterOutlet,
     ImpressumComponent,
     PrivacyPolicyComponent,
-    EmojiPickerComponent
+
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

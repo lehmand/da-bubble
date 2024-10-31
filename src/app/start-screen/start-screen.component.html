@@ -1,4 +1,4 @@
-<div class="full-page-content">
+<div  class="full-page-content">
     <mat-card class="big-chat-card" appearance="outlined">
         <mat-card-header class="header">
             <div class="drop-down-div">
@@ -307,7 +307,7 @@
 
         <div class="msg-input-ct">
             <label for="msg-input"></label>
-            <textarea placeholder="Nachricht an #Entwicklerteam" class="chat-input" type="text"
+            <textarea placeholder="Nachricht an #Entwicklerteam" class="chat-input" style="font-size:18px" type="text"
                 [(ngModel)]="chatMessage"></textarea>
             <div class="interactions-send-msg-ct">
                 <div class="only-interactions-bottom-ct">
@@ -316,7 +316,11 @@
                         <img src="./assets/img/vector_4.svg">
                     </div>
                     <div class="emoji-at-ct">
-                        <div> <img src="./assets/img/emoji.svg"></div>
+                        <div class="emoji-picker-container">
+                            <emoji-mart *ngIf="isEmojiPickerVisible" (emojiClick)="addEmoji($event)"
+                                class="emoji-picker" size="18"></emoji-mart>
+                            <div (click)="toggleEmojiPicker()"> <img src="./assets/img/emoji.svg"></div>
+                        </div>
                         <div> <img src="./assets/img/at_react.svg"></div>
                     </div>
                 </div>

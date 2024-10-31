@@ -7,6 +7,7 @@ import {
   inject,
   ElementRef,
   ViewChild,
+  HostListener
 } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
@@ -32,6 +33,7 @@ import { User } from '../models/user.class';
 import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/dialog-header-profil-card.component';
 import { OverlayStatusService } from '../services/overlay-status.service';
 import { ProfileContactCardComponent } from '../profile-contact-card/profile-contact-card.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 interface SendMessageInfo {
   text: string;
@@ -61,13 +63,15 @@ interface SendMessageInfo {
     FormsModule,
     DialogHeaderProfilCardComponent,
     ProfileContactCardComponent,
+    PickerComponent,
   ],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
 })
 export class StartScreenComponent implements OnInit, OnChanges {
-  constructor(public global: GlobalVariableService) {}
+  constructor(public global: GlobalVariableService, private elementRef: ElementRef ) {}
 
+  isEmojiPickerVisible: boolean = false;
   currentUserwasSelected = false;
   contactWasSelected = false;
   overlayStatusService = inject(OverlayStatusService);
@@ -108,6 +112,22 @@ export class StartScreenComponent implements OnInit, OnChanges {
     this.scrollContainer.nativeElement.scrollTop =
       this.scrollContainer.nativeElement.scrollHeight;
   }
+
+  //function to close emoji picker by clicking outside//
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+      const targetElement = this.elementRef.nativeElement;
+      const emojiButton = targetElement.querySelector('.emoji-picker-container div'); 
+      const emojiPicker = targetElement.querySelector('.emoji-picker-container .emoji-picker'); 
+
+      const isEmojiButtonClicked = emojiButton && emojiButton.contains(event.target);
+      const isPickerClicked = emojiPicker && emojiPicker.contains(event.target);
+
+      if (!isEmojiButtonClicked && !isPickerClicked) {
+          this.isEmojiPickerVisible = false; 
+      }
+  }
+  //____________________//
 
   scrollAutoDown(): void {
     setTimeout(() => {
@@ -434,11 +454,10 @@ export class StartScreenComponent implements OnInit, OnChanges {
     await updateDoc(strickerRef, stikerObj);
   }
 
-
-resetProfileSelection() {
-  this.currentUserwasSelected = false; 
-  this.contactWasSelected = false; 
-}
+  resetProfileSelection() {
+    this.currentUserwasSelected = false;
+    this.contactWasSelected = false;
+  }
 
   showMyUserProfile() {
     this.resetProfileSelection();
@@ -449,14 +468,34 @@ resetProfileSelection() {
 
   checkProfileType() {
     if (this.selectedUser.uid === this.userId) {
-      this.currentUserwasSelected = true; 
+      this.currentUserwasSelected = true;
     } else {
       this.contactWasSelected = true;
     }
   }
 
   closeMyUserProfile() {
-    this.openMyProfile = false; 
+    this.openMyProfile = false;
     this.overlayStatusService.setOverlayStatus(false);
-}
+  }
+
+
+  //open - close emoji-picker//
+  toggleEmojiPicker() {
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+    if (this.isEmojiPickerVisible) {
+      setTimeout(() => {
+        this.isEmojiPickerVisible = true;
+      }, 0);
+    }
+  }  
+
+
+// choose emoji and close menu//
+  addEmoji(event: any) {
+    const emoji = event.emoji.native; 
+    this.chatMessage += emoji; 
+    this.isEmojiPickerVisible = false;
+     console.log(this.isEmojiPickerVisible, 'visible?');
+  }
 }

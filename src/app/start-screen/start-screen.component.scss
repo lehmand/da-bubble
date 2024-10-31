@@ -117,7 +117,7 @@ mat-card {
   &:focus {
     border-color: #444df2;
     outline: none;
-    font-size: 18px;
+    font-size: 18px !important;
   }
 
   &::placeholder {
@@ -1133,4 +1133,12 @@ h4 {
 
 .sticker-sender-name {
   text-align: center;
+}
+
+.emoji-picker{
+  position: absolute;
+  bottom: 40px; /* Abstand unterhalb des Emoji-Icons */
+  left: 0;     /* Falls rechtsbündig am Icon gewünscht */
+  z-index: 10;
+  font-size: 18px;
 }
