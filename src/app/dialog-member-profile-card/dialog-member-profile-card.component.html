@@ -1,7 +1,7 @@
 <div class="card">
   <div class="heading">
     <h3>Profil</h3>
-    <div class="img-container">
+    <div class="img-container" (click)="closeDialog()">
       <svg
         width="24"
         height="24"
@@ -33,18 +33,23 @@
   <div class="profile-img-container">
     <img src="{{member.picture}}">
   </div>
-  <h2>Name</h2>
   <div class="status-container">
-    <span class="status"></span>
-    <span class="status-text">Aktiv</span>
+    <h2> {{member.name}} </h2>
+    <div class="status-row">
+      <span [ngClass]="{'online' : member.status === 'online', 'offline' : member.status === 'offline'}"></span>
+      <span [ngClass]="{'online-text' : member.status === 'online', 'offline-text' : member.status === 'offline'}">Aktiv</span>
+    </div>
   </div>
   <div class="contact-container">
     <div class="email-logo">
-
+      <img src="../../assets/img/mail-black.svg" alt="">
     </div>
     <div class="email-data">
       <h3>E-Mail-Adresse</h3>
-      <span class="email">dummy-email</span>
+      <span class="email"> {{member.email}} </span>
     </div>
+  </div>
+  <div class="button-row">
+    <button class="btn-primary"><img src="../../assets/img/direct-message.svg" alt="">Nachricht</button>
   </div>
 </div>
