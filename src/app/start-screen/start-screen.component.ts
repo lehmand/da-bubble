@@ -136,7 +136,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
       data: this.selectedChannel,
       panelClass: 'add-member-dialog',
       maxWidth: '514px',
-      maxHeight: '294px', 
+      maxHeight: '320px', 
     })
   }
 
