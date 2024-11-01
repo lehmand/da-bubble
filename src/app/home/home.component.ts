@@ -7,11 +7,16 @@ import { ThreadComponent } from '../thread/thread.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, WorkspaceComponent, StartScreenComponent, ThreadComponent],
+  imports: [
+    HeaderComponent,
+    WorkspaceComponent,
+    StartScreenComponent,
+    ThreadComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent  implements OnInit{
+export class HomeComponent implements OnInit {
   selectedUser: any;
   selectedChannel: any;
 
@@ -28,4 +33,5 @@ export class HomeComponent  implements OnInit{
   ngOnInit(): void {
     
   }
+
 }

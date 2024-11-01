@@ -7,6 +7,7 @@ import {
   inject,
   ElementRef,
   ViewChild,
+  HostListener
 } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
@@ -35,6 +36,8 @@ import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-c
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChannelUserComponent } from '../dialog-channel-user/dialog-channel-user.component';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
+import { ProfileContactCardComponent } from '../profile-contact-card/profile-contact-card.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 interface SendMessageInfo {
   text: string;
@@ -64,14 +67,19 @@ interface SendMessageInfo {
     FormsModule,
     DialogHeaderProfilCardComponent,
     DialogEditChannelComponent,
-    DialogAddMemberComponent
+    DialogAddMemberComponent,
+    ProfileContactCardComponent,
+    PickerComponent,
   ],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
 })
 export class StartScreenComponent implements OnInit, OnChanges {
-  constructor(public global: GlobalVariableService) {}
+  constructor(public global: GlobalVariableService, private elementRef: ElementRef ) {}
 
+  isEmojiPickerVisible: boolean = false;
+  currentUserwasSelected = false;
+  contactWasSelected = false;
   overlayStatusService = inject(OverlayStatusService);
   openMyProfile = false;
   chatMessage: string = '';
@@ -146,6 +154,22 @@ export class StartScreenComponent implements OnInit, OnChanges {
       this.scrollContainer.nativeElement.scrollHeight;
   }
 
+  //function to close emoji picker by clicking outside//
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+      const targetElement = this.elementRef.nativeElement;
+      const emojiButton = targetElement.querySelector('.emoji-picker-container div'); 
+      const emojiPicker = targetElement.querySelector('.emoji-picker-container .emoji-picker'); 
+
+      const isEmojiButtonClicked = emojiButton && emojiButton.contains(event.target);
+      const isPickerClicked = emojiPicker && emojiPicker.contains(event.target);
+
+      if (!isEmojiButtonClicked && !isPickerClicked) {
+          this.isEmojiPickerVisible = false; 
+      }
+  }
+  //____________________//
+
   scrollAutoDown(): void {
     setTimeout(() => {
       this.scrollToBottom();
@@ -163,6 +187,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedUser'] && this.selectedUser?.id) {
+      this.checkProfileType();
       this.getMessages();
       this.global.clearCurrentChannel();
     }
@@ -502,8 +527,48 @@ export class StartScreenComponent implements OnInit, OnChanges {
     await updateDoc(strickerRef, stikerObj);
   }
 
+  resetProfileSelection() {
+    this.currentUserwasSelected = false;
+    this.contactWasSelected = false;
+  }
+
   showMyUserProfile() {
+    this.resetProfileSelection();
+    this.checkProfileType();
     this.openMyProfile = true;
     this.overlayStatusService.setOverlayStatus(this.openMyProfile);
+  }
+
+  checkProfileType() {
+    if (this.selectedUser.uid === this.userId) {
+      this.currentUserwasSelected = true;
+    } else {
+      this.contactWasSelected = true;
+    }
+  }
+
+  closeMyUserProfile() {
+    this.openMyProfile = false;
+    this.overlayStatusService.setOverlayStatus(false);
+  }
+
+
+  //open - close emoji-picker//
+  toggleEmojiPicker() {
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+    if (this.isEmojiPickerVisible) {
+      setTimeout(() => {
+        this.isEmojiPickerVisible = true;
+      }, 0);
+    }
+  }  
+
+
+// choose emoji and close menu//
+  addEmoji(event: any) {
+    const emoji = event.emoji.native; 
+    this.chatMessage += emoji; 
+    this.isEmojiPickerVisible = false;
+     console.log(this.isEmojiPickerVisible, 'visible?');
   }
 }

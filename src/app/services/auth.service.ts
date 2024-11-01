@@ -1,10 +1,21 @@
 import { Injectable, inject } from '@angular/core';
-import { getAuth, signInWithPopup, signOut  } from '@angular/fire/auth';
+import { getAuth, signInWithPopup, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { User } from '../models/user.class';
-import { Firestore, setDoc, doc, getDoc } from '@angular/fire/firestore';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {
+  Firestore,
+  setDoc,
+  doc,
+  getDoc,
+  collection,
+  where,
+  query,
+  getDocs,
+  addDoc,
+} from '@angular/fire/firestore';
+import { OverlayStatusService } from './overlay-status.service';
+import { GlobalService } from '../global.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +25,11 @@ export class AuthService {
   user: User = new User();
   firestore = inject(Firestore);
   currentUser: any;
+  guestUser: User = new User();
+  overlayStatusService =inject(OverlayStatusService);
+  globalservice =inject(GlobalService);
 
-  constructor(private sanitizer: DomSanitizer) {}
-
+  constructor() {}
 
   googleLogIn() {
     const auth = getAuth();
@@ -27,10 +40,11 @@ export class AuthService {
           uid: result.user.uid,
           name: result.user.displayName,
           email: result.user.email,
-          picture: result.user.photoURL
+          picture: result.user.photoURL,
         });
         await this.addGoogleUserToFirestore(this.user);
-          this.router.navigate(['/welcome', this.user.uid]);
+        this.globalservice.googleAccountLogIn = true;
+        this.router.navigate(['/welcome', this.user.uid]);
       })
       .catch((error) => {
         console.error('fehler beim Google log:', error);
@@ -40,23 +54,57 @@ export class AuthService {
   async addGoogleUserToFirestore(user: User) {
     const userRef = doc(this.firestore, 'users', user.uid);
     const docSnap = await getDoc(userRef);
-    if (!docSnap.exists()) {  
+    if (!docSnap.exists()) {
       await setDoc(userRef, user.toJSON());
     } else {
       console.log('Benutzer existiert bereits in der Datenbank.');
     }
   }
-  
 
   logOut() {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        console.log('Signed Out');
+        this.overlayStatusService.setOverlayStatus(false);
         this.router.navigate(['/']);
       })
       .catch((error) => {
         console.error('Fehler beim Abmelden:', error);
       });
+  }
+
+  async SignGuestIn() {
+    const guestEmail = 'guest@account.de'; 
+    const guestDocId = await this.findUserByMail(guestEmail); 
+
+    if (guestDocId) {
+      this.router.navigate(['/welcome', guestDocId]);
+    } else {
+      this.guestUser = new User({
+        uid: 'xx-guest-2024',
+        name: 'Guest',
+        email: guestEmail,
+        picture: './assets/img/picture_frame.png',
+      });
+      const docRef = await this.addUserToFirestore(this.guestUser);
+      this.router.navigate(['/welcome', docRef.id]);
+    }
+  }
+
+  async findUserByMail(identifier: string) {
+    const usersCollection = collection(this.firestore, 'users');
+    const q = query(usersCollection, where('email', '==', identifier)); 
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs[0].id;
+    } else {
+      return null;
+    }
+  }
+
+  async addUserToFirestore(user: User) {
+    const usersCollection = collection(this.firestore, 'users');
+    const docRef = await addDoc(usersCollection, user.toJSON());
+    return docRef;
   }
 }

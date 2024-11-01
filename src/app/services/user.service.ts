@@ -17,22 +17,22 @@ import { User } from '../models/user.class';
 export class UserService {
   private currentUser: string | null = null;
   user: User = new User();
-  userID: any;
+  uid: any;
   unsub?: () => void;
 
   constructor(private firestore: Firestore) {}
 
-  setCurrentUser(userId: string) {
-    this.currentUser = userId;
+  setCurrentUser(uid: string) {
+    this.currentUser = uid;
   }
 
   getCurrentUser(): string | null {
     return this.currentUser;
   }
 
-  async getUser(fireId: string) {
-    const userRef = doc(this.firestore, 'users', fireId);
-    await updateDoc(userRef, { fireId: fireId });
+  async getUser(uid: string) {
+    const userRef = doc(this.firestore, 'users', uid);
+    await updateDoc(userRef, { uid: uid });
     const userSnapshot = await getDoc(userRef);
     if (userSnapshot.exists()) {
       const userData = userSnapshot.data() as User;
@@ -41,7 +41,7 @@ export class UserService {
     } else return null;
   }
 
-  observingUserChanges(userID: string, callback: (user: User) => void) {
+  observingUserChanges(uid: string, callback: (user: User) => void) {
     const newUsersRef = collection(this.firestore, 'users');
     this.unsub = onSnapshot(
       newUsersRef,
@@ -49,8 +49,8 @@ export class UserService {
         snapshot.forEach((docSnapshot) => {
           const userData = docSnapshot.data();
           const snapID = docSnapshot.id;
-          if (snapID === userID) {
-            const updatedUser = new User(userData, userID);
+          if (snapID === uid) {
+            const updatedUser = new User(userData, uid);
             callback(updatedUser); 
           }
         });
