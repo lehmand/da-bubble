@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="members-container">
-    <div class="member" *ngFor="let member of allMembers">
+    <div class="member" *ngFor="let member of allMembers" (click)="openProfileDialog(member)">
       <span
         ><img src="{{ member?.picture }}" alt="" /> {{ member?.name }}
       </span>

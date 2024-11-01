@@ -5,11 +5,12 @@ import { User } from '../models/user.class';
 import { doc, Firestore } from '@angular/fire/firestore';
 import { getDoc } from '@firebase/firestore';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
+import { DialogMemberProfileCardComponent } from '../dialog-member-profile-card/dialog-member-profile-card.component';
 
 @Component({
   selector: 'app-dialog-channel-user',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DialogMemberProfileCardComponent],
   templateUrl: './dialog-channel-user.component.html',
   styleUrl: './dialog-channel-user.component.scss'
 })
@@ -51,6 +52,17 @@ export class DialogChannelUserComponent implements OnInit{
       panelClass: 'add-member-dialog',
       maxWidth: '514px',
       maxHeight: '294px', 
+    })
+  }
+
+  openProfileDialog(member: any){
+    console.log(member)
+    this.closeDialog();
+    this.dialog.open(DialogMemberProfileCardComponent, {
+      data: member,
+      panelClass: 'member-profile-card',
+      maxWidth: '500px',
+      maxHeight: '705px', 
     })
   }
 }
