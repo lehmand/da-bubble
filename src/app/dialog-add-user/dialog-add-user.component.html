@@ -65,7 +65,7 @@
         placeholder="Name eingeben..."
         *ngIf="selectUsers"
       />
-      <div class="user-list" *ngIf="filteredUsers.length > 0">
+      <div class="user-list" *ngIf="searchInput && filteredUsers.length > 0">
         <div class="status-border">
           <span class="status"></span>
         </div>
