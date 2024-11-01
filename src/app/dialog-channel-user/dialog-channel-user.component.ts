@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { User } from '../models/user.class';
 import { doc, Firestore } from '@angular/fire/firestore';
 import { getDoc } from '@firebase/firestore';
+import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 
 @Component({
   selector: 'app-dialog-channel-user',
@@ -15,7 +16,9 @@ import { getDoc } from '@firebase/firestore';
 export class DialogChannelUserComponent implements OnInit{
   constructor(){}
   
-  members = inject(MAT_DIALOG_DATA);
+  data = inject(MAT_DIALOG_DATA);
+  members = this.data.members;
+  channel = this.data.channel;
   db = inject(Firestore)
   dialog = inject(MatDialog)
   user: User = new User();
@@ -34,6 +37,20 @@ export class DialogChannelUserComponent implements OnInit{
       if(userDoc.data()){
         this.allMembers.push(userDoc.data());
       }
+    })
+  }
+
+  closeDialog() {
+    this.dialog.closeAll()
+  }
+
+  openAddMemberDialog() {
+    this.closeDialog();
+    this.dialog.open(DialogAddMemberComponent, {
+      data: this.channel,
+      panelClass: 'add-member-dialog',
+      maxWidth: '514px',
+      maxHeight: '294px', 
     })
   }
 }

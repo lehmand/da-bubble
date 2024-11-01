@@ -1,7 +1,7 @@
 <div class="card">
   <div class="heading">
     <h3>Mitglieder</h3>
-    <div class="img-container">
+    <div class="img-container" (click)="closeDialog()">
       <svg
         width="24"
         height="24"
@@ -45,7 +45,7 @@
         ></div>
       </div>
     </div>
-    <div class="add-user-container">
+    <div class="add-user-container" (click)="openAddMemberDialog()">
       <div class="img-container">
         <svg
           width="40"

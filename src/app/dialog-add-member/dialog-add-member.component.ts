@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-add-member',
@@ -14,6 +14,11 @@ export class DialogAddMemberComponent {
   constructor(){}
 
   channel = inject(MAT_DIALOG_DATA);
+  dialog = inject(MatDialog)
   memberToAdd: any;
 
+
+  closeDialog() {
+    this.dialog.closeAll()
+  }
 }

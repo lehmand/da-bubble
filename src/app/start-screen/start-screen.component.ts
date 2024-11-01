@@ -121,7 +121,10 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
   openMemberDialog() {
     this.dialog.open(DialogChannelUserComponent, {
-      data: this.selectedChannel.userIds,
+      data: {
+        members: this.selectedChannel.userIds,
+        channel: this.selectedChannel
+      },
       panelClass: 'member-dialog',
       maxWidth: '415px',
       maxHeight: '411px',
