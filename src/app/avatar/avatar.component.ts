@@ -20,7 +20,6 @@ import { UserService } from '../services/user.service';
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',
 })
-
 export class AvatarComponent implements OnInit {
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
@@ -33,7 +32,8 @@ export class AvatarComponent implements OnInit {
   selectedFile: File | null = null;
   nameObject: any = {};
   sendInfo: boolean = false;
-  userService=inject(UserService);
+  userService = inject(UserService);
+  defaultPicture: any | null = '../../assets/img/picture_frame.png';
 
   avatarBox: string[] = [
     '../../assets/img/avatar/avatar1.png',
@@ -54,7 +54,7 @@ export class AvatarComponent implements OnInit {
     const userRef = doc(this.firestore, 'users', userId);
     const userSnapshot = await getDoc(userRef);
     if (userSnapshot.exists()) {
-       this.nameObject=userSnapshot.data();
+      this.nameObject = userSnapshot.data();
       console.log('User data:', userSnapshot.data());
     }
   }
@@ -62,10 +62,9 @@ export class AvatarComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
     if (this.userId) {
-      this.getUserById(this.userId);  
-    }     
+      this.getUserById(this.userId);
+    }
   }
-
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -99,6 +98,8 @@ export class AvatarComponent implements OnInit {
       }
     } else if (this.choosePicture) {
       await this.updateUserAvatar(this.choosePicture);
+    } else if (this.defaultPicture) {
+      await this.updateUserAvatar(this.defaultPicture);
     }
   }
 

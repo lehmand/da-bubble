@@ -116,6 +116,12 @@ export class WorkspaceComponent implements OnInit {
     });
   } 
 
+  selectChannel(channel: any){
+    this.channelSelected.emit(channel);
+    this.global.channelSelected = true;
+    this.global.setCurrentChannel(channel);
+  }
+
   channelDrawerOpen: boolean = true;
   messageDrawerOpen: boolean = true;
 
