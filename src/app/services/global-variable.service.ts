@@ -7,5 +7,7 @@ export class GlobalVariableService {
   statusCheck:boolean=false;
   currentUserData: any = {};
   curentUserId:any;
+  openMentionPeopleCard:boolean=false;
+  mentionpeopleName:any;
   constructor() { }
 }

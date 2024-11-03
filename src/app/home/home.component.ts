@@ -13,16 +13,14 @@ import { ThreadComponent } from '../thread/thread.component';
 })
 export class HomeComponent  implements OnInit{
   selectedUser: any;
-
+  mentionUser:any;
 
   onUserSelected(user: any) {
     this.selectedUser = user;
- 
   }  
 
  
-    
- 
+
   ngOnInit(): void {
     
   }

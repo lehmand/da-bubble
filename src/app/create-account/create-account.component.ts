@@ -69,8 +69,9 @@ export class CreateAccountComponent implements OnInit {
       picture: '',
       password: '',
       status: 'offline'
+      
     });
-    const docRef = await this.addUserToFirestore(this.newUser);
+    const docRef = await this.addUserToFirestore(this.newUser,);
     this.router.navigate(['/avatar', docRef.id]);
     console.log(this.newUser)
   }
