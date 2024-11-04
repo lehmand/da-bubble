@@ -13,6 +13,7 @@ import {
   query,
   getDocs,
   addDoc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { OverlayStatusService } from './overlay-status.service';
 import { GlobalService } from '../global.service';
@@ -78,6 +79,10 @@ export class AuthService {
     const guestDocId = await this.findUserByMail(guestEmail); 
 
     if (guestDocId) {
+      const guestRef = doc(this.firestore, 'users', guestDocId);
+      await updateDoc(guestRef, {
+        status: 'online'
+      })
       this.router.navigate(['/welcome', guestDocId]);
     } else {
       this.guestUser = new User({

@@ -95,6 +95,8 @@
   gap: 16px;
   padding-left: 24px;
   margin: 24px 0;
+  max-height: 140px;
+  overflow-y: auto;
 }
 
 .channel-row,
@@ -161,6 +163,8 @@
 
 .contacts {
   margin-top: 24px;
+  max-height: 468px;
+  overflow-y: auto;
 }
 
 .contact {
