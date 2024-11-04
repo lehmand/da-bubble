@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalVariableService } from '../services/global-variable.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
+import { Channel } from '../models/channel.class';
 
 @Component({
   selector: 'app-workspace',
@@ -34,23 +35,9 @@ export class WorkspaceComponent implements OnInit {
   checkUsersExsists: boolean = false;
   userService =inject(UserService);
   @Output() userSelected = new EventEmitter<any>();
+  @Output() channelSelected = new EventEmitter<Channel>();
   readonly dialog = inject(MatDialog);
   private channelsUnsubscribe: Unsubscribe | undefined;
-
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogCreateChannelComponent, {
-      data: {
-        userId: this.userId
-      },
-      height: '539px',
-      width: '872px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getAllChannels();
-    });
-  }
-  @Output() userCurrentSelected = new EventEmitter<any>();
-   
 
   constructor(public global:GlobalVariableService ){}
 
@@ -64,6 +51,21 @@ export class WorkspaceComponent implements OnInit {
     this.userSelected.emit(this.global.currentUserData);   
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogCreateChannelComponent, {
+      data: {
+        userId: this.userId
+      },
+      height: '539px',
+      width: '872px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllChannels();
+    });
+  }
+
+
+
   ngOnInit(): void {
     this.getAllUsers();
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -73,7 +75,6 @@ export class WorkspaceComponent implements OnInit {
             this.global.currentUserData.name = updatedUser.name;  
         });
     }
-    console.log('workspace', this.userId);
     this.getAllChannels();
 }
 
@@ -115,15 +116,19 @@ export class WorkspaceComponent implements OnInit {
     });
   } 
 
+  selectChannel(channel: any){
+    this.channelSelected.emit(channel);
+    this.global.channelSelected = true;
+    this.global.setCurrentChannel(channel);
+  }
+
   channelDrawerOpen: boolean = true;
   messageDrawerOpen: boolean = true;
 
   toggleChannelDrawer() {
     this.channelDrawerOpen = !this.channelDrawerOpen;
-    console.log(this.channelDrawerOpen);
   }
   toggleMessageDrawer() {
     this.messageDrawerOpen = !this.messageDrawerOpen;
-    console.log(this.messageDrawerOpen);
   }
 }

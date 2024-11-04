@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
   statusCheck:boolean=false;
-  
+  googleAccountLogIn: boolean = false;
   constructor() { }
 }

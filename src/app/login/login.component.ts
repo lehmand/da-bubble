@@ -11,12 +11,8 @@ import {
   query,
   where,
   doc,
-  getDoc,
 } from '@angular/fire/firestore';
-import {
-  signInWithEmailAndPassword,
-  signInAnonymously,
-} from '@angular/fire/auth';
+import { signInWithEmailAndPassword } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from '../services/auth.service';
 import { updateDoc } from '@firebase/firestore';
@@ -37,17 +33,15 @@ export class LoginComponent implements OnInit {
   loading = false; // Optional: to show a loading spinner during login
   userService = inject(UserService);
   firestore = inject(Firestore);
-  // auth = inject(Auth);
-  router = inject(Router);
   auth = inject(AuthService);
+  router = inject(Router);
   emailLoginFailed = false;
   formFailed = false;
+ 
 
   constructor() {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   async onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
@@ -70,9 +64,9 @@ export class LoginComponent implements OnInit {
       );
       const user = userCredential.user;
       const userID = await this.userDocId(user.uid);
-      console.log('Login successful:', user.uid);
+      this.auth.currentUser = auth.currentUser
       this.router.navigate(['/welcome', userID]);
-      if(userID){
+      if (userID) {
         this.updateStatus(userID);
       }
     } catch (error) {
@@ -80,11 +74,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async updateStatus(userId: string){
+  async updateStatus(userId: string) {
     const docRef = doc(this.firestore, 'users', userId);
     await updateDoc(docRef, {
-      status: 'online'
-    })   
+      status: 'online',
+    });
   }
 
   async proofMail(email: string): Promise<boolean> {
@@ -114,20 +108,9 @@ export class LoginComponent implements OnInit {
   }
 
   guestLogin() {
-    const auth = getAuth();
-    signInAnonymously(auth)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (user.isAnonymous) {
-          console.log('Anonymer Benutzer UID: ', user.uid);
-          this.router.navigate(['/welcome', user.uid]);
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+    this.auth.SignGuestIn();
   }
+
 
   googleLogIn() {
     this.auth.googleLogIn();

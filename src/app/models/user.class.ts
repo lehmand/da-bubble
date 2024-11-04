@@ -20,7 +20,6 @@ export class User {
             uid: this.uid,
             name: this.name,
             email: this.email,
-            password: this.password,
             picture: this.picture,
             status: this.status
         };

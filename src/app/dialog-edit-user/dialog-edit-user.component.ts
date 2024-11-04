@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, Output, EventEmitter } from '@angular/core';
 import { User } from '../models/user.class';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Firestore } from '@angular/fire/firestore';
 import { updateDoc, doc } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
+import { OverlayStatusService } from '../services/overlay-status.service';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -21,6 +22,8 @@ export class DialogEditUserComponent implements OnInit {
   userservice = inject(UserService)
   editCardOpen = true;
   firestore = inject(Firestore);
+  overlayStatusService = inject(OverlayStatusService);
+  @Output() closeEditDialog= new EventEmitter<void>();
 
 
   constructor(private route: ActivatedRoute) {}
@@ -39,6 +42,8 @@ export class DialogEditUserComponent implements OnInit {
 
   closeEditModus(){
     this.editCardOpen = false;
+    this.overlayStatusService.setOverlayStatus(false);
+    this.closeEditDialog.emit();
   }
 
   async saveUser() {
@@ -50,7 +55,7 @@ export class DialogEditUserComponent implements OnInit {
       });
       this.closeEditModus();
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error('error updating user:', error);
     }
   }
 }

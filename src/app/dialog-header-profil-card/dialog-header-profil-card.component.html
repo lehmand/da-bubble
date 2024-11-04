@@ -2,7 +2,7 @@
     <div class="name-escape-flex">
         <span>Profil</span>
         <div>
-            <img (click)="closeProfile()" src="./assets/img/close.svg">
+            <img (click)="closeProfileCard()" src="./assets/img/close.svg">
         </div>
     </div>
     <div class="img-frame">
@@ -10,7 +10,7 @@
     </div>
     <div class="name-edit-flex">
         <div class="edit-option-title">
-            <span (click)="editOwnProfileCard()">Bearbeiten</span>
+            <span *ngIf="noGuestAccount" (click)="editOwnProfileCard()">Bearbeiten</span>
         </div>
         <div class="name-status-flex">
             <h2>{{user.name}}</h2>
@@ -28,5 +28,5 @@
 </div>
 
 <div *ngIf="openEdit">
-    <app-dialog-edit-user></app-dialog-edit-user>
+    <app-dialog-edit-user (closeEditDialog)="closeProfileCard()"></app-dialog-edit-user>
   </div>

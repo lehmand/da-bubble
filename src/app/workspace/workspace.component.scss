@@ -48,8 +48,8 @@
     background-color: #eceefe;
   }
 
-  &:hover>.icon path {
-    fill: #444DF2;
+  &:hover > .icon path {
+    fill: #444df2;
   }
 }
 
@@ -80,12 +80,12 @@
   cursor: pointer;
 
   &:hover {
-    color: #535AF1;
+    color: #535af1;
   }
 
-  &:hover>.icon path,
-  &:hover .middle-part>.icon path {
-    fill: #535AF1
+  &:hover > .icon path,
+  &:hover .middle-part > .icon path {
+    fill: #535af1;
   }
 }
 
@@ -108,11 +108,11 @@
     cursor: pointer;
 
     &:hover {
-      background-color: #ECEEFE;
+      background-color: #eceefe;
     }
 
-    &:hover>.icon path {
-      fill: #535AF1;
+    &:hover > .icon path {
+      fill: #535af1;
     }
   }
 }
@@ -171,21 +171,21 @@
   margin-left: 24px;
   border-radius: 30px;
   position: relative;
+  cursor: pointer;
 
   img {
-    height: 42px;
+    height: 50px;
     border-radius: 40px;
-    width: 44px;
   }
 
   h4 {
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-size: 18px;
     font-weight: 400;
   }
 
   &:hover {
-    background: #ECEEFE;
+    background: #eceefe;
   }
 }
 
@@ -193,42 +193,39 @@
 //   margin-top: 24px;
 // }
 
-
 .all-user {
   display: flex;
   align-items: center;
   gap: 15px;
   padding: 4px 20px;
   margin-left: 24px;
-  border-radius: 30px;
   position: relative;
+  cursor: pointer;
 
   img {
     height: 50px;
+    min-width: 50px;
+    border-radius: 30px;
   }
 
   h4 {
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-size: 18px;
     font-weight: 400;
   }
 
   &:hover {
-    background: #ECEEFE;
-  } 
+    background: #eceefe;
+  }
 }
-
-
-
 
 .status-border {
   position: absolute;
   background-color: white;
   padding: 2px;
   border-radius: 100%;
-  top: 34px;
-  left: 53px;
-
+  top: 37px;
+  left: 56px;
 }
 
 .online {

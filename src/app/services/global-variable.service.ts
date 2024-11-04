@@ -9,5 +9,19 @@ export class GlobalVariableService {
   curentUserId:any;
   openMentionPeopleCard:boolean=false;
   mentionpeopleName:any;
+  channelSelected: boolean = false;
+  currentChannel: any = null;
+
+
   constructor() { }
+
+  setCurrentChannel(channel: any) {
+    this.currentChannel = channel;
+    this.channelSelected = true;
+  }
+
+  clearCurrentChannel() {
+    this.currentChannel = null;
+    this.channelSelected = false;
+  }
 }

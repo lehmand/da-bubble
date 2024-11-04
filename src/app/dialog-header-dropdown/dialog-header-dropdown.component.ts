@@ -2,13 +2,17 @@ import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/dialog-header-profil-card.component';
-import { doc, Firestore, getDoc, updateDoc } from '@angular/fire/firestore';
+import { doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-dialog-header-dropdown',
   standalone: true,
-  imports: [CommonModule, DialogHeaderProfilCardComponent],
+  imports: [
+    CommonModule,
+    DialogHeaderProfilCardComponent,
+  ],
   templateUrl: './dialog-header-dropdown.component.html',
   styleUrl: './dialog-header-dropdown.component.scss',
 })
@@ -27,17 +31,17 @@ export class DialogHeaderDropdownComponent {
 
   logOut() {
     this.authService.logOut();
-    this.updateStatus(this.userId)
+    this.updateStatus(this.userId);
   }
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.paramMap.get('id');  
+    this.userId = this.route.snapshot.paramMap.get('id');
   }
 
-  async updateStatus(userId: string){
+  async updateStatus(userId: string) {
     const docRef = doc(this.firestore, 'users', userId);
     await updateDoc(docRef, {
-      status: 'offline'
-    })
+      status: 'offline',
+    });
   }
 }

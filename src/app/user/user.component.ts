@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
   allUsers: User[] = [];
 
   ngOnInit(): void {
-    this.startListeningNewUsers();
+/*     this.startListeningNewUsers(); */
   }
 
   ngOnDestroy() {
@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
     }
   }
 
-  startListeningNewUsers() {
+/*   startListeningNewUsers() {
     const newUsersRef = collection(this.firestore, 'users');
     this.unsub = onSnapshot(
       newUsersRef,
@@ -44,5 +44,5 @@ export class UserComponent implements OnInit {
         this.allUsers = updatedUsers;
       }
     );
-  }
+  } */
 }

@@ -50,6 +50,70 @@ mat-card {
   }
 }
 
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 8px;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  &:hover {
+    background-color: rgb(236, 238, 254);
+    cursor: pointer;
+
+    .icon path {
+      fill: #444df2;
+    }
+  }
+}
+
+.members-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.member-avatars {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  &:hover {
+    background: #eceefe;
+  }
+  &:hover > .member-count span {
+    color: #535af1;
+  }
+}
+
+.member-count {
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 27.28px;
+  text-align: left;
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  height: 40px;
+  min-width: 40px;
+  border-radius: 100%;
+  margin-left: -12px;
+  border: 2px solid white;
+}
+
+.avatar:first-child {
+  margin: 0;
+}
+
 .btn-text-img {
   display: flex;
   align-items: center;
@@ -83,7 +147,8 @@ mat-card {
   img {
     &:hover {
       scale: 1.2;
-      filter: brightness(0) saturate(100%) invert(14%) sepia(70%) saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
+      filter: brightness(0) saturate(100%) invert(14%) sepia(70%)
+        saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
     }
   }
 }
@@ -117,7 +182,7 @@ mat-card {
   &:focus {
     border-color: #444df2;
     outline: none;
-    font-size: 18px;
+    font-size: 18px !important;
   }
 
   &::placeholder {
@@ -161,7 +226,8 @@ mat-card {
   .plus {
     &:hover {
       scale: 1.1;
-      filter: brightness(0) saturate(100%) invert(14%) sepia(70%) saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
+      filter: brightness(0) saturate(100%) invert(14%) sepia(70%)
+        saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
     }
   }
 }
@@ -181,7 +247,8 @@ mat-card {
   img {
     &:hover {
       scale: 1.1;
-      filter: brightness(0) saturate(100%) invert(14%) sepia(70%) saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
+      filter: brightness(0) saturate(100%) invert(14%) sepia(70%)
+        saturate(4200%) hue-rotate(210deg) brightness(93%) contrast(105%);
     }
   }
 }
@@ -382,38 +449,31 @@ mat-card {
   img {
     &:hover {
       scale: 1.1;
-      filter: brightness(0) saturate(100%) invert(51%) sepia(51%) saturate(937%) hue-rotate(203deg) brightness(93%) contrast(106%);
+      filter: brightness(0) saturate(100%) invert(51%) sepia(51%) saturate(937%)
+        hue-rotate(203deg) brightness(93%) contrast(106%);
     }
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .user-chat-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  justify-content: flex-start;
+  gap: 5px;
   cursor: pointer;
   padding: 4px 8px;
-  width: 217px;
+  width: fit-content;
   height: 58px;
-
+  h4 {
+    white-space: nowrap;
+    padding-right: 12px;
+  }
   &:hover {
-    background: #ECEEFE;
+    background: #eceefe;
     border-radius: 30px;
 
     h4 {
-      color: #444DF2;
+      color: #444df2;
     }
   }
 
@@ -436,9 +496,6 @@ mat-card {
   left: 45px;
   top: 439px;
   padding: 0 45px;
-
-
-
 
   span {
     font-size: 20px;
@@ -470,7 +527,7 @@ mat-card {
     color: #000000;
 
     &:hover {
-      color: #444DF2;
+      color: #444df2;
       cursor: pointer;
     }
   }
@@ -483,13 +540,12 @@ mat-card {
 
 .malito-a {
   text-decoration: none;
-  color: #535AF1;
+  color: #535af1;
   font-size: 20px;
   font-weight: 400;
   line-height: 27.28px;
   text-align: left;
 }
-
 
 .main-day-info {
   padding: 0 35px;
@@ -501,7 +557,7 @@ mat-card {
 
 .line {
   width: 100%;
-  border: 1px solid #ADB0D9;
+  border: 1px solid #adb0d9;
 }
 
 .day-info {
@@ -509,12 +565,11 @@ mat-card {
   align-items: center;
 }
 
-
 .day-span {
   border-radius: 30px;
-  border: 1px solid #ADB0D9;
+  border: 1px solid #adb0d9;
   padding: 5px 15px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: absolute;
   right: 50%;
   font-size: 18px;
@@ -523,8 +578,6 @@ mat-card {
   text-align: left;
   color: #000000;
 }
-
-
 
 .main-current-messagebox {
   position: absolute;
@@ -545,7 +598,7 @@ mat-card {
   margin-top: 37px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     cursor: pointer;
 
     .comment-box-current {
@@ -556,7 +609,7 @@ mat-card {
     }
 
     .show-comment-stricker {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
 
     .show-stricker-svgbox {
@@ -585,7 +638,7 @@ mat-card {
   margin-top: 37px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     cursor: pointer;
 
     .comment-box-user {
@@ -595,11 +648,11 @@ mat-card {
     }
 
     .message-card-user {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
 
     .show-comment-stricker {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
 
     .show-stricker-svgbox {
@@ -622,7 +675,6 @@ mat-card {
   gap: 8px;
 }
 
-
 .message-content-user {
   margin: 15px 145px;
   display: flex;
@@ -630,13 +682,11 @@ mat-card {
   gap: 8px;
 }
 
-
 .current-name-box {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
 
 .user-name-box {
   display: flex;
@@ -662,7 +712,7 @@ mat-card {
 
 .message-card-current {
   max-height: 105px;
-  background-color: #797EF3;
+  background-color: #797ef3;
   border-top-right-radius: 0;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -672,20 +722,19 @@ mat-card {
 
 .message-card-user {
   max-height: 105px;
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-top-right-radius: 30px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   max-width: max-content;
-
 }
 
 .card-content-current {
   font-size: 18px;
   font-weight: 400;
   line-height: 24.55px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .card-content-user {
@@ -744,7 +793,7 @@ mat-card {
   position: absolute;
   top: -153px;
   left: 29px;
-  background-color: #444DF2;
+  background-color: #444df2;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 0;
@@ -754,10 +803,14 @@ mat-card {
   transition: opacity 0.3s ease;
 }
 
+
+.show-sticker-card.opacity {
 .show-sticker-card.opacity {
   position: absolute;
   top: -153px;
   left: 29px;
+  opacity: 1;
+}
   opacity: 1;
 }
 
@@ -779,14 +832,13 @@ mat-card {
   justify-content: center;
 
   &:hover {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 100%;
   }
 }
 
-
 .show-sticker-box.backColor-current {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 100%;
 
   &:hover {
@@ -795,15 +847,13 @@ mat-card {
 }
 
 .show-sticker-box.backColor-user {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 100%;
 
   &:hover {
     background-color: #444df2;
   }
 }
-
-
 
 .sender-picture {
   width: 70px;
@@ -838,7 +888,6 @@ mat-card {
   opacity: 1;
 }
 
-
 .comment-box-user {
   position: absolute;
   right: 40px;
@@ -852,18 +901,18 @@ mat-card {
   transition: right 0.3s ease, opacity 0.3s ease;
 }
 
+
 .comment-box-user.position-user {
   right: 50px;
   opacity: 1;
 }
-
+ 
 
 
 .comment-content {
   display: flex;
   align-items: center;
 }
-
 
 .comment-stricker {
   width: 40px;
@@ -873,13 +922,13 @@ mat-card {
   align-items: center;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
   }
 }
 
 .comment-stricker.backColor-current {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
@@ -888,7 +937,7 @@ mat-card {
 }
 
 .comment-stricker.backColor-user {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
@@ -896,18 +945,17 @@ mat-card {
   }
 }
 
-
 .add-reaction {
   width: 40px;
   height: 40px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
 
     svg {
       path {
-        fill: #444DF2;
+        fill: #444df2;
       }
     }
   }
@@ -922,12 +970,12 @@ mat-card {
   height: 40px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
 
     svg {
       path {
-        fill: #444DF2;
+        fill: #444df2;
       }
     }
   }
@@ -939,8 +987,6 @@ mat-card {
       opacity: 1;
     }
   }
-
-
 }
 
 .edit-icon {
@@ -948,7 +994,7 @@ mat-card {
   height: 40px;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
 
     .edit-messages-card {
@@ -957,7 +1003,7 @@ mat-card {
 
     svg {
       path {
-        fill: #444DF2;
+        fill: #444df2;
       }
     }
   }
@@ -968,7 +1014,7 @@ mat-card {
   left: 194px;
   top: 22px;
   max-width: max-content;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-top-left-radius: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -989,15 +1035,14 @@ mat-card {
   color: #000000;
   width: 100%;
 
-
   span {
     padding: 7px;
   }
 
   &:hover {
     span {
-      color: #444DF2;
-      background-color: #ECEEFE;
+      color: #444df2;
+      background-color: #eceefe;
       border: 0 solid;
       border-radius: 30px;
     }
@@ -1009,7 +1054,6 @@ mat-card {
   z-index: 10;
   width: 100%;
 }
-
 
 .edit-input {
   width: 88%;
@@ -1043,13 +1087,13 @@ mat-card {
   align-items: center;
 
   &:hover {
-    background-color: #ECEEFE;
+    background-color: #eceefe;
     border-radius: 100%;
   }
 }
 
 .comment-icon-box.backColor-current {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
@@ -1058,16 +1102,13 @@ mat-card {
 }
 
 .comment-icon-box.backColor-user {
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   border-radius: 100%;
 
   &:hover {
     background-color: #444df2;
   }
 }
-
-
-
 
 .show-comment-stricker {
   display: flex;
@@ -1080,26 +1121,21 @@ mat-card {
   &:hover {
     border-color: #444df2;
   }
-
-
-
 }
-
 
 .sticker-senderName-current {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 30px;
   border-top-right-radius: 30px;
-  background-color: #444DF2;
-  color: #FFFFFF;
+  background-color: #444df2;
+  color: #ffffff;
   position: absolute;
   width: 167px;
   top: -94px;
   left: 27px;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-
 }
 
 .sticker-senderName-current.hovered {
@@ -1116,8 +1152,8 @@ mat-card {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 30px;
-  background-color: #444DF2;
-  color: #FFFFFF;
+  background-color: #444df2;
+  color: #ffffff;
   position: absolute;
   width: 167px;
   top: -94px;
@@ -1171,4 +1207,12 @@ mat-card {
   position: absolute;
   left: 128px;
   top: -421px;
+}
+
+.emoji-picker{
+  position: absolute;
+  bottom: 40px; /* Abstand unterhalb des Emoji-Icons */
+  left: 0;     /* Falls rechtsbündig am Icon gewünscht */
+  z-index: 10;
+  font-size: 18px;
 }

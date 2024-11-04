@@ -1,15 +1,46 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit, inject, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  OnInit,
+  inject,
+  ElementRef,
+  ViewChild,
+  HostListener
+} from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { GlobalVariableService } from '../services/global-variable.service';
 import { FormsModule } from '@angular/forms';
-import { Firestore, addDoc, collection, onSnapshot, doc, getDoc, query, where, setDoc, updateDoc, deleteDoc, } from '@angular/fire/firestore';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  onSnapshot,
+  doc,
+  getDoc,
+  query,
+  where,
+  setDoc,
+  updateDoc,
+  deleteDoc
+} from '@angular/fire/firestore';
+
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { PeopleMentionComponent } from "../people-mention/people-mention.component";
+import { DialogHeaderProfilCardComponent } from '../dialog-header-profil-card/dialog-header-profil-card.component';
+import { OverlayStatusService } from '../services/overlay-status.service';
+import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogChannelUserComponent } from '../dialog-channel-user/dialog-channel-user.component';
+import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
+import { ProfileContactCardComponent } from '../profile-contact-card/profile-contact-card.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 interface SendMessageInfo {
   text: string;
@@ -19,7 +50,7 @@ interface SendMessageInfo {
   recipientId: string;
   recipientName: string;
   timestamp: Date;
-  senderSticker?: string
+  senderSticker?: string;
   senderStickerCount?: number;
   recipientSticker?: string;
   recipientStickerCount?: number;
@@ -33,30 +64,51 @@ interface SendMessageInfo {
 @Component({
   selector: 'app-start-screen',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, CommonModule, FormsModule, PeopleMentionComponent],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    CommonModule,
+    FormsModule, PeopleMentionComponent,
+    DialogHeaderProfilCardComponent,
+    DialogEditChannelComponent,
+    DialogAddMemberComponent,
+    ProfileContactCardComponent,
+    PickerComponent,
+  ],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
 })
 export class StartScreenComponent implements OnInit, OnChanges {
-  constructor(public global: GlobalVariableService) { }
+  constructor(public global: GlobalVariableService, private elementRef: ElementRef ) {}
 
+  isEmojiPickerVisible: boolean = false;
+  currentUserwasSelected = false;
+  contactWasSelected = false;
+  overlayStatusService = inject(OverlayStatusService);
+  openMyProfile = false;
   chatMessage: string = '';
   firestore = inject(Firestore);
   messageInfos: any = [];
   userId: any | null = null;
   route = inject(ActivatedRoute);
   @Input() selectedUser: any;
+  @Input() selectedChannel: any;
   isMessagesended: boolean = false;
   checkDayInfo: boolean = false;
+  dayInfo: any;
+  channelMembers: any[] = [];
   messagesData: any = [];
   commentImages: string[] = [
     '../../assets/img/comment/hand.png',
-    "../../assets/img/comment/celebration.png"
+    '../../assets/img/comment/celebration.png',
   ];
   commentStricker: string[] = [
     '../../assets/img/comment/face.png',
-    '../../assets/img/comment/rocket.png'
-  ]
+    '../../assets/img/comment/rocket.png',
+  ];
+
+   
+
   concatStickerArray: string[] = [...this.commentImages, ...this.commentStricker];
   isHovered: any = false;
   hoveredName: any;
@@ -64,10 +116,10 @@ export class StartScreenComponent implements OnInit, OnChanges {
   hoveredCurrentUser: any;
   hoveredRecipienUser: any;
   @ViewChild('scrollContainer') private scrollContainer: any = ElementRef;
-  dayInfo: any;
   editMessageStatus: boolean = false;
-  messageIdHovered: any
-  userservice = inject(UserService)
+  messageIdHovered: any;
+  userservice = inject(UserService);
+  dialog = inject(MatDialog);
   showStickerDiv: any
   checkUpdateBackcolor: any
   editMessageId: string | null = null;
@@ -76,9 +128,59 @@ export class StartScreenComponent implements OnInit, OnChanges {
   @Input() mentionUser: string = '';
   selectFiles: any[] = [];
 
-  scrollToBottom(): void {
-    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+  openDialog(){
+    this.dialog.open(DialogEditChannelComponent, {
+      data: this.selectedChannel,
+      panelClass: 'edit-dialog',
+      maxWidth: '872px',
+      maxHeight: '616px',
+    })
   }
+
+  openMemberDialog() {
+    this.dialog.open(DialogChannelUserComponent, {
+      data: {
+        members: this.selectedChannel.userIds,
+        channel: this.selectedChannel
+      },
+      panelClass: 'member-dialog',
+      maxWidth: '415px',
+      maxHeight: '411px',
+    })
+  }
+
+  openAddMemberDialog() {
+    this.dialog.open(DialogAddMemberComponent, {
+      data: this.selectedChannel,
+      panelClass: 'add-member-dialog',
+      maxWidth: '514px',
+      maxHeight: '320px', 
+    })
+  }
+
+ 
+  
+
+  scrollToBottom(): void {
+    this.scrollContainer.nativeElement.scrollTop =
+      this.scrollContainer.nativeElement.scrollHeight;
+  }
+
+  //function to close emoji picker by clicking outside//
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+      const targetElement = this.elementRef.nativeElement;
+      const emojiButton = targetElement.querySelector('.emoji-picker-container div'); 
+      const emojiPicker = targetElement.querySelector('.emoji-picker-container .emoji-picker'); 
+
+      const isEmojiButtonClicked = emojiButton && emojiButton.contains(event.target);
+      const isPickerClicked = emojiPicker && emojiPicker.contains(event.target);
+
+      if (!isEmojiButtonClicked && !isPickerClicked) {
+          this.isEmojiPickerVisible = false; 
+      }
+  }
+  //____________________//
 
   scrollAutoDown(): void {
     setTimeout(() => {
@@ -89,15 +191,52 @@ export class StartScreenComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.getcurrentUserById(this.userId);
+    if (this.global.statusCheck) {
+      console.log(this.userId);
+    }
+    this.watchConversationStatus();
 
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedUser'] && this.selectedUser?.id) {
+      this.checkProfileType();
       this.getMessages();
       this.chatMessage = '';
+      this.global.clearCurrentChannel();
+    }
+    if (changes['selectedChannel'] && this.selectedChannel) {
+      this.fetchChannelMembers();
+      this.global.setCurrentChannel(this.selectedChannel);
     }
     this.watchConversationStatus();
+  }
+
+  async fetchChannelMembers() {
+    if (!this.selectedChannel?.userIds) {
+      this.channelMembers = [];
+      return;
+    }
+
+    try {
+      const membersPromises = this.selectedChannel.userIds.map(async (userId: string) => {
+        const userRef = doc(this.firestore, 'users', userId);
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists()) {
+          return {
+            id: userSnap.id,
+            ...userSnap.data(),
+          };
+        }
+        return null;
+      });
+
+      const members = await Promise.all(membersPromises);
+      this.channelMembers = members.filter(member => member !== null);
+    } catch (error) {
+      console.error('Error fetching channel members:', error);
+    }
   }
 
   async getcurrentUserById(userId: string) {
@@ -118,7 +257,10 @@ export class StartScreenComponent implements OnInit, OnChanges {
     }
   }
 
-  messageData(senderStickerCount: number, recipientStickerCount: number): SendMessageInfo {
+  messageData(
+    senderStickerCount: number,
+    recipientStickerCount: number
+  ): SendMessageInfo {
     let recipientId = this.selectedUser.id;
     let recipientName = this.selectedUser.name;
     if (this.global.statusCheck) {
@@ -144,7 +286,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
       selectedFiles:this.selectFiles
     };
   }
-
 
   async sendMessage() {
     if (this.chatMessage.trim() === '') {
@@ -192,7 +333,11 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
   async watchConversationStatus() {
     const conversationId = this.getConversationId();
-    const conversationRef = doc(this.firestore, 'conversations', conversationId);
+    const conversationRef = doc(
+      this.firestore,
+      'conversations',
+      conversationId
+    );
 
     onSnapshot(conversationRef, (conversationSnapshot) => {
       if (conversationSnapshot.exists()) {
@@ -236,9 +381,11 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
 
   isSameDay(date1: Date, date2: Date): boolean {
-    return date1.getDate() === date2.getDate() &&
+    return (
+      date1.getDate() === date2.getDate() &&
       date1.getMonth() === date2.getMonth() &&
-      date1.getFullYear() === date2.getFullYear();
+      date1.getFullYear() === date2.getFullYear()
+    );
   }
 
   formatDate(date: Date): string {
@@ -291,6 +438,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
       this.messagesData.sort((a: any, b: any) => a.timestamp - b.timestamp);
     });
   }
+
 
 
 
@@ -350,37 +498,38 @@ export class StartScreenComponent implements OnInit, OnChanges {
     if (this.global.currentUserData?.id === message.senderId) {
       message.senderchoosedStickereBackColor = selectedSticker;
       message.stickerBoxCurrentStyle = true;
+      // message.stickerBoxOpacity=true;
+
       if (message.senderSticker === selectedSticker) {
         message.senderSticker = '';
         if (message.senderStickerCount === 2) {
           message.senderStickerCount = 1;
         }
-      }
-      else {
+      } else {
         message.senderSticker = selectedSticker;
         message.senderStickerCount = 1;
       }
       if (message.recipientSticker === selectedSticker) {
-        message.recipientStickerCount = (message.recipientStickerCount || 1) + 1;
+        message.recipientStickerCount =
+          (message.recipientStickerCount || 1) + 1;
         message.senderSticker = '';
 
         if (message.recipientStickerCount === 2) {
-          message.senderSticker = message.recipientSticker
+          message.senderSticker = message.recipientSticker;
         }
         if (message.recipientStickerCount >= 3) {
-          message.recipientStickerCount = 1
+          message.recipientStickerCount = 1;
         }
       }
 
       if (message.senderSticker !== message.recipientSticker) {
-        message.recipientStickerCount = 1
+        message.recipientStickerCount = 1;
       }
 
       if (message.senderSticker === message.recipientSticker) {
         message.senderStickerCount = (message.senderStickerCount || 1) + 1;
       }
-    }
-    else if (this.global.currentUserData?.id !== message.senderId) {
+    } else if (this.global.currentUserData?.id !== message.senderId) {
       message.recipientChoosedStickerBackColor = selectedSticker;
       message.stickerBoxCurrentStyle = true;
       if (message.recipientSticker === selectedSticker) {
@@ -388,20 +537,19 @@ export class StartScreenComponent implements OnInit, OnChanges {
         if (message.recipientStickerCount === 2) {
           message.recipientStickerCount = 1;
         }
-      }
-      else {
+      } else {
         message.recipientSticker = selectedSticker;
         message.recipientStickerCount = 1;
       }
       if (message.senderSticker === selectedSticker) {
         message.senderStickerCount = (message.senderStickerCount || 1) + 1;
         if (message.senderStickerCount >= 3) {
-          message.senderStickerCount = 1
+          message.senderStickerCount = 1;
         }
       }
       if (message.recipientSticker !== '' && message.senderStickerCount === 2) {
-        message.senderStickerCount = 1
-        message.recipientSticker = selectedSticker
+        message.senderStickerCount = 1;
+        message.recipientSticker = selectedSticker;
       }
 
       if (message.recipientSticker === message.senderSticker) {
@@ -413,19 +561,69 @@ export class StartScreenComponent implements OnInit, OnChanges {
       message.recipientStickerCount
     );
 
-    const strickerRef = doc(this.firestore, 'messages', message.id)
+    const strickerRef = doc(this.firestore, 'messages', message.id);
     const stikerObj = {
       senderSticker: message.senderSticker,
       senderStickerCount: message.senderStickerCount,
       recipientSticker: message.recipientSticker,
       recipientStickerCount: message.recipientStickerCount,
       senderchoosedStickereBackColor: message.senderchoosedStickereBackColor,
-      recipientChoosedStickerBackColor: message.recipientChoosedStickerBackColor,
+      recipientChoosedStickerBackColor:
+        message.recipientChoosedStickerBackColor,
       stickerBoxCurrentStyle: message.stickerBoxCurrentStyle,
       stickerBoxOpacity: message.stickerBoxOpacity
     }
     await updateDoc(strickerRef, stikerObj);
   }
+
+  resetProfileSelection() {
+    this.currentUserwasSelected = false;
+    this.contactWasSelected = false;
+  }
+
+  showMyUserProfile() {
+    this.resetProfileSelection();
+    this.checkProfileType();
+    this.openMyProfile = true;
+    this.overlayStatusService.setOverlayStatus(this.openMyProfile);
+  }
+
+  checkProfileType() {
+    if (this.selectedUser.uid === this.userId) {
+      this.currentUserwasSelected = true;
+    } else {
+      this.contactWasSelected = true;
+    }
+  }
+
+  closeMyUserProfile() {
+    this.openMyProfile = false;
+    this.overlayStatusService.setOverlayStatus(false);
+  }
+
+
+  //open - close emoji-picker//
+  toggleEmojiPicker() {
+    console.log('ok')
+    debugger;
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+    if (this.isEmojiPickerVisible) {
+      setTimeout(() => {
+        this.isEmojiPickerVisible = true;
+      }, 0);
+    }
+  }  
+
+
+// choose emoji and close menu//
+  addEmoji(event: any) {
+    console.log('ok')
+    const emoji = event.emoji.native; 
+    this.chatMessage += emoji; 
+    this.isEmojiPickerVisible = false;
+     console.log(this.isEmojiPickerVisible, 'visible?');
+  }
+
 
 
   openMentionPeople() {
@@ -464,7 +662,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
 
 
-
-
-
 }
+
+

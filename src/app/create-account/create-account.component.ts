@@ -8,7 +8,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { AvatarComponent } from '../avatar/avatar.component';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, doc, setDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { UserComponent } from '../user/user.component';
 import { getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
@@ -32,7 +32,6 @@ export class CreateAccountComponent implements OnInit {
   isHovered: boolean = false;
   isClicked: boolean = false;
   isChecked: boolean = false;
-
   firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
   auth = getAuth();
@@ -69,21 +68,21 @@ export class CreateAccountComponent implements OnInit {
       picture: '',
       password: '',
       status: 'offline'
-      
     });
-    const docRef = await this.addUserToFirestore(this.newUser,);
-    this.router.navigate(['/avatar', docRef.id]);
-    console.log(this.newUser)
+    const docRef = await this.addUserToFirestore(this.newUser);
+    this.router.navigate(['/avatar', authUser.uid]);
   }
 
   async addUserToFirestore(user: User) {
-    const usersCollection = collection(this.firestore, 'users');
-    const docRef = await addDoc(usersCollection, user.toJSON()); 
-    console.log(
-      'Benutzer in Firestore hinzugefügt mit Dokument-ID:',
-      docRef.id
-    );
-    return docRef;
+    try {
+      const userDocRef = doc(this.firestore, 'users', user.uid);
+      await setDoc(userDocRef, user.toJSON());
+      console.log('Benutzer in Firestore hinzugefügt mit UID:', user.uid);
+      return userDocRef;
+    } catch (error) {
+      console.error('Error adding user to Firestore:', error);
+      throw error;
+    }
   }
 
   toggleClicked() {
