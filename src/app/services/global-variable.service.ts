@@ -11,7 +11,7 @@ export class GlobalVariableService {
   mentionpeopleName:any;
   channelSelected: boolean = false;
   currentChannel: any = null;
-
+  createNewPassword:boolean=false;
 
   constructor() { }
 

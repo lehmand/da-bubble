@@ -80,9 +80,12 @@
         </div>
       </div>
     </mat-card-header>
+      
+     
 
-
-
+               
+        
+      
 
         <div *ngIf="!global.statusCheck" class="main-current-messagebox" #scrollContainer>
             <div *ngFor="let message of messagesData; let i=index">
@@ -92,9 +95,8 @@
                         <span class="day-span">{{ getDayInfoForMessage(i) }}</span>
                     </div>
                 </div>  
-                
-                 
-                 
+                                              
+
                 <div [ngClass]="{'main-mesage-info-current':message.senderId===global.currentUserData.id,
                 'main-message-info-user':message.senderId !== global.currentUserData.id, 
                 'backiColor':checkUpdateBackcolor===message.id,

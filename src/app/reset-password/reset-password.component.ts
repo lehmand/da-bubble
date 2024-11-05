@@ -8,6 +8,7 @@ import { ImpressumComponent } from '../impressum/impressum.component';
 import { Firestore, updateDoc, doc, getDoc,getDocs,collection,query,where} from '@angular/fire/firestore';
 import { ActivatedRoute,Router } from '@angular/router';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { GlobalVariableService } from '../services/global-variable.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,6 +25,8 @@ import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
   styleUrl: './reset-password.component.scss',
 })
 export class ResetPasswordComponent implements OnInit {
+
+  constructor(public global:GlobalVariableService){}
    sendInfo: boolean = false;
    disabled:boolean=true;
    userEmail='';
@@ -32,6 +35,8 @@ export class ResetPasswordComponent implements OnInit {
    emailValid: boolean = true;
    router=inject(Router);
     
+
+
   openDiv() {
     this.sendInfo = true;
     setTimeout(() => {
@@ -55,7 +60,9 @@ export class ResetPasswordComponent implements OnInit {
     const q = query(docref, where('email', '==', this.userEmail));
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
-      await this.sendEmailInfo(this.userEmail);
+      await this.sendEmailInfo(this.userEmail,);
+      this.global.createNewPassword=true;
+      console.log(this.global.createNewPassword)
       this.sendInfo = true;
       this.userEmail = '';
       this.openDiv();
@@ -64,12 +71,9 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
   
-  async sendEmailInfo(email: string) {
+  async sendEmailInfo(email: string,) {
     const auth = getAuth();
-    const actionCodeSettings = {
-      url: 'http://localhost:4200/create-new-password',
-      handleCodeInApp: true, 
-    };
-    await sendPasswordResetEmail(auth, email, actionCodeSettings);
+    await sendPasswordResetEmail(auth, email,);
+      
   }
 }

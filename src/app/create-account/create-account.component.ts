@@ -11,7 +11,7 @@ import { AvatarComponent } from '../avatar/avatar.component';
 import { Firestore, collection, addDoc, doc, setDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { UserComponent } from '../user/user.component';
-import { getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { getAuth, createUserWithEmailAndPassword,} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-create-account',
@@ -53,6 +53,9 @@ export class CreateAccountComponent implements OnInit {
     }
   }
 
+
+
+  
   async createAuthUser(email: string, password: string) {
     const userCredential = await createUserWithEmailAndPassword(
       this.auth,
@@ -73,6 +76,9 @@ export class CreateAccountComponent implements OnInit {
     this.router.navigate(['/avatar', authUser.uid]);
   }
 
+   
+    
+
   async addUserToFirestore(user: User) {
     try {
       const userDocRef = doc(this.firestore, 'users', user.uid);
@@ -84,6 +90,8 @@ export class CreateAccountComponent implements OnInit {
       throw error;
     }
   }
+ 
+
 
   toggleClicked() {
     this.isClicked = !this.isClicked;

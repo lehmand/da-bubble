@@ -59,7 +59,8 @@ interface SendMessageInfo {
   stickerBoxCurrentStyle?: any;
   stickerBoxOpacity?: any;
   selectedFiles?:any [] 
-}
+}     
+  
 
 @Component({
   selector: 'app-start-screen',
@@ -108,7 +109,7 @@ export class StartScreenComponent implements OnInit, OnChanges {
   ];
 
    
-
+  
   concatStickerArray: string[] = [...this.commentImages, ...this.commentStricker];
   isHovered: any = false;
   hoveredName: any;
@@ -638,9 +639,6 @@ export class StartScreenComponent implements OnInit, OnChanges {
   }
 
 
-
-
-
   onFileSelected(event:Event,) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -662,6 +660,9 @@ export class StartScreenComponent implements OnInit, OnChanges {
 
 
 
+
+
+         
 }
 
 

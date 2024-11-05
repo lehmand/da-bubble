@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getAuth, confirmPasswordReset } from "firebase/auth";
 import { Firestore,doc,updateDoc} from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-
+import { GlobalVariableService } from '../services/global-variable.service';
 
 @Component({
   selector: 'app-create-new-password',
@@ -17,6 +17,9 @@ import { Router } from '@angular/router';
   styleUrl: './create-new-password.component.scss'
 })
 export class CreateNewPasswordComponent {
+   constructor(public global:GlobalVariableService){}
+
+
   sendInfo: boolean = false;
   disabled: boolean = true;
   route = inject(ActivatedRoute);
@@ -24,6 +27,7 @@ export class CreateNewPasswordComponent {
   password: string = '';
   confirmPassword: string = '';
   oobCode: any;
+  mode:any
   firestore = inject(Firestore);
   router=inject(Router);
 
@@ -42,6 +46,11 @@ export class CreateNewPasswordComponent {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.oobCode = params['oobCode'];
+       this.mode=params['mode'];
+      if(this.oobCode && this.mode==='resetPassword' ){
+        console.log('Ok')
+        this.global.createNewPassword = true;
+      }
       
     });
   }
@@ -72,11 +81,11 @@ export class CreateNewPasswordComponent {
     this.router.navigate(['/']);
   } 
 
+
+
+
+
+
+
+  
 }
-// async  updatePasswort(userUID:any){
-//     const userRef = doc(this.firestore, 'users', userUID);
-//     await updateDoc(userRef, { 
-//       // Speichere den Zeitstempel, wann das Passwort geändert wurde
-//       passwordUpdatedAt: new Date() 
-//     });
-//   }
