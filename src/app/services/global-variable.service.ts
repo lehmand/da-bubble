@@ -12,6 +12,7 @@ export class GlobalVariableService {
   channelSelected: boolean = false;
   currentChannel: any = null;
   createNewPassword:boolean=false;
+  verifyEmail:boolean=true;
 
   constructor() { }
 
